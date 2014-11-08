@@ -7,15 +7,9 @@ import java.lang.reflect.Array;
  */
 public class Grid {
 
-    // constant
-    final static int NIL = 0;
-    final static int ROC = 1;
-    final static int PAP = 2;
-    final static int SCI = 3;
-
     // grid size
-    final int gridX = 3;
-    final int gridY = 3;
+    final int gridX = 9;
+    final int gridY = 9;
     int[][] grid = new int[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
@@ -25,7 +19,7 @@ public class Grid {
     public Grid() {
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                grid[y][x] = NIL;
+                grid[y][x] = GridHandler.NIL;
             }
         }
     }
