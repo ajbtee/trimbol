@@ -4,21 +4,25 @@ package com.detroitlabs.trimbol;
  * Created by andrewjb on 11/8/14.
  */
 public class GridHandler {
-    // Constants
+
+    // Symbol constants
     final static int NIL = 0;
     final static int ROC = 1;
     final static int PAP = 2;
     final static int SCI = 3;
 
-    // Create random start location
+    //  ┌─────────────────────────────────────┐
+    //  │ Generate new puzzle                 │
+    //  └─────────────────────────────────────┘
     public static void initiatePuzzle(Grid grid) {
         boolean gridFull = false;
 
         // Create a random symbol in a random location
-        int gridCursorX = (int) Math.floor(Math.random() * grid.getGridX());
-        int gridCursorY = (int) Math.floor(Math.random() * grid.getGridY());
+        int cursorX = (int) Math.floor(Math.random() * grid.getGridX());
+        int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
         int symbol = (int) Math.ceil(Math.random() * 3);
-        grid.grid[gridCursorY][gridCursorX] = symbol;
+        grid.grid[cursorY][cursorX] = symbol;
+        printGrid(grid);
 
         while (!gridFull) {
             // Check if grid is full
@@ -28,13 +32,37 @@ public class GridHandler {
                     if (grid.grid[y][x] == NIL) empty++;
                 }
             }
+            System.out.println("***"+empty+" x"+cursorX+" y"+cursorY);
             if (empty == 0) gridFull = true;
 
-            
+            // Find a symbol and move it
+            while (grid.grid[cursorY][cursorX] == NIL) {
+                cursorX = (int) Math.floor(Math.random() * grid.getGridX());
+                cursorY = (int) Math.floor(Math.random() * grid.getGridY());
+            }
+
+            // Check north
+            if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX] == NIL){
+                grid.grid[cursorY - 1][cursorX] = symbol;
+            }
+            // Check south
+            if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX] == NIL){
+                grid.grid[cursorY + 1][cursorX] = symbol;
+            }
+            // Check west
+            if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1] == NIL){
+                grid.grid[cursorY][cursorX - 1] = symbol;
+            }
+            // Check east
+            if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1] == NIL){
+                grid.grid[cursorY][cursorX + 1] = symbol;
+            }
         }
     }
 
-    // print current grid to console
+    //  ┌─────────────────────────────────────┐
+    //  │ Print current grid to console       │
+    //  └─────────────────────────────────────┘
     public static void printGrid(Grid grid) {
 
         // X coordinates

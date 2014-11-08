@@ -8,8 +8,8 @@ import java.lang.reflect.Array;
 public class Grid {
 
     // grid size
-    final int gridX = 9;
-    final int gridY = 9;
+    final int gridX = 2;
+    final int gridY = 2;
     int[][] grid = new int[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
