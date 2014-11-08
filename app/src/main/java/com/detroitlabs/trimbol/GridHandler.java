@@ -22,7 +22,6 @@ public class GridHandler {
         int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
         int symbol = (int) Math.ceil(Math.random() * 3);
         grid.grid[cursorY][cursorX] = symbol;
-        printGrid(grid);
 
         while (!gridFull) {
             // Check if grid is full
@@ -30,16 +29,17 @@ public class GridHandler {
             for (int x = 0; x < grid.getGridX(); x++){
                 for (int y = 0; y < grid.getGridY(); y++){
                     if (grid.grid[y][x] == NIL) empty++;
+                    if (empty > 0) break;
                 }
             }
             System.out.println("***"+empty+" x"+cursorX+" y"+cursorY);
             if (empty == 0) gridFull = true;
 
             // Find a symbol and move it
-            while (grid.grid[cursorY][cursorX] == NIL) {
+            do {
                 cursorX = (int) Math.floor(Math.random() * grid.getGridX());
                 cursorY = (int) Math.floor(Math.random() * grid.getGridY());
-            }
+            } while (grid.grid[cursorY][cursorX] == NIL);
 
             // Check north
             if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX] == NIL){
