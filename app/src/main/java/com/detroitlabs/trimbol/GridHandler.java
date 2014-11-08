@@ -9,7 +9,7 @@ public class GridHandler {
         int gridCursorX = (int) Math.floor(Math.random() * grid.getGridX());
         int gridCursorY = (int) Math.floor(Math.random() * grid.getGridY());
         int symbol = (int) Math.ceil(Math.random() * 3); // 0 NIL, 1 ROC, 2 PAP, 3 SCI
-        grid.setGrid(gridCursorY,gridCursorX, symbol);
+        grid.grid[gridCursorY][gridCursorX] = symbol;
     }
 
     // print current grid to console
@@ -30,6 +30,7 @@ public class GridHandler {
             for (int x = 0; x < grid.getGridX(); x++)
                 System.out.print(grid.grid[y][x] + " ");
         }
+        System.out.println("\nEND PRINT");
     }
 
 }

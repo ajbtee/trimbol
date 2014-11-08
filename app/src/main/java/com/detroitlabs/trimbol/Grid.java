@@ -46,7 +46,7 @@ public class Grid {
         return grid;
     }
 
-    public void setGrid(int gridCursorY, int gridCursorX, int symbol) {
-        this.grid[gridCursorY][gridCursorX] = symbol;
+    public void setGrid(int[][] grid) {
+        this.grid = grid;
     }
 }
