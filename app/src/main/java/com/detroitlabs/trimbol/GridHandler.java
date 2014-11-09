@@ -1,5 +1,8 @@
 package com.detroitlabs.trimbol;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Created by andrewjb on 11/8/14.
  */
@@ -36,27 +39,48 @@ public class GridHandler {
             if (empty == 0) gridFull = true;
 
             // Find a symbol and move it
+            boolean foundSymbol = false;
             do {
                 cursorX = (int) Math.floor(Math.random() * grid.getGridX());
                 cursorY = (int) Math.floor(Math.random() * grid.getGridY());
-            } while (grid.grid[cursorY][cursorX] == NIL);
 
-            // Check north
-            if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX] == NIL){
-                grid.grid[cursorY - 1][cursorX] = symbol;
-            }
-            // Check south
-            if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX] == NIL){
-                grid.grid[cursorY + 1][cursorX] = symbol;
-            }
-            // Check west
-            if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1] == NIL){
-                grid.grid[cursorY][cursorX - 1] = symbol;
-            }
-            // Check east
-            if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1] == NIL){
-                grid.grid[cursorY][cursorX + 1] = symbol;
-            }
+                // Once found, check all 4 directions randomly for an empty space
+                if (grid.grid[cursorY][cursorX] != NIL){
+                    foundSymbol = true;
+                    // Create an arraylist of directions and randomize it
+                    ArrayList<Integer> directions = new ArrayList<Integer>();
+                    for(int i=1;i<=4;i++) { directions.add(i); }
+                    Collections.shuffle(directions);
+
+                    // Step through that list
+                    for(int i=0;i<4;i++){
+                        // Check north
+                        if (directions.get(i) == 1){
+                            if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX] == NIL){
+                                grid.grid[cursorY - 1][cursorX] = symbol;
+                            }
+                        }
+                        // Check south
+                        if (directions.get(i) == 2){
+                            if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX] == NIL){
+                                grid.grid[cursorY + 1][cursorX] = symbol;
+                            }
+                        }
+                        // Check west
+                        if (directions.get(i) == 3){
+                            if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1] == NIL){
+                                grid.grid[cursorY][cursorX - 1] = symbol;
+                            }
+                        }
+                        // Check east
+                        if (directions.get(i) == 4){
+                            if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1] == NIL){
+                                grid.grid[cursorY][cursorX + 1] = symbol;
+                            }
+                        }
+                    }
+                }
+            } while (!foundSymbol);
         }
     }
 
