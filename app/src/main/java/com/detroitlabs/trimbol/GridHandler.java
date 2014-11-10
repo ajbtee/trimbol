@@ -27,6 +27,7 @@ public class GridHandler {
         grid.grid[cursorY][cursorX] = symbol;
 
         while (!gridFull) {
+            printGrid(grid);
             // Check if grid is full
             int empty = 0;
             for (int x = 0; x < grid.getGridX(); x++){
@@ -58,24 +59,28 @@ public class GridHandler {
                         if (directions.get(i) == 1){
                             if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX] == NIL){
                                 grid.grid[cursorY - 1][cursorX] = symbol;
+                                break;
                             }
                         }
                         // Check south
                         if (directions.get(i) == 2){
                             if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX] == NIL){
                                 grid.grid[cursorY + 1][cursorX] = symbol;
+                                break;
                             }
                         }
                         // Check west
                         if (directions.get(i) == 3){
                             if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1] == NIL){
                                 grid.grid[cursorY][cursorX - 1] = symbol;
+                                break;
                             }
                         }
                         // Check east
                         if (directions.get(i) == 4){
                             if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1] == NIL){
                                 grid.grid[cursorY][cursorX + 1] = symbol;
+                                break;
                             }
                         }
                     }
