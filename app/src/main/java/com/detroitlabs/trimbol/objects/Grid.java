@@ -1,6 +1,6 @@
-package com.detroitlabs.trimbol;
+package com.detroitlabs.trimbol.objects;
 
-import java.lang.reflect.Array;
+import com.detroitlabs.trimbol.utils.GridHandler;
 
 /**
  * Created by andrewjb on 11/8/14.
@@ -8,9 +8,9 @@ import java.lang.reflect.Array;
 public class Grid {
 
     // grid size
-    final int gridX = 4;
-    final int gridY = 4;
-    int[][] grid = new int[gridY][gridX];
+    final int gridX = 3;
+    final int gridY = 3;
+    public int[][] grid = new int[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
     //  │ Constructor                              │
@@ -19,7 +19,7 @@ public class Grid {
     public Grid() {
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                grid[y][x] = GridHandler.NIL;
+                grid[y][x] = Symbol.NIL;
             }
         }
     }
