@@ -27,7 +27,7 @@ public class PuzzleActivity extends Activity {
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
                 Log.e("GridLayout", "Row " + row + " Column " + column);
-                SymbolView symbolView = new SymbolView(this);
+                SymbolView symbolView = new SymbolView(this, grid);
                 gameBoard.addView(symbolView);
             }
         }

@@ -10,75 +10,16 @@ public class Symbol {
     public final static int ROC = 1;
     public final static int PAP = 2;
     public final static int SCI = 3;
-
-    int posX;
-    int posY;
-
-    boolean nilN;
-    boolean nilS;
-    boolean nilE;
-    boolean nilW;
+    public final static int STATE_BORN = 0;
 
     int symbol;
     int state;
+    Loc location;
 
-    public Symbol(int posX, int posY, boolean nilN, boolean nilS, boolean nilE, boolean nilW, int symbol, int state) {
-        this.posX = posX;
-        this.posY = posY;
-        this.nilN = nilN;
-        this.nilS = nilS;
-        this.nilE = nilE;
-        this.nilW = nilW;
+    public Symbol(int symbol, int state, Loc loc) {
         this.symbol = symbol;
         this.state = state;
-    }
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public boolean isNilN() {
-        return nilN;
-    }
-
-    public void setNilN(boolean nilN) {
-        this.nilN = nilN;
-    }
-
-    public boolean isNilS() {
-        return nilS;
-    }
-
-    public void setNilS(boolean nilS) {
-        this.nilS = nilS;
-    }
-
-    public boolean isNilE() {
-        return nilE;
-    }
-
-    public void setNilE(boolean nilE) {
-        this.nilE = nilE;
-    }
-
-    public boolean isNilW() {
-        return nilW;
-    }
-
-    public void setNilW(boolean nilW) {
-        this.nilW = nilW;
+        location = loc;
     }
 
     public int getSymbol() {
@@ -95,5 +36,13 @@ public class Symbol {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public Loc getLocation() {
+        return location;
+    }
+
+    public void setLocation(Loc location) {
+        this.location = location;
     }
 }

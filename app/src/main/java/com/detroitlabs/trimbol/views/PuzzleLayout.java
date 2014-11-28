@@ -32,8 +32,9 @@ public class PuzzleLayout extends ViewGroup {
     }
 
     private void init (){
-        this.setClipChildren(false);
         DisplayMetrics display = getContext().getResources().getDisplayMetrics();
+        setClipToPadding(false);
+        setClipChildren(false);
         screenWidth = display.widthPixels;
         screenHeight = display.heightPixels;
     }

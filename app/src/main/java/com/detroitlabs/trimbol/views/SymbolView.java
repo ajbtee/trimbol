@@ -1,12 +1,15 @@
 package com.detroitlabs.trimbol.views;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
+import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.objects.Symbol;
 
 /**
@@ -16,7 +19,7 @@ public class SymbolView extends View {
 
     Paint circlePaint;
     static final int MIN_DISTANCE = 150;
-    private float x1,x2,y1,y2;
+    private float x1, y1, distanceX, distanceY;
     private SymbolView symbolView;
     private int symbolType = (int) Math.ceil(Math.random() * 3);
 
@@ -38,17 +41,17 @@ public class SymbolView extends View {
         circlePaint.setStyle(Paint.Style.FILL);
     }
 
-    public SymbolView(Context context) {
+    public SymbolView(Context context, Grid grid) {
         super(context);
         init(context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs) {
+    public SymbolView(Context context, AttributeSet attrs, Grid grid) {
         super(context, attrs);
         init(context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -65,7 +68,6 @@ public class SymbolView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        float deltaX = 0, deltaY = 0;
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
@@ -73,15 +75,28 @@ public class SymbolView extends View {
                 y1 = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                float distanceX = x1 - event.getX();
-                float distanceY = y1 - event.getY();
+                distanceX = x1 - event.getX();
+                distanceY = y1 - event.getY();
 
                 setTranslationX(scaleDistance(distanceX));
                 setTranslationY(scaleDistance(distanceY));
                 break;
             case MotionEvent.ACTION_UP:
-                setTranslationX(0);
-                setTranslationY(0);
+                ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        float val = (Float) valueAnimator.getAnimatedValue();
+                        distanceX = val*distanceX;
+                        distanceY = val*distanceY;
+                        setTranslationX(scaleDistance(distanceX));
+                        setTranslationY(scaleDistance(distanceY));
+                    }
+                });
+                animator.setDuration(200);
+
+                animator.setInterpolator(new DecelerateInterpolator());
+                animator.start();
                 break;
         }
         return true;
