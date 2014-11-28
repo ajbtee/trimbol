@@ -1,18 +1,15 @@
 package com.detroitlabs.trimbol.activities;
 
 import android.app.Activity;
-import android.gesture.GestureOverlayView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.widget.GridLayout;
-import android.widget.Toast;
 
+import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.utils.GridHandler;
-import com.detroitlabs.trimbol.R;
+import com.detroitlabs.trimbol.views.PuzzleLayout;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
@@ -25,18 +22,13 @@ public class PuzzleActivity extends Activity {
         Grid grid = new Grid();
         GridHandler.initiatePuzzle(grid);
 
-        GridLayout gridLayout = (GridLayout) findViewById(R.id.puzzle);
-        gridLayout.setColumnCount(grid.getGridY());
-        gridLayout.setRowCount(grid.getGridX());
+        PuzzleLayout gameBoard = (PuzzleLayout) findViewById(R.id.gameboard);
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
                 Log.e("GridLayout", "Row " + row + " Column " + column);
-
-                GridLayout.Spec rowSpec = GridLayout.spec(row);
-                GridLayout.Spec columnSpec = GridLayout.spec(column);
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams(rowSpec, columnSpec);
-                gridLayout.addView(new SymbolView(this), params);
+                SymbolView symbolView = new SymbolView(this);
+                gameBoard.addView(symbolView);
             }
         }
     }

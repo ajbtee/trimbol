@@ -2,11 +2,12 @@ package com.detroitlabs.trimbol.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.detroitlabs.trimbol.objects.Symbol;
 
 /**
  * Created by andrewjb on 11/14/14.
@@ -17,20 +18,39 @@ public class SymbolView extends View {
     static final int MIN_DISTANCE = 150;
     private float x1,x2,y1,y2;
     private SymbolView symbolView;
+    private int symbolType = (int) Math.ceil(Math.random() * 3);
+
+    private void init(Context context){
+        circlePaint = new Paint();
+        switch (symbolType){
+            case Symbol.ROC:
+                circlePaint.setARGB(255, 108, 155, 69);
+                break;
+            case Symbol.PAP:
+                circlePaint.setARGB(255, 3, 145, 207);
+                break;
+            case Symbol.SCI:
+                circlePaint.setARGB(255, 248, 152, 71);
+                break;
+        }
+        //circlePaint.setStrokeWidth(20);
+        circlePaint.setAntiAlias(true);
+        circlePaint.setStyle(Paint.Style.FILL);
+    }
 
     public SymbolView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public SymbolView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public SymbolView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
     @Override
@@ -74,13 +94,5 @@ public class SymbolView extends View {
             return scrollBy;
         else
             return -scrollBy;
-    }
-
-    private void init(){
-        circlePaint = new Paint();
-        circlePaint.setARGB(255, 3, 145, 207);
-        circlePaint.setStrokeWidth(20);
-        circlePaint.setAntiAlias(true);
-        circlePaint.setStyle(Paint.Style.STROKE);
     }
 }
