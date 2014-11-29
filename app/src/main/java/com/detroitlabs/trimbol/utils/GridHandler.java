@@ -1,7 +1,6 @@
 package com.detroitlabs.trimbol.utils;
 
 import com.detroitlabs.trimbol.objects.Grid;
-import com.detroitlabs.trimbol.objects.Loc;
 import com.detroitlabs.trimbol.objects.Symbol;
 
 import java.util.ArrayList;
@@ -18,10 +17,11 @@ public class GridHandler {
         // Create a random symbol in a random location
         int cursorX = (int) Math.floor(Math.random() * grid.getGridX());
         int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
-        Loc loc = new Loc(cursorX,cursorY);
-        int randoSymbol = (int) Math.ceil(Math.random() * 3);
-        Symbol symbol = new Symbol (randoSymbol, Symbol.STATE_BORN, loc);
+        int randomType = (int) Math.ceil(Math.random() * 3);
+
+        Symbol symbol = new Symbol (randomType, Symbol.STATE_BORN, cursorY, cursorX);
         grid.grid[cursorY][cursorX] = symbol;
+
         printGrid(grid);
 
         while (!gridFull) {
@@ -32,10 +32,10 @@ public class GridHandler {
             int sciSat = 0;
             for (int x = 0; x < grid.getGridX(); x++){
                 for (int y = 0; y < grid.getGridY(); y++){
-                    if (grid.grid[y][x].getSymbol() == Symbol.NIL) empty++;
-                    if (grid.grid[y][x].getSymbol() == Symbol.ROC) rocSat++;
-                    if (grid.grid[y][x].getSymbol() == Symbol.PAP) papSat++;
-                    if (grid.grid[y][x].getSymbol() == Symbol.SCI) sciSat++;
+                    if (grid.grid[y][x].getType() == Symbol.NIL) empty++;
+                    if (grid.grid[y][x].getType() == Symbol.ROC) rocSat++;
+                    if (grid.grid[y][x].getType() == Symbol.PAP) papSat++;
+                    if (grid.grid[y][x].getType() == Symbol.SCI) sciSat++;
                 }
             }
             if (empty == 0) {
@@ -50,10 +50,10 @@ public class GridHandler {
                 symbol = grid.grid[cursorY][cursorX];
 
                 // From cursor check all 4 directions randomly for an empty space
-                if (grid.grid[cursorY][cursorX].getSymbol() != Symbol.NIL){
+                if (grid.grid[cursorY][cursorX].getType() != Symbol.NIL){
 
                     foundSymbol = true;
-                    pickDirection(grid, cursorX, cursorY, symbol.getSymbol());
+                    pickDirection(grid, cursorY, cursorX, symbol.getType());
 
                 }
             } while (!foundSymbol);
@@ -64,7 +64,7 @@ public class GridHandler {
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Pick random direction for new symbol                │
     //  └─────────────────────────────────────────────────────┘
-    private static void pickDirection(Grid grid, int cursorX, int cursorY, int symbol) {
+    private static void pickDirection(Grid grid, int cursorY, int cursorX, int symbol) {
 
         // Create an arraylist of directions and randomize it
         ArrayList<Integer> directions = new ArrayList<Integer>();
@@ -75,33 +75,33 @@ public class GridHandler {
         for(int i=0;i<4;i++){
             // Check north
             if (directions.get(i) == 1){
-                if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX].getSymbol() == Symbol.NIL){
-                    placeSymbol(grid, cursorX, cursorY - 1, symbol);
-                    pickCounter(grid, cursorX, cursorY, symbol);
+                if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX].getType() == Symbol.NIL){
+                    placeSymbol(grid, cursorY - 1, cursorX, symbol);
+                    pickCounter(grid, cursorY, cursorX, symbol);
                     break;
                 }
             }
             // Check south
             if (directions.get(i) == 2){
-                if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX].getSymbol() == Symbol.NIL){
-                    placeSymbol(grid, cursorX, cursorY + 1, symbol);
-                    pickCounter(grid, cursorX, cursorY, symbol);
+                if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX].getType() == Symbol.NIL){
+                    placeSymbol(grid, cursorY + 1, cursorX, symbol);
+                    pickCounter(grid, cursorY, cursorX, symbol);
                     break;
                 }
             }
             // Check west
             if (directions.get(i) == 3){
-                if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1].getSymbol() == Symbol.NIL){
-                    placeSymbol(grid, cursorX - 1, cursorY, symbol);
-                    pickCounter(grid, cursorX, cursorY, symbol);
+                if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1].getType() == Symbol.NIL){
+                    placeSymbol(grid, cursorY, cursorX - 1, symbol);
+                    pickCounter(grid, cursorY, cursorX, symbol);
                     break;
                 }
             }
             // Check east
             if (directions.get(i) == 4){
-                if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1].getSymbol() == Symbol.NIL){
-                    placeSymbol(grid, cursorX + 1, cursorY, symbol);;
-                    pickCounter(grid, cursorX, cursorY, symbol);
+                if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1].getType() == Symbol.NIL){
+                    placeSymbol(grid, cursorY, cursorX + 1, symbol);;
+                    pickCounter(grid, cursorY, cursorX, symbol);
                     break;
                 }
             }
@@ -111,32 +111,31 @@ public class GridHandler {
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Place counter symbol                                │
     //  └─────────────────────────────────────────────────────┘
-    private static void pickCounter(Grid grid, int cursorX, int cursorY, int symbol) {
+    private static void pickCounter(Grid grid, int cursorY, int cursorX, int symbol) {
         if (symbol == Symbol.ROC) {
-            placeSymbol(grid, cursorX, cursorY, Symbol.SCI);
+            placeSymbol(grid, cursorY, cursorX, Symbol.SCI);
         }
         if (symbol == Symbol.SCI) {
-            placeSymbol(grid, cursorX, cursorY, Symbol.PAP);
+            placeSymbol(grid, cursorY, cursorX, Symbol.PAP);
         }
         if (symbol == Symbol.PAP) {
-            placeSymbol(grid, cursorX, cursorY, Symbol.ROC);
+            placeSymbol(grid, cursorY, cursorX, Symbol.ROC);
         }
     }
 
-    private static void placeSymbol(Grid grid, int cursorX, int cursorY, int symbol) {
-        Loc loc = new Loc(cursorX,cursorY);
+    private static void placeSymbol(Grid grid, int cursorY, int cursorX, int symbol) {
         switch (symbol) {
             case Symbol.ROC:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.ROC, Symbol.STATE_BORN, loc);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.ROC, Symbol.STATE_BORN, cursorY, cursorX);
                 break;
             case Symbol.PAP:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.PAP, Symbol.STATE_BORN, loc);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.PAP, Symbol.STATE_BORN, cursorY, cursorX);
                 break;
             case Symbol.SCI:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.SCI, Symbol.STATE_BORN, loc);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.SCI, Symbol.STATE_BORN, cursorY, cursorX);
                 break;
             case Symbol.NIL:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.NIL, Symbol.STATE_BORN, loc);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.NIL, Symbol.STATE_BORN, cursorY, cursorX);
                 break;
         }
 
@@ -164,10 +163,10 @@ public class GridHandler {
             System.out.print("\n" + y + " │ ");
             // Print a row
             for (int x = 0; x < grid.getGridX(); x++){
-                if (grid.grid[y][x].getSymbol() == 0) System.out.print(". ");
-                if (grid.grid[y][x].getSymbol() == 1) System.out.print("R ");
-                if (grid.grid[y][x].getSymbol() == 2) System.out.print("P ");
-                if (grid.grid[y][x].getSymbol() == 3) System.out.print("S ");
+                if (grid.grid[y][x].getType() == 0) System.out.print(". ");
+                if (grid.grid[y][x].getType() == 1) System.out.print("R ");
+                if (grid.grid[y][x].getType() == 2) System.out.print("P ");
+                if (grid.grid[y][x].getType() == 3) System.out.print("S ");
             }
             System.out.print("│");
         }

@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import com.detroitlabs.trimbol.objects.Grid;
-import com.detroitlabs.trimbol.objects.Loc;
 import com.detroitlabs.trimbol.objects.Symbol;
 
 /**
@@ -21,18 +21,17 @@ public class SymbolView extends View {
     Paint circlePaint;
     static final int MIN_DISTANCE = 150;
     private float x1, y1, distanceX, distanceY;
-    private SymbolView symbolView;
-    public Loc loc;
-    private Grid thisGrid;
-    private Context thisContext;
+    private Grid grid;
+    private Symbol symbol;
+    private Context context;
+    private int y, x;
 
-    private void init(Context context, Grid grid, int y, int x){
+    private void init(Grid grid, int y, int x){
 
-        thisGrid = grid;
-        thisContext = context;
+        this.grid = grid;
 
         circlePaint = new Paint();
-        switch (thisGrid.getSymbol(y,x)){
+        switch (this.grid.getSymbol(y,x).getType()){
             case Symbol.ROC:
                 circlePaint.setARGB(255, 108, 155, 69);
                 break;
@@ -50,20 +49,26 @@ public class SymbolView extends View {
 
     public SymbolView(Context context, Grid grid, int row, int column) {
         super(context);
-        init(context, grid, row, column);
-        loc = new Loc(row,column);
+        this.y = row;
+        this.x = column;
+        this.context = context;
+        init(grid, row, column);
     }
 
     public SymbolView(Context context, AttributeSet attrs, Grid grid, int row, int column) {
         super(context, attrs);
-        init(context, grid, row, column);
-        loc = new Loc(row,column);
+        this.y = row;
+        this.x = column;
+        this.context = context;
+        init(grid, row, column);
     }
 
     public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid, int row, int column) {
         super(context, attrs, defStyleAttr);
-        init(context, grid, row, column);
-        loc = new Loc(row,column);
+        this.y = row;
+        this.x = column;
+        this.context = context;
+        init(grid, row, column);
     }
 
     @Override
@@ -73,13 +78,6 @@ public class SymbolView extends View {
         float halfHeight = getHeight()/2;
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight)-25;
         canvas.drawCircle(halfWidth, halfHeight, radius, circlePaint);
-
-//        if (thisGrid.getState(loc.getY(),loc.getX()) != Symbol.STATE_GONE) {
-//            canvas.drawCircle(halfWidth, halfHeight, radius, circlePaint);
-//        }
-//        else{
-//            canvas.drawCircle(halfWidth, halfHeight, radius-20, circlePaint);
-//        }
     }
 
     @Override
@@ -88,24 +86,24 @@ public class SymbolView extends View {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
                 y1 = event.getY();
+                x1 = event.getX();
                 break;
+
             case MotionEvent.ACTION_MOVE:
                 distanceX = x1 - event.getX();
                 distanceY = y1 - event.getY();
 
                 // Moving down if it's not NIL
-//                if (getTranslationY() > 2 && thisGrid.getSymbol(loc.getY(),loc.getX()) != Symbol.STATE_GONE) {
-//                    CharSequence text = "DOWN";
-//                    Toast toast = Toast.makeText(thisContext, text, Toast.LENGTH_SHORT);
-//                    toast.show();
-//                    thisGrid.setSymbol(loc.getY(),loc.getX(),Symbol.STATE_GONE);
-//                }
+                if (getTranslationY() > 30 && grid.getSymbol(y, x).getState() != Symbol.STATE_GONE) {
+                    grid.setSymbolState(y, x, Symbol.STATE_GONE);
+                    Toast.makeText(context, "DOWN", Toast.LENGTH_SHORT).show();
+                }
 
                 setTranslationX(scaleDistance(distanceX));
                 setTranslationY(scaleDistance(distanceY));
                 break;
+            
             case MotionEvent.ACTION_UP:
                 ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
                 animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -118,8 +116,8 @@ public class SymbolView extends View {
                         setTranslationY(scaleDistance(distanceY));
                     }
                 });
-                animator.setDuration(200);
 
+                animator.setDuration(200);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.start();
                 break;
