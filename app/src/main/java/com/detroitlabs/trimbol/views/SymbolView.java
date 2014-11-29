@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.detroitlabs.trimbol.objects.Grid;
+import com.detroitlabs.trimbol.objects.Loc;
 import com.detroitlabs.trimbol.objects.Symbol;
 
 /**
@@ -21,11 +22,17 @@ public class SymbolView extends View {
     static final int MIN_DISTANCE = 150;
     private float x1, y1, distanceX, distanceY;
     private SymbolView symbolView;
+    public Loc loc;
+    private Grid thisGrid;
+    private Context thisContext;
 
     private void init(Context context, Grid grid, int y, int x){
+
+        thisGrid = grid;
+        thisContext = context;
+
         circlePaint = new Paint();
-        int symbolType = grid.getSymbol(y,x);
-        switch (symbolType){
+        switch (thisGrid.getSymbol(y,x)){
             case Symbol.ROC:
                 circlePaint.setARGB(255, 108, 155, 69);
                 break;
@@ -44,16 +51,19 @@ public class SymbolView extends View {
     public SymbolView(Context context, Grid grid, int row, int column) {
         super(context);
         init(context, grid, row, column);
+        loc = new Loc(row,column);
     }
 
     public SymbolView(Context context, AttributeSet attrs, Grid grid, int row, int column) {
         super(context, attrs);
         init(context, grid, row, column);
+        loc = new Loc(row,column);
     }
 
     public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid, int row, int column) {
         super(context, attrs, defStyleAttr);
         init(context, grid, row, column);
+        loc = new Loc(row,column);
     }
 
     @Override
@@ -63,6 +73,13 @@ public class SymbolView extends View {
         float halfHeight = getHeight()/2;
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight)-25;
         canvas.drawCircle(halfWidth, halfHeight, radius, circlePaint);
+
+//        if (thisGrid.getState(loc.getY(),loc.getX()) != Symbol.STATE_GONE) {
+//            canvas.drawCircle(halfWidth, halfHeight, radius, circlePaint);
+//        }
+//        else{
+//            canvas.drawCircle(halfWidth, halfHeight, radius-20, circlePaint);
+//        }
     }
 
     @Override
@@ -77,6 +94,14 @@ public class SymbolView extends View {
             case MotionEvent.ACTION_MOVE:
                 distanceX = x1 - event.getX();
                 distanceY = y1 - event.getY();
+
+                // Moving down if it's not NIL
+//                if (getTranslationY() > 2 && thisGrid.getSymbol(loc.getY(),loc.getX()) != Symbol.STATE_GONE) {
+//                    CharSequence text = "DOWN";
+//                    Toast toast = Toast.makeText(thisContext, text, Toast.LENGTH_SHORT);
+//                    toast.show();
+//                    thisGrid.setSymbol(loc.getY(),loc.getX(),Symbol.STATE_GONE);
+//                }
 
                 setTranslationX(scaleDistance(distanceX));
                 setTranslationY(scaleDistance(distanceY));
@@ -103,7 +128,7 @@ public class SymbolView extends View {
     }
 
     private float scaleDistance(float distance) {
-        float scaleFactor = 0.014f;
+        float scaleFactor = 0.015f;
         float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
         if(distance < 0)
             return scrollBy;

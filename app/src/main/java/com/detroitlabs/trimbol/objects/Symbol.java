@@ -3,7 +3,7 @@ package com.detroitlabs.trimbol.objects;
 /**
  * Created by andrewjb on 11/14/14.
  */
-public class Symbol {
+public class Symbol extends Grid{
 
     // Constants
     public final static int NIL = 0;
@@ -11,6 +11,7 @@ public class Symbol {
     public final static int PAP = 2;
     public final static int SCI = 3;
     public final static int STATE_BORN = 0;
+    public final static int STATE_GONE = 1;
 
     int symbol;
     int state;
@@ -19,7 +20,7 @@ public class Symbol {
     public Symbol(int symbol, int state, Loc loc) {
         this.symbol = symbol;
         this.state = state;
-        location = loc;
+        this.location = loc;
     }
 
     public int getSymbol() {

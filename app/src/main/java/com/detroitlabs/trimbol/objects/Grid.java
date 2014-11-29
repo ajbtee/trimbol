@@ -43,6 +43,9 @@ public class Grid {
     public int getSymbol(int y,int x) {
         return grid[y][x].getSymbol();
     }
+    public void setSymbol(int y,int x, Symbol symbol) {
+        grid[y][x] = symbol;
+    }
 
     public void setGrid(Symbol[][] grid) {
         this.grid = grid;
