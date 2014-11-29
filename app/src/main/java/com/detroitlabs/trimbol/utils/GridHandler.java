@@ -19,9 +19,8 @@ public class GridHandler {
         int cursorX = (int) Math.floor(Math.random() * grid.getGridX());
         int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
         Loc loc = new Loc(cursorX,cursorY);
-        Symbol symbol = new Symbol (
-                Integer.parseInt(""+Math.ceil(Math.random() * 3)),
-                Symbol.STATE_BORN, loc);
+        int randoSymbol = (int) Math.ceil(Math.random() * 3);
+        Symbol symbol = new Symbol (randoSymbol, Symbol.STATE_BORN, loc);
         grid.grid[cursorY][cursorX] = symbol;
         printGrid(grid);
 
@@ -59,6 +58,7 @@ public class GridHandler {
                 }
             } while (!foundSymbol);
         }
+        printGrid(grid);
     }
 
     //  ┌─────────────────────────────────────────────────────┐
@@ -121,7 +121,6 @@ public class GridHandler {
         if (symbol == Symbol.PAP) {
             placeSymbol(grid, cursorX, cursorY, Symbol.ROC);
         }
-        printGrid(grid);
     }
 
     private static void placeSymbol(Grid grid, int cursorX, int cursorY, int symbol) {

@@ -7,7 +7,7 @@ public class Grid {
 
     // grid size
     final int gridX = 3;
-    final int gridY = 3;
+    final int gridY = 4;
     public Symbol[][] grid = new Symbol[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
@@ -38,6 +38,10 @@ public class Grid {
 
     public Symbol[][] getGrid() {
         return grid;
+    }
+
+    public int getSymbol(int y,int x) {
+        return grid[y][x].getSymbol();
     }
 
     public void setGrid(Symbol[][] grid) {

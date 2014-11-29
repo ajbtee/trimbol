@@ -10,23 +10,23 @@ import android.view.ViewGroup;
 /**
  * Created by andrewjb on 11/26/14.
  */
-public class PuzzleLayout extends ViewGroup {
+public class PuzzleViewGroup extends ViewGroup {
 
     private int screenWidth, screenHeight;
 
     private final Rect rect = new Rect();
 
-    public PuzzleLayout(Context context) {
+    public PuzzleViewGroup(Context context) {
         super(context);
         init();
     }
 
-    public PuzzleLayout(Context context, AttributeSet attrs) {
+    public PuzzleViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PuzzleLayout(Context context, AttributeSet attrs, int defStyle) {
+    public PuzzleViewGroup(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }

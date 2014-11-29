@@ -10,7 +10,7 @@
     android:clipToPadding="false"
     tools:context=".PuzzleActivity">
 
-    <com.detroitlabs.trimbol.views.PuzzleLayout
+    <com.detroitlabs.trimbol.views.PuzzleViewGroup
         android:id="@+id/gameboard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

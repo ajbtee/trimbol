@@ -21,10 +21,10 @@ public class SymbolView extends View {
     static final int MIN_DISTANCE = 150;
     private float x1, y1, distanceX, distanceY;
     private SymbolView symbolView;
-    private int symbolType = (int) Math.ceil(Math.random() * 3);
 
-    private void init(Context context){
+    private void init(Context context, Grid grid, int y, int x){
         circlePaint = new Paint();
+        int symbolType = grid.getSymbol(y,x);
         switch (symbolType){
             case Symbol.ROC:
                 circlePaint.setARGB(255, 108, 155, 69);
@@ -41,19 +41,19 @@ public class SymbolView extends View {
         circlePaint.setStyle(Paint.Style.FILL);
     }
 
-    public SymbolView(Context context, Grid grid) {
+    public SymbolView(Context context, Grid grid, int row, int column) {
         super(context);
-        init(context);
+        init(context, grid, row, column);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, Grid grid) {
+    public SymbolView(Context context, AttributeSet attrs, Grid grid, int row, int column) {
         super(context, attrs);
-        init(context);
+        init(context, grid, row, column);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid) {
+    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid, int row, int column) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, grid, row, column);
     }
 
     @Override

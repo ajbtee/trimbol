@@ -1,21 +1,16 @@
 package com.detroitlabs.trimbol.objects;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Loc {
     final static int X = 0;
     final static int Y = 1;
-    int[] xy;
+    List xy = new ArrayList();
 
     public Loc(int x,int y) {
-        this.xy[X] = x;
-        this.xy[Y] = y;
-    }
-
-    public int[] getXy() {
-        return xy;
-    }
-
-    public void setXy(int[] xy) {
-        this.xy = xy;
+        xy.add(x);
+        xy.add(y);
     }
 }

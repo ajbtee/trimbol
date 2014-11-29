@@ -2,32 +2,35 @@ package com.detroitlabs.trimbol.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.utils.GridHandler;
-import com.detroitlabs.trimbol.views.PuzzleLayout;
+import com.detroitlabs.trimbol.views.PuzzleViewGroup;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
 public class PuzzleActivity extends Activity {
 
+    Grid grid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
-        Grid grid = new Grid();
+        grid = new Grid();
         GridHandler.initiatePuzzle(grid);
+        renderPuzzle(grid);
+    }
 
-        PuzzleLayout gameBoard = (PuzzleLayout) findViewById(R.id.gameboard);
+    private void renderPuzzle(Grid grid) {
+        PuzzleViewGroup gameBoard = (PuzzleViewGroup) findViewById(R.id.gameboard);
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
-                Log.e("GridLayout", "Row " + row + " Column " + column);
-                SymbolView symbolView = new SymbolView(this, grid);
+                SymbolView symbolView = new SymbolView(this, grid, row, column);
                 gameBoard.addView(symbolView);
             }
         }
