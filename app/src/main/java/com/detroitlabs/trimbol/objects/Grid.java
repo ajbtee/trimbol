@@ -3,7 +3,7 @@ package com.detroitlabs.trimbol.objects;
 /**
  * Created by andrewjb on 11/8/14.
  */
-public class Grid {
+public class Grid{
 
     // grid size
     final int gridX = 3;

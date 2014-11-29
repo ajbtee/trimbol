@@ -57,7 +57,7 @@ public class PuzzleActivity extends Activity {
 }
 
     // ** CREATE PUZZLE **
-    // =Generate grid object based on difficulty setting
+    // ===Generate grid object based on difficulty setting
     // ===PuzzleGen.class: Generate solvable puzzle (grid)
     // PuzzleActivity.class: Instantiate spawners
         // Ripple spawners
