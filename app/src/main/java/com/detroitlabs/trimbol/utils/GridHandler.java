@@ -19,10 +19,8 @@ public class GridHandler {
         int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
         int randomType = (int) Math.ceil(Math.random() * 3);
 
-        Symbol symbol = new Symbol (randomType, Symbol.STATE_BORN, cursorY, cursorX);
+        Symbol symbol = new Symbol (randomType, Symbol.State.EXIST, cursorY, cursorX);
         grid.grid[cursorY][cursorX] = symbol;
-
-        printGrid(grid);
 
         while (!gridFull) {
             // Check if grid is full
@@ -126,19 +124,18 @@ public class GridHandler {
     private static void placeSymbol(Grid grid, int cursorY, int cursorX, int symbol) {
         switch (symbol) {
             case Symbol.ROC:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.ROC, Symbol.STATE_BORN, cursorY, cursorX);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.ROC, Symbol.State.EXIST, cursorY, cursorX);
                 break;
             case Symbol.PAP:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.PAP, Symbol.STATE_BORN, cursorY, cursorX);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.PAP, Symbol.State.EXIST, cursorY, cursorX);
                 break;
             case Symbol.SCI:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.SCI, Symbol.STATE_BORN, cursorY, cursorX);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.SCI, Symbol.State.EXIST, cursorY, cursorX);
                 break;
             case Symbol.NIL:
-                grid.grid[cursorY][cursorX] = new Symbol(Symbol.NIL, Symbol.STATE_BORN, cursorY, cursorX);
+                grid.grid[cursorY][cursorX] = new Symbol(Symbol.NIL, Symbol.State.EXIST, cursorY, cursorX);
                 break;
         }
-
     }
 
     //  ┌─────────────────────────────────────────────────────┐

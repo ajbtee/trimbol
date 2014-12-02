@@ -35,6 +35,7 @@ public class PuzzleViewGroup extends ViewGroup {
         DisplayMetrics display = getContext().getResources().getDisplayMetrics();
         setClipToPadding(false);
         setClipChildren(false);
+
         screenWidth = display.widthPixels;
         screenHeight = display.heightPixels;
     }

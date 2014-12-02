@@ -10,27 +10,41 @@ public class Symbol{
     public final static int ROC = 1;
     public final static int PAP = 2;
     public final static int SCI = 3;
-    public final static int STATE_GONE = 0;
-    public final static int STATE_BORN = 1;
-    public final static int STATE_SELECTED = 2;
 
+    public static enum State {
+        GONE,
+        EXIST,
+        SELECT,
+        CONVERT,
+        HISTORY
+
+    }
+
+    State state;
     int type;
-    int state;
     int posX;
     int posY;
 
-    public Symbol(int symbol, int state, int posY, int posX) {
+    public Symbol(int symbol, State state, int posY, int posX) {
         this.type = symbol;
         this.state = state;
         this.posX = posX;
         this.posY = posY;
     }
 
+    public int getX(){
+        return posX;
+    }
+
+    public int getY(){
+        return posY;
+    }
+
     public int getType() {
         return type;
     }
 
-    public int getState() {
+    public State getState() {
         return state;
     }
 }

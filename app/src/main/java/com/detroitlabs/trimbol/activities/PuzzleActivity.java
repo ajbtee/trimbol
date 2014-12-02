@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.Grid;
@@ -12,7 +13,7 @@ import com.detroitlabs.trimbol.views.PuzzleViewGroup;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
-public class PuzzleActivity extends Activity {
+public class PuzzleActivity extends Activity implements Grid.RenderListener {
 
     Grid grid;
 
@@ -20,13 +21,29 @@ public class PuzzleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
-        grid = new Grid();
+        newPuzzle();
+    }
+
+    private void newPuzzle() {
+        grid = new Grid(this);
         GridHandler.initiatePuzzle(grid);
+        renderPuzzle(grid);
+    }
+
+    @Override
+    public void onVictory() {
+        newPuzzle();
+    }
+
+    @Override
+    public void reRender() {
+        Toast.makeText(this, "RERENDER", Toast.LENGTH_SHORT).show();
         renderPuzzle(grid);
     }
 
     private void renderPuzzle(Grid grid) {
         PuzzleViewGroup gameBoard = (PuzzleViewGroup) findViewById(R.id.gameboard);
+        gameBoard.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
