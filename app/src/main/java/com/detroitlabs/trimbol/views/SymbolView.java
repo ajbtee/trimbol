@@ -2,6 +2,8 @@ package com.detroitlabs.trimbol.views;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -9,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.objects.Symbol;
 
@@ -20,7 +23,7 @@ public class SymbolView extends View {
     private final int MIN_DISTANCE = 30;
     private float x1, y1, distanceX, distanceY;
     private int y, x;
-    private boolean ready = false;
+    private boolean paintDone = false;
 
     private Context context;
     private Grid grid;
@@ -28,13 +31,13 @@ public class SymbolView extends View {
     private Grid historyGrid;
 
     private Paint paintRocSelected;
-    private Paint paintRocIcon;
+    private Bitmap paintRocIcon;
     private Paint paintRocCircle;
     private Paint paintPapSelected;
-    private Paint paintPapIcon;
+    private Bitmap paintPapIcon;
     private Paint paintPapCircle;
     private Paint paintSciSelected;
-    private Paint paintSciIcon;
+    private Bitmap paintSciIcon;
     private Paint paintSciCircle;
 
     public SymbolView(Context context, Grid grid, int row, int column) {
@@ -55,6 +58,9 @@ public class SymbolView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (!paintDone) {
+            makePaints(y, x, getWidth());
+        }
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f;
@@ -62,19 +68,22 @@ public class SymbolView extends View {
         if (symbol.getState() != Symbol.State.GONE) {
             if (grid.getSymbol(y, x).getType() == Symbol.ROC) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintRocCircle);
-                canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintRocIcon);
+                canvas.drawBitmap(paintRocIcon, halfWidth-(paintRocIcon.getWidth()/2), halfHeight-(paintRocIcon.getHeight()/2), null);
+
                 if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintRocSelected);
             }
             if (grid.getSymbol(y, x).getType() == Symbol.PAP) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintPapCircle);
-                canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintPapIcon);
+                canvas.drawBitmap(paintPapIcon, halfWidth-(paintPapIcon.getWidth()/2), halfHeight-(paintPapIcon.getHeight()/2), null);
+
                 if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintPapSelected);
             }
             if (grid.getSymbol(y, x).getType() == Symbol.SCI) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintSciCircle);
-                canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintSciIcon);
+                canvas.drawBitmap(paintSciIcon, halfWidth-(paintSciIcon.getWidth()/2), halfHeight-(paintSciIcon.getHeight()/2), null);
+
                 if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintSciSelected);
             }
@@ -134,14 +143,11 @@ public class SymbolView extends View {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                ready = true;
                 break;
 
             case MotionEvent.ACTION_UP:
-                if (ready) {
                     grid = historyGrid;
                     grid.loadHistory();
-                }
                 break;
         }
     }
@@ -210,10 +216,9 @@ public class SymbolView extends View {
         this.historyGrid = new Grid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
-        makePaints(y, x);
     }
 
-    private void makePaints(int y, int x) {
+    private void makePaints(int y, int x, int size) {
         // paintRocCircle
         paintRocCircle = new Paint();
         paintRocCircle.setARGB(255, 108, 155, 69);
@@ -232,23 +237,18 @@ public class SymbolView extends View {
         paintSciCircle.setAntiAlias(true);
         paintSciCircle.setStyle(Paint.Style.FILL);
 
+        int iconSize = (int) (size*.38); //.38 of canvas size
         // paintRocIcon
-        paintRocIcon = new Paint();
-        paintRocIcon.setARGB(255, 198, 216, 183);
-        paintRocIcon.setAntiAlias(true);
-        paintRocIcon.setStyle(Paint.Style.FILL);
+        paintRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc);
+        paintRocIcon = Bitmap.createScaledBitmap(paintRocIcon, iconSize, iconSize, true);
 
         // paintPapIcon
-        paintPapIcon = new Paint();
-        paintPapIcon.setARGB(255, 156, 212, 236);
-        paintPapIcon.setAntiAlias(true);
-        paintPapIcon.setStyle(Paint.Style.FILL);
+        paintPapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap);
+        paintPapIcon = Bitmap.createScaledBitmap(paintPapIcon, iconSize, iconSize, true);
 
         // paintSciIcon
-        paintSciIcon = new Paint();
-        paintSciIcon.setARGB(255, 252, 213, 180);
-        paintSciIcon.setAntiAlias(true);
-        paintSciIcon.setStyle(Paint.Style.FILL);
+        paintSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci);
+        paintSciIcon = Bitmap.createScaledBitmap(paintSciIcon, iconSize, iconSize, true);
 
         // paintRocSelected
         paintRocSelected = new Paint();
@@ -270,6 +270,8 @@ public class SymbolView extends View {
         paintSciSelected.setStrokeWidth(6);
         paintSciSelected.setAntiAlias(true);
         paintSciSelected.setStyle(Paint.Style.STROKE);
+
+        paintDone = true;
     }
 
     private float scaleDistance(float distance) {

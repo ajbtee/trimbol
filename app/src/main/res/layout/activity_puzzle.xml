@@ -10,9 +10,29 @@
     android:background="#ebebeb"
     tools:context=".PuzzleActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+        <ImageView
+            android:paddingLeft="65dp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher"/>
+        <ImageView
+            android:paddingRight="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/title"/>
+    </LinearLayout>
+
     <com.detroitlabs.trimbol.views.PuzzleViewGroup
         android:id="@+id/gameboard"
-        android:layout_marginTop="10dp"
+        android:layout_margin="14dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

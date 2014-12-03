@@ -18,8 +18,8 @@ public class Grid{
     private RenderListener renderListener;
 
     // grid size
-    public static int gridX = 2;
-    public static int gridY = 2;
+    public static int gridX = 4;
+    public static int gridY = 6;
     public Symbol[][] grid = new Symbol[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
@@ -44,6 +44,10 @@ public class Grid{
             }
         }
     }
+
+    //  ┌──────────────────────────────────────────┐
+    //  │ Rerender methods                         │
+    //  └──────────────────────────────────────────┘
 
     public void checkVictory() {
         //Check if empty
