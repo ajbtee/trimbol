@@ -18,8 +18,8 @@ public class Grid{
     private RenderListener renderListener;
 
     // grid size
-    final int gridX = 3;
-    final int gridY = 3;
+    public static int gridX = 2;
+    public static int gridY = 2;
     public Symbol[][] grid = new Symbol[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
@@ -50,7 +50,7 @@ public class Grid{
         int uno = 0;
         for (int x = 0; x < getGridX(); x++){
             for (int y = 0; y < getGridY(); y++)
-                if (grid[y][x].getType() != Symbol.NIL) uno++;
+                if (grid[y][x].getState() != Symbol.State.HISTORY && grid[y][x].getState() != Symbol.State.GONE) uno++;
         }
         if (uno == 1 && renderListener != null)
             renderListener.onVictory();

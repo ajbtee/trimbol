@@ -45,8 +45,8 @@ public class PuzzleActivity extends Activity implements Grid.RenderListener {
         PuzzleViewGroup gameBoard = (PuzzleViewGroup) findViewById(R.id.gameboard);
         gameBoard.removeAllViews();
 
-        for (int row = 0; row < grid.getGridY(); row++){
-            for (int column = 0; column < grid.getGridX(); column++){
+        for (int row = 0; row < this.grid.getGridY(); row++){
+            for (int column = 0; column < this.grid.getGridX(); column++){
                 SymbolView symbolView = new SymbolView(this, grid, row, column);
                 gameBoard.addView(symbolView);
             }

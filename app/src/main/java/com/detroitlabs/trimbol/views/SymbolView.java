@@ -20,17 +20,20 @@ public class SymbolView extends View {
     private final int MIN_DISTANCE = 30;
     private float x1, y1, distanceX, distanceY;
     private int y, x;
+    private boolean ready = false;
 
     private Context context;
     private Grid grid;
     private Symbol symbol;
-    private Grid historyGrid = new Grid();
+    private Grid historyGrid;
 
-    private Paint paintSelected;
+    private Paint paintRocSelected;
     private Paint paintRocIcon;
     private Paint paintRocCircle;
+    private Paint paintPapSelected;
     private Paint paintPapIcon;
     private Paint paintPapCircle;
+    private Paint paintSciSelected;
     private Paint paintSciIcon;
     private Paint paintSciCircle;
 
@@ -60,17 +63,21 @@ public class SymbolView extends View {
             if (grid.getSymbol(y, x).getType() == Symbol.ROC) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintRocCircle);
                 canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintRocIcon);
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                    canvas.drawCircle(halfWidth, halfHeight, radius, paintRocSelected);
             }
             if (grid.getSymbol(y, x).getType() == Symbol.PAP) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintPapCircle);
                 canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintPapIcon);
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                    canvas.drawCircle(halfWidth, halfHeight, radius, paintPapSelected);
             }
             if (grid.getSymbol(y, x).getType() == Symbol.SCI) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintSciCircle);
                 canvas.drawCircle(halfWidth, halfHeight, radius * 0.45f, paintSciIcon);
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                    canvas.drawCircle(halfWidth, halfHeight, radius, paintSciSelected);
             }
-            if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
-                canvas.drawCircle(halfWidth, halfHeight, radius, paintSelected);
         }
 
         invalidate();
@@ -79,14 +86,22 @@ public class SymbolView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        if (symbol.getState() == Symbol.State.GONE)
+            inputStateGone(event);
+        if (symbol.getState() == Symbol.State.EXIST || symbol.getState() == Symbol.State.SELECT)
+            inputStateExist(event);
+        if (symbol.getState() == Symbol.State.HISTORY)
+            inputStateHistory(event);
+        return true;
+    }
+
+    private void inputStateExist(MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                if (symbol.getState() != Symbol.State.GONE) {
-                    grid.setSymbolState(y, x, Symbol.State.SELECT);
-                    y1 = event.getY();
-                    x1 = event.getX();
-                }
+                grid.setSymbolState(y, x, Symbol.State.SELECT);
+                y1 = event.getY();
+                x1 = event.getX();
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -95,35 +110,58 @@ public class SymbolView extends View {
 
                 setTranslationX(scaleDistance(distanceX));
                 setTranslationY(scaleDistance(distanceY));
-                if (getTranslationY() > MIN_DISTANCE && grid.getSymbol(y, x).getState() != Symbol.State.GONE) {
+                if (getTranslationY() > MIN_DISTANCE) {
                     slideSymbol(Grid.DOWN);}
-                if (getTranslationY() < -MIN_DISTANCE && grid.getSymbol(y, x).getState() != Symbol.State.GONE) {
+                if (getTranslationY() < -MIN_DISTANCE) {
                     slideSymbol(Grid.UP);}
-                if (getTranslationX() > MIN_DISTANCE && grid.getSymbol(y, x).getState() != Symbol.State.GONE) {
+                if (getTranslationX() > MIN_DISTANCE) {
                     slideSymbol(Grid.RIGHT);}
-                if (getTranslationX() < -MIN_DISTANCE && grid.getSymbol(y, x).getState() != Symbol.State.GONE) {
+                if (getTranslationX() < -MIN_DISTANCE) {
                     slideSymbol(Grid.LEFT);}
                 break;
 
             case MotionEvent.ACTION_UP:
-                if (symbol.getState() == Symbol.State.GONE) {
-                    grid = historyGrid;
-                    grid.loadHistory();
-                }
-                if (symbol.getState() != Symbol.State.GONE) {
-                    grid.setSymbolState(y, x, Symbol.State.EXIST);
-                }
-                ValueAnimator animator = snapBack();
-
+                grid.setSymbolState(y, x, Symbol.State.EXIST);
+                ValueAnimator animator = animSnapBack();
                 animator.setDuration(200);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.start();
                 break;
         }
-        return true;
     }
 
-    private ValueAnimator snapBack() {
+    private void inputStateHistory(MotionEvent event) {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                ready = true;
+                break;
+
+            case MotionEvent.ACTION_UP:
+                if (ready) {
+                    grid = historyGrid;
+                    grid.loadHistory();
+                }
+                break;
+        }
+    }
+
+    private void inputStateGone(MotionEvent event) {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_UP:
+                ValueAnimator animator = animSnapBack();
+                animator.setDuration(200);
+                animator.setInterpolator(new DecelerateInterpolator());
+                animator.start();
+                grid.checkVictory();
+                if(symbol.getState() == Symbol.State.GONE && getTranslationX() == 0 && getTranslationY() == 0)
+                    grid.setSymbolState(y, x, Symbol.State.HISTORY);
+                break;
+        }
+    }
+
+    private ValueAnimator animSnapBack() {
         ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -139,7 +177,6 @@ public class SymbolView extends View {
     }
 
     private void slideSymbol(int direction) {
-        if (symbol.getState() != Symbol.State.GONE) {
             if (symbol.getY()-1 != -1 && direction == Grid.UP)
                 counterReplace(-1, 0);
             if (symbol.getY()+1 != grid.getGridY() && direction == Grid.DOWN)
@@ -148,27 +185,22 @@ public class SymbolView extends View {
                 counterReplace(0, -1);
             if (symbol.getX()+1 != grid.getGridX() && direction == Grid.RIGHT)
                 counterReplace(0, 1);
-        }
     }
 
     private void counterReplace(int checkY, int checkX) {
         historyGrid = grid;
         if (symbol.getType() == Symbol.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.SCI){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.ROC);
-            grid.setSymbolType(y, x, Symbol.NIL);
             grid.setSymbolState(y, x, Symbol.State.GONE);
         }
         if (symbol.getType() == Symbol.PAP && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.ROC){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.PAP);
-            grid.setSymbolType(y, x, Symbol.NIL);
             grid.setSymbolState(y, x, Symbol.State.GONE);
         }
         if (symbol.getType() == Symbol.SCI && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.PAP){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.SCI);
-            grid.setSymbolType(y, x, Symbol.NIL);
             grid.setSymbolState(y, x, Symbol.State.GONE);
         }
-        grid.checkVictory();
     }
 
     private void init(Grid grid, int y, int x, Context context) {
@@ -218,12 +250,26 @@ public class SymbolView extends View {
         paintSciIcon.setAntiAlias(true);
         paintSciIcon.setStyle(Paint.Style.FILL);
 
-        // paintSelected
-        paintSelected = new Paint();
-        paintSelected.setARGB(255, 50, 50, 50);
-        paintSelected.setStrokeWidth(6);
-        paintSelected.setAntiAlias(true);
-        paintSelected.setStyle(Paint.Style.STROKE);
+        // paintRocSelected
+        paintRocSelected = new Paint();
+        paintRocSelected.setARGB(255, 66, 95, 42);
+        paintRocSelected.setStrokeWidth(6);
+        paintRocSelected.setAntiAlias(true);
+        paintRocSelected.setStyle(Paint.Style.STROKE);
+
+        // paintPapSelected
+        paintPapSelected = new Paint();
+        paintPapSelected.setARGB(255, 2, 89, 127);
+        paintPapSelected.setStrokeWidth(6);
+        paintPapSelected.setAntiAlias(true);
+        paintPapSelected.setStyle(Paint.Style.STROKE);
+
+        // paintSciSelected
+        paintSciSelected = new Paint();
+        paintSciSelected.setARGB(255, 152, 95, 46);
+        paintSciSelected.setStrokeWidth(6);
+        paintSciSelected.setAntiAlias(true);
+        paintSciSelected.setStyle(Paint.Style.STROKE);
     }
 
     private float scaleDistance(float distance) {

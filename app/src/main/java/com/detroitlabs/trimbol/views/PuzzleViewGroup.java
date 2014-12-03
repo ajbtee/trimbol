@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.detroitlabs.trimbol.objects.Grid;
+
 /**
  * Created by andrewjb on 11/26/14.
  */
@@ -43,17 +45,17 @@ public class PuzzleViewGroup extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 
-        final int cellWidth = getWidth()/3;
-        final int cellHeight = getHeight()/3;
+        final int cellWidth = getWidth() / Grid.gridX;
+        final int cellHeight = getHeight() / Grid.gridX;
         int row = -1;
 
         for (int column = 0; column < getChildCount(); column++){
             View childView = getChildAt(column);
 
-            rect.left = (column%3)*cellWidth;
+            rect.left = (column % Grid.gridX) * cellWidth;
             rect.right = rect.left+cellWidth;
 
-            if (column % 3 == 0)
+            if (column % Grid.gridX == 0)
                 row++;
             rect.top = row*cellWidth;
             rect.bottom = rect.top+cellWidth;
