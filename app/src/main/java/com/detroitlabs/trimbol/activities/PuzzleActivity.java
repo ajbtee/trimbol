@@ -9,16 +9,18 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.detroitlabs.trimbol.R;
+import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
+import com.detroitlabs.trimbol.objects.PuzzleSettings;
 import com.detroitlabs.trimbol.utils.GridHandler;
 import com.detroitlabs.trimbol.views.PuzzleViewGroup;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
-public class PuzzleActivity extends Activity implements Grid.RenderListener {
+public class PuzzleActivity extends Activity implements Grid.RenderListener{
 
     Grid grid;
-    int level = 0;
+    GameBoard gameBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +40,13 @@ public class PuzzleActivity extends Activity implements Grid.RenderListener {
 
     private void newPuzzle() {
         grid = new Grid(this);
-        GridHandler.initiatePuzzle(grid, level);
+        GridHandler.initiatePuzzle(grid);
         renderPuzzle(grid);
     }
 
     @Override
     public void onVictory() {
-        level++;
+        PuzzleSettings.difficulty++;
         newPuzzle();
     }
 

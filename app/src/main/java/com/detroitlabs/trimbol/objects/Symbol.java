@@ -17,7 +17,6 @@ public class Symbol{
         SELECT,
         CONVERT,
         HISTORY
-
     }
 
     State state;
@@ -30,6 +29,10 @@ public class Symbol{
         this.state = state;
         this.posX = posX;
         this.posY = posY;
+    }
+
+    public Symbol(Symbol symbol) {
+        this(symbol.type, symbol.state, symbol.posY, symbol.posX);
     }
 
     public int getX(){

@@ -11,10 +11,8 @@ public class GridHandler {
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Generate new puzzle                                 │
     //  └─────────────────────────────────────────────────────┘
-    public static void initiatePuzzle(Grid grid, int level) {
+    public static void initiatePuzzle(Grid grid) {
         boolean gridFull = false;
-
-        setLevel(level);
 
         // Create a random symbol in a random location
         int cursorX = (int) Math.floor(Math.random() * grid.getGridX());
@@ -59,34 +57,6 @@ public class GridHandler {
             } while (!foundSymbol);
         }
         printGrid(grid);
-    }
-
-    private static void setLevel(int level) {
-//        if (level == 0)
-//            Grid.gridY = 1;
-//        Grid.gridX = 2;
-//        if (level == 1)
-//            Grid.gridY = 1;
-//        Grid.gridX = 3;
-//        if (level == 2)
-//            Grid.gridY = 2;
-//        Grid.gridX = 2;
-//        if (level == 3)
-//            Grid.gridY = 2;
-//        Grid.gridX = 3;
-//        if (level == 4)
-//            Grid.gridY = 3;
-//        Grid.gridX = 3;
-//        if (level > 4){
-//            if (level % 2 == 0) {
-//                Grid.gridY = level - 2;
-//                Grid.gridX = level - 2;
-//            }
-//            else {
-//                Grid.gridY = level - 1;
-//                Grid.gridX = level - 2;
-//            }
-//        }
     }
 
     //  ┌─────────────────────────────────────────────────────┐

@@ -18,8 +18,8 @@ public class Grid{
     private RenderListener renderListener;
 
     // grid size
-    public static int gridX = 4;
-    public static int gridY = 6;
+    public static int gridX = 2;
+    public static int gridY = 2;
     public Symbol[][] grid = new Symbol[gridY][gridX];
 
     //  ┌──────────────────────────────────────────┐
@@ -27,6 +27,7 @@ public class Grid{
     //  └──────────────────────────────────────────┘
 
     public Grid(RenderListener renderListener) {
+        //setLevel(PuzzleSettings.difficulty);
         this.renderListener = renderListener;
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
@@ -36,11 +37,12 @@ public class Grid{
         }
     }
 
-    public Grid() {
+    public Grid(Grid grid, RenderListener renderListener) {
+        this.renderListener = renderListener;
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                Symbol symbol = new Symbol(Symbol.NIL, Symbol.State.EXIST, y, x);
-                grid[y][x] = symbol;
+                Symbol symbol = new Symbol(grid.grid[y][x]);
+                this.grid[y][x] = symbol;
             }
         }
     }
@@ -62,6 +64,39 @@ public class Grid{
 
     public void loadHistory() {
         renderListener.reRender();
+    }
+
+    private static void setLevel(int level) {
+        if (level == 0){
+            Grid.gridY = 1;
+            Grid.gridX = 2;
+        }
+        if (level == 1) {
+            Grid.gridY = 1;
+            Grid.gridX = 3;
+        }
+        if (level == 2) {
+            Grid.gridY = 2;
+            Grid.gridX = 2;
+        }
+        if (level == 3) {
+            Grid.gridY = 2;
+            Grid.gridX = 3;
+        }
+        if (level == 4) {
+            Grid.gridY = 3;
+            Grid.gridX = 3;
+        }
+        if (level > 4){
+            if (level % 2 == 0) {
+                Grid.gridY = level - 2;
+                Grid.gridX = level - 2;
+            }
+            else {
+                Grid.gridY = level - 1;
+                Grid.gridX = level - 2;
+            }
+        }
     }
 
     //  ┌──────────────────────────────────────────┐

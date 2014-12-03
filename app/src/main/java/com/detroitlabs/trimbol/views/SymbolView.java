@@ -15,9 +15,6 @@ import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.objects.Symbol;
 
-/**
- * Created by andrewjb on 11/14/14.
- */
 public class SymbolView extends View {
 
     private final int MIN_DISTANCE = 30;
@@ -28,7 +25,6 @@ public class SymbolView extends View {
     private Context context;
     private Grid grid;
     private Symbol symbol;
-    private Grid historyGrid;
 
     private Paint paintRocSelected;
     private Bitmap paintRocIcon;
@@ -140,29 +136,29 @@ public class SymbolView extends View {
     }
 
     private void inputStateHistory(MotionEvent event) {
-        switch(event.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-                break;
-
-            case MotionEvent.ACTION_UP:
-                    grid = historyGrid;
-                    grid.loadHistory();
-                break;
-        }
+//        switch(event.getAction())
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//                break;
+//
+//            case MotionEvent.ACTION_UP:
+//                    grid = historyGrid;
+//                    grid.loadHistory();
+//                break;
+//        }
     }
 
     private void inputStateGone(MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_UP:
-                ValueAnimator animator = animSnapBack();
-                animator.setDuration(200);
-                animator.setInterpolator(new DecelerateInterpolator());
-                animator.start();
+//                ValueAnimator animator = animSnapBack();
+//                animator.setDuration(200);
+//                animator.setInterpolator(new DecelerateInterpolator());
+//                animator.start();
                 grid.checkVictory();
-                if(symbol.getState() == Symbol.State.GONE && getTranslationX() == 0 && getTranslationY() == 0)
-                    grid.setSymbolState(y, x, Symbol.State.HISTORY);
+//                if(symbol.getState() == Symbol.State.GONE && getTranslationX() == 0 && getTranslationY() == 0)
+//                    grid.setSymbolState(y, x, Symbol.State.HISTORY);
                 break;
         }
     }
@@ -183,29 +179,33 @@ public class SymbolView extends View {
     }
 
     private void slideSymbol(int direction) {
-            if (symbol.getY()-1 != -1 && direction == Grid.UP)
-                counterReplace(-1, 0);
-            if (symbol.getY()+1 != grid.getGridY() && direction == Grid.DOWN)
-                counterReplace(1, 0);
-            if (symbol.getX()-1 != -1 && direction == Grid.LEFT)
-                counterReplace(0, -1);
-            if (symbol.getX()+1 != grid.getGridX() && direction == Grid.RIGHT)
-                counterReplace(0, 1);
+
+
+        if (symbol.getY()-1 != -1 && direction == Grid.UP)
+            counterReplace(-1, 0);
+        if (symbol.getY()+1 != grid.getGridY() && direction == Grid.DOWN)
+            counterReplace(1, 0);
+        if (symbol.getX()-1 != -1 && direction == Grid.LEFT)
+            counterReplace(0, -1);
+        if (symbol.getX()+1 != grid.getGridX() && direction == Grid.RIGHT)
+            counterReplace(0, 1);
     }
 
     private void counterReplace(int checkY, int checkX) {
-        historyGrid = grid;
         if (symbol.getType() == Symbol.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.SCI){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.ROC);
             grid.setSymbolState(y, x, Symbol.State.GONE);
+            grid.setSymbolType(y, x, Symbol.NIL);
         }
         if (symbol.getType() == Symbol.PAP && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.ROC){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.PAP);
             grid.setSymbolState(y, x, Symbol.State.GONE);
+            grid.setSymbolType(y, x, Symbol.NIL);
         }
         if (symbol.getType() == Symbol.SCI && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.PAP){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.SCI);
             grid.setSymbolState(y, x, Symbol.State.GONE);
+            grid.setSymbolType(y, x, Symbol.NIL);
         }
     }
 
@@ -213,7 +213,6 @@ public class SymbolView extends View {
         this.y = y;
         this.x = x;
         this.grid = grid;
-        this.historyGrid = new Grid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
     }
