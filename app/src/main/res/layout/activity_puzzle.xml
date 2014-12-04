@@ -16,6 +16,7 @@
         android:orientation="horizontal"
         android:paddingTop="10dp">
         <ImageView
+            android:id="@+id/back"
             android:paddingLeft="65dp"
             android:paddingRight="10dp"
             android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.detroitlabs.trimbol.R;
+import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.objects.Symbol;
 
@@ -21,9 +22,11 @@ public class SymbolView extends View {
     private float x1, y1, distanceX, distanceY;
     private int y, x;
     private boolean paintDone = false;
+    private boolean isSelected = false;
 
     private Context context;
     private Grid grid;
+    private GameBoard gameBoard;
     private Symbol symbol;
 
     private Paint paintRocSelected;
@@ -36,19 +39,19 @@ public class SymbolView extends View {
     private Bitmap paintSciIcon;
     private Paint paintSciCircle;
 
-    public SymbolView(Context context, Grid grid, int row, int column) {
+    public SymbolView(Context context, GameBoard gameBoard, int row, int column) {
         super(context);
-        init(grid, row, column, context);
+        init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, Grid grid, int row, int column) {
+    public SymbolView(Context context, AttributeSet attrs, GameBoard gameBoard, int row, int column) {
         super(context);
-        init(grid, row, column, context);
+        init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, Grid grid, int row, int column) {
+    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, GameBoard gameBoard, int row, int column) {
         super(context);
-        init(grid, row, column, context);
+        init(gameBoard, row, column, context);
     }
 
     @Override
@@ -66,24 +69,29 @@ public class SymbolView extends View {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintRocCircle);
                 canvas.drawBitmap(paintRocIcon, halfWidth-(paintRocIcon.getWidth()/2), halfHeight-(paintRocIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintRocSelected);
+                }
             }
             if (grid.getSymbol(y, x).getType() == Symbol.PAP) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintPapCircle);
                 canvas.drawBitmap(paintPapIcon, halfWidth-(paintPapIcon.getWidth()/2), halfHeight-(paintPapIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintPapSelected);
+                }
             }
             if (grid.getSymbol(y, x).getType() == Symbol.SCI) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintSciCircle);
                 canvas.drawBitmap(paintSciIcon, halfWidth-(paintSciIcon.getWidth()/2), halfHeight-(paintSciIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT)
+                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintSciSelected);
+                }
             }
         }
+
+
 
         invalidate();
     }
@@ -156,7 +164,7 @@ public class SymbolView extends View {
 //                animator.setDuration(200);
 //                animator.setInterpolator(new DecelerateInterpolator());
 //                animator.start();
-                grid.checkVictory();
+                gameBoard.checkVictory();
 //                if(symbol.getState() == Symbol.State.GONE && getTranslationX() == 0 && getTranslationY() == 0)
 //                    grid.setSymbolState(y, x, Symbol.State.HISTORY);
                 break;
@@ -179,8 +187,6 @@ public class SymbolView extends View {
     }
 
     private void slideSymbol(int direction) {
-
-
         if (symbol.getY()-1 != -1 && direction == Grid.UP)
             counterReplace(-1, 0);
         if (symbol.getY()+1 != grid.getGridY() && direction == Grid.DOWN)
@@ -192,6 +198,9 @@ public class SymbolView extends View {
     }
 
     private void counterReplace(int checkY, int checkX) {
+
+        gameBoard.addHistory();
+
         if (symbol.getType() == Symbol.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.SCI){
             grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.ROC);
             grid.setSymbolState(y, x, Symbol.State.GONE);
@@ -209,10 +218,11 @@ public class SymbolView extends View {
         }
     }
 
-    private void init(Grid grid, int y, int x, Context context) {
+    private void init(GameBoard gameBoard, int y, int x, Context context) {
         this.y = y;
         this.x = x;
-        this.grid = grid;
+        this.gameBoard = gameBoard;
+        this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
     }

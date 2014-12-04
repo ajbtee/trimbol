@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -11,15 +12,12 @@ import android.widget.Toast;
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
-import com.detroitlabs.trimbol.objects.PuzzleSettings;
-import com.detroitlabs.trimbol.utils.GridHandler;
 import com.detroitlabs.trimbol.views.PuzzleViewGroup;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
-public class PuzzleActivity extends Activity implements Grid.RenderListener{
+public class PuzzleActivity extends Activity implements GameBoard.RenderListener{
 
-    Grid grid;
     GameBoard gameBoard;
 
     @Override
@@ -36,50 +34,55 @@ public class PuzzleActivity extends Activity implements Grid.RenderListener{
         this.setContentView(R.layout.activity_puzzle);
 
         newPuzzle();
+
+        View backButton = findViewById(R.id.back);
+        backButton.setClickable(true);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameBoard.rewind();
+                reRender(gameBoard.getGrid());
+            }
+        });
     }
 
     private void newPuzzle() {
-        grid = new Grid(this);
-        GridHandler.initiatePuzzle(grid);
-        renderPuzzle(grid);
+        gameBoard = new GameBoard(this);
+        renderPuzzle(gameBoard.getGrid());
     }
 
     @Override
     public void onVictory() {
-        PuzzleSettings.difficulty++;
+        gameBoard.difficulty++;
         newPuzzle();
     }
 
     @Override
-    public void reRender() {
+    public void reRender(Grid grid) {
         Toast.makeText(this, "RERENDER", Toast.LENGTH_SHORT).show();
-        renderPuzzle(grid);
+        renderPuzzle(gameBoard.getGrid());
     }
 
     private void renderPuzzle(Grid grid) {
-        PuzzleViewGroup gameBoard = (PuzzleViewGroup) findViewById(R.id.gameboard);
-        gameBoard.removeAllViews();
+        PuzzleViewGroup viewGroup = (PuzzleViewGroup) findViewById(R.id.gameboard);
+        viewGroup.removeAllViews();
 
-        for (int row = 0; row < this.grid.getGridY(); row++){
-            for (int column = 0; column < this.grid.getGridX(); column++){
-                SymbolView symbolView = new SymbolView(this, grid, row, column);
-                gameBoard.addView(symbolView);
+        for (int row = 0; row < grid.getGridY(); row++){
+            for (int column = 0; column < grid.getGridX(); column++){
+                SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
+                viewGroup.addView(symbolView);
             }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.puzzle, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
