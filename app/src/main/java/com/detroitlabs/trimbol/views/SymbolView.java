@@ -23,6 +23,7 @@ public class SymbolView extends View {
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
+    private boolean isConverting = false;
 
     private Context context;
     private Grid grid;
@@ -65,27 +66,27 @@ public class SymbolView extends View {
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f;
 
         if (symbol.getState() != Symbol.State.GONE) {
-            if (grid.getSymbol(y, x).getType() == Symbol.ROC) {
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintRocCircle);
                 canvas.drawBitmap(paintRocIcon, halfWidth-(paintRocIcon.getWidth()/2), halfHeight-(paintRocIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
+                if (isSelected) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintRocSelected);
                 }
             }
-            if (grid.getSymbol(y, x).getType() == Symbol.PAP) {
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintPapCircle);
                 canvas.drawBitmap(paintPapIcon, halfWidth-(paintPapIcon.getWidth()/2), halfHeight-(paintPapIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
+                if (isSelected) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintPapSelected);
                 }
             }
-            if (grid.getSymbol(y, x).getType() == Symbol.SCI) {
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI) {
                 canvas.drawCircle(halfWidth, halfHeight, radius, paintSciCircle);
                 canvas.drawBitmap(paintSciIcon, halfWidth-(paintSciIcon.getWidth()/2), halfHeight-(paintSciIcon.getHeight()/2), null);
 
-                if (grid.getSymbol(y, x).getState() == Symbol.State.SELECT) {
+                if (isSelected) {
                     canvas.drawCircle(halfWidth, halfHeight, radius, paintSciSelected);
                 }
             }
@@ -101,10 +102,8 @@ public class SymbolView extends View {
     {
         if (symbol.getState() == Symbol.State.GONE)
             inputStateGone(event);
-        if (symbol.getState() == Symbol.State.EXIST || symbol.getState() == Symbol.State.SELECT)
+        if (symbol.getState() == Symbol.State.EXIST)
             inputStateExist(event);
-        if (symbol.getState() == Symbol.State.HISTORY)
-            inputStateHistory(event);
         return true;
     }
 
@@ -112,7 +111,7 @@ public class SymbolView extends View {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                grid.setSymbolState(y, x, Symbol.State.SELECT);
+                isSelected = true;
                 y1 = event.getY();
                 x1 = event.getX();
                 break;
@@ -134,7 +133,7 @@ public class SymbolView extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
-                grid.setSymbolState(y, x, Symbol.State.EXIST);
+                isSelected = false;
                 ValueAnimator animator = animSnapBack();
                 animator.setDuration(200);
                 animator.setInterpolator(new DecelerateInterpolator());
@@ -143,30 +142,11 @@ public class SymbolView extends View {
         }
     }
 
-    private void inputStateHistory(MotionEvent event) {
-//        switch(event.getAction())
-//        {
-//            case MotionEvent.ACTION_DOWN:
-//                break;
-//
-//            case MotionEvent.ACTION_UP:
-//                    grid = historyGrid;
-//                    grid.loadHistory();
-//                break;
-//        }
-    }
-
     private void inputStateGone(MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_UP:
-//                ValueAnimator animator = animSnapBack();
-//                animator.setDuration(200);
-//                animator.setInterpolator(new DecelerateInterpolator());
-//                animator.start();
                 gameBoard.checkVictory();
-//                if(symbol.getState() == Symbol.State.GONE && getTranslationX() == 0 && getTranslationY() == 0)
-//                    grid.setSymbolState(y, x, Symbol.State.HISTORY);
                 break;
         }
     }
@@ -201,20 +181,20 @@ public class SymbolView extends View {
 
         gameBoard.addHistory();
 
-        if (symbol.getType() == Symbol.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.SCI){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.ROC);
+        if (symbol.getType() == Symbol.Type.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.SCI){
+            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.ROC);
             grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.NIL);
+            grid.setSymbolType(y, x, Symbol.Type.NIL);
         }
-        if (symbol.getType() == Symbol.PAP && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.ROC){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.PAP);
+        if (symbol.getType() == Symbol.Type.PAP && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.ROC){
+            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.PAP);
             grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.NIL);
+            grid.setSymbolType(y, x, Symbol.Type.NIL);
         }
-        if (symbol.getType() == Symbol.SCI && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.PAP){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.SCI);
+        if (symbol.getType() == Symbol.Type.SCI && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.PAP){
+            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.SCI);
             grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.NIL);
+            grid.setSymbolType(y, x, Symbol.Type.NIL);
         }
     }
 

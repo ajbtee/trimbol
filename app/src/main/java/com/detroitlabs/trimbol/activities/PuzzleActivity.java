@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
@@ -59,7 +58,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     @Override
     public void reRender(Grid grid) {
-        Toast.makeText(this, "RERENDER", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "RERENDER", Toast.LENGTH_SHORT).show();
         renderPuzzle(gameBoard.getGrid());
     }
 

@@ -23,7 +23,7 @@ public class Grid{
         setLevel(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                Symbol symbol = new Symbol(Symbol.NIL, Symbol.State.EXIST, y, x);
+                Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST, y, x);
                 grid[y][x] = symbol;
             }
         }
@@ -93,7 +93,7 @@ public class Grid{
         return grid[y][x];
     }
 
-    public void setSymbolType(int y, int x, int type) {
+    public void setSymbolType(int y, int x, Symbol.Type type) {
         grid[y][x].type = type;
     }
 

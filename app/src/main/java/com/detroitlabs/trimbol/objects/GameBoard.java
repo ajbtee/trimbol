@@ -17,7 +17,7 @@ public class GameBoard {
     private final Stack<Grid> gridHistory = new Stack<Grid>();
     private Grid currentGrid;
     private GameBoard.RenderListener renderListener;
-    public static int difficulty = 3;
+    public static int difficulty = 0;
 
     public GameBoard(GameBoard.RenderListener renderListener) {
         this.renderListener = renderListener;
@@ -36,7 +36,7 @@ public class GameBoard {
         int uno = 0;
         for (int x = 0; x < currentGrid.getGridX(); x++){
             for (int y = 0; y < currentGrid.getGridY(); y++)
-                if (currentGrid.grid[y][x].getState() != Symbol.State.HISTORY && currentGrid.grid[y][x].getState() != Symbol.State.GONE) uno++;
+                if (currentGrid.grid[y][x].getState() != Symbol.State.GONE) uno++;
         }
         if (uno == 1)
             renderListener.onVictory();
