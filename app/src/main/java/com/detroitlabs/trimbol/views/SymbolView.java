@@ -23,7 +23,10 @@ public class SymbolView extends View {
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
+    public boolean isHighlighted = false;
     private boolean isConverting = false;
+    private boolean isSpawning = true;
+    private float radius;
 
     private Context context;
     private Grid grid;
@@ -63,7 +66,10 @@ public class SymbolView extends View {
         }
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
-        float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f;
+        radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f;
+
+        if (isSelected)
+            radius += 5;
 
         if (symbol.getState() != Symbol.State.GONE) {
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
@@ -122,20 +128,20 @@ public class SymbolView extends View {
 
                 setTranslationX(scaleDistance(distanceX));
                 setTranslationY(scaleDistance(distanceY));
-                if (getTranslationY() > MIN_DISTANCE) {
-                    slideSymbol(Grid.DOWN);}
-                if (getTranslationY() < -MIN_DISTANCE) {
-                    slideSymbol(Grid.UP);}
-                if (getTranslationX() > MIN_DISTANCE) {
-                    slideSymbol(Grid.RIGHT);}
-                if (getTranslationX() < -MIN_DISTANCE) {
-                    slideSymbol(Grid.LEFT);}
+                if (getTranslationY() > MIN_DISTANCE)
+                    gameBoard.moveSymbol(y, x, Grid.DOWN);
+                if (getTranslationY() < -MIN_DISTANCE)
+                    gameBoard.moveSymbol(y, x, Grid.UP);
+                if (getTranslationX() > MIN_DISTANCE)
+                    gameBoard.moveSymbol(y, x, Grid.RIGHT);
+                if (getTranslationX() < -MIN_DISTANCE)
+                    gameBoard.moveSymbol(y, x, Grid.LEFT);
                 break;
 
             case MotionEvent.ACTION_UP:
                 isSelected = false;
                 ValueAnimator animator = animSnapBack();
-                animator.setDuration(200);
+                animator.setDuration(300);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.start();
                 break;
@@ -166,36 +172,19 @@ public class SymbolView extends View {
         return animator;
     }
 
-    private void slideSymbol(int direction) {
-        if (symbol.getY()-1 != -1 && direction == Grid.UP)
-            counterReplace(-1, 0);
-        if (symbol.getY()+1 != grid.getGridY() && direction == Grid.DOWN)
-            counterReplace(1, 0);
-        if (symbol.getX()-1 != -1 && direction == Grid.LEFT)
-            counterReplace(0, -1);
-        if (symbol.getX()+1 != grid.getGridX() && direction == Grid.RIGHT)
-            counterReplace(0, 1);
-    }
-
-    private void counterReplace(int checkY, int checkX) {
-
-        gameBoard.addHistory();
-
-        if (symbol.getType() == Symbol.Type.ROC && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.SCI){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.ROC);
-            grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.Type.NIL);
-        }
-        if (symbol.getType() == Symbol.Type.PAP && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.ROC){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.PAP);
-            grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.Type.NIL);
-        }
-        if (symbol.getType() == Symbol.Type.SCI && grid.getSymbol(symbol.getY() + checkY, symbol.getX() + checkX).getType() == Symbol.Type.PAP){
-            grid.setSymbolType(symbol.getY() + checkY, symbol.getX() + checkX, Symbol.Type.SCI);
-            grid.setSymbolState(y, x, Symbol.State.GONE);
-            grid.setSymbolType(y, x, Symbol.Type.NIL);
-        }
+    private void animSpawn() {
+        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float val = (Float) valueAnimator.getAnimatedValue();
+                radius *= val;
+            }
+        });
+        animator.setDuration(200);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
+        isSpawning = false;
     }
 
     private void init(GameBoard gameBoard, int y, int x, Context context) {
@@ -205,6 +194,9 @@ public class SymbolView extends View {
         this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
+        if (isSpawning) {
+            animSpawn();
+        }
     }
 
     private void makePaints(int y, int x, int size) {
@@ -264,11 +256,8 @@ public class SymbolView extends View {
     }
 
     private float scaleDistance(float distance) {
-        float scaleFactor = 0.010f;
+        float scaleFactor = 0.020f;
         float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
-        if(distance < 0)
-            return scrollBy;
-        else
-            return -scrollBy;
+        if(distance < 0) return scrollBy; else return -scrollBy;
     }
 }

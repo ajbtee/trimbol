@@ -11,12 +11,12 @@ import static com.detroitlabs.trimbol.objects.Symbol.Type.PAP;
 import static com.detroitlabs.trimbol.objects.Symbol.Type.ROC;
 import static com.detroitlabs.trimbol.objects.Symbol.Type.SCI;
 
-public class GridHandler {
+public class PuzzleGen {
 
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Generate new puzzle                                 │
     //  └─────────────────────────────────────────────────────┘
-    public static void initiatePuzzle(Grid grid) {
+    public static void generate(Grid grid) {
         boolean gridFull = false;
 
         // Create a random symbol in a random location

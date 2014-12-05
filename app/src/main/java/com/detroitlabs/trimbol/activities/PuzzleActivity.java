@@ -5,42 +5,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
-import com.detroitlabs.trimbol.views.PuzzleViewGroup;
+import com.detroitlabs.trimbol.views.SymbolLayout;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
 public class PuzzleActivity extends Activity implements GameBoard.RenderListener{
 
     GameBoard gameBoard;
+    TextView score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        //set content view AFTER ABOVE sequence (to avoid crash)
+        //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        //overridePendingTransition(0,0);
         this.setContentView(R.layout.activity_puzzle);
 
         newPuzzle();
 
         View backButton = findViewById(R.id.back);
+        score = (TextView) findViewById(R.id.score);
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gameBoard.rewind();
-                reRender(gameBoard.getGrid());
+                gameBoard.rewindGrid();
+                renderPuzzle(gameBoard.getGrid());
             }
         });
     }
@@ -53,17 +49,14 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     @Override
     public void onVictory() {
         gameBoard.difficulty++;
+        score.setText("Level " + GameBoard.difficulty);
+        Toast.makeText(this, "CLEAR", Toast.LENGTH_SHORT).show();
         newPuzzle();
     }
 
     @Override
-    public void reRender(Grid grid) {
-        //Toast.makeText(this, "RERENDER", Toast.LENGTH_SHORT).show();
-        renderPuzzle(gameBoard.getGrid());
-    }
-
-    private void renderPuzzle(Grid grid) {
-        PuzzleViewGroup viewGroup = (PuzzleViewGroup) findViewById(R.id.gameboard);
+    public void renderPuzzle(Grid grid) {
+        SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){

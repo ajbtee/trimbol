@@ -12,31 +12,29 @@ import com.detroitlabs.trimbol.objects.Grid;
 /**
  * Created by andrewjb on 11/26/14.
  */
-public class PuzzleViewGroup extends ViewGroup {
+public class SymbolLayout extends ViewGroup {
 
     private int screenWidth, screenHeight;
 
     private final Rect rect = new Rect();
 
-    public PuzzleViewGroup(Context context) {
+    public SymbolLayout(Context context) {
         super(context);
         init();
     }
 
-    public PuzzleViewGroup(Context context, AttributeSet attrs) {
+    public SymbolLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public PuzzleViewGroup(Context context, AttributeSet attrs, int defStyle) {
+    public SymbolLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
     private void init (){
         DisplayMetrics display = getContext().getResources().getDisplayMetrics();
-        setClipToPadding(false);
-        setClipChildren(false);
 
         screenWidth = display.widthPixels;
         screenHeight = display.heightPixels;
@@ -44,6 +42,8 @@ public class PuzzleViewGroup extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        setClipToPadding(false);
+        setClipChildren(false);
 
         final int cellWidth = getWidth() / Grid.gridX;
         final int cellHeight = getHeight() / Grid.gridX;

@@ -12,7 +12,7 @@ public class Grid{
 
     // grid size
     public static int gridX = 2;
-    public static int gridY = 2;
+    public static int gridY = 1;
     public Symbol[][] grid;
 
     //  ┌──────────────────────────────────────────┐
@@ -20,7 +20,7 @@ public class Grid{
     //  └──────────────────────────────────────────┘
 
     public Grid() {
-        setLevel(GameBoard.difficulty);
+        setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
                 Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST, y, x);
@@ -30,7 +30,7 @@ public class Grid{
     }
 
     public Grid(Grid grid) {
-        setLevel(GameBoard.difficulty);
+        setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
                 Symbol symbol = new Symbol(grid.grid[y][x]);
@@ -43,8 +43,8 @@ public class Grid{
     //  │ Rerender methods                         │
     //  └──────────────────────────────────────────┘
 
-    private void setLevel(int level) {
-        if (level == 0){
+    private void setGridSize(int level) {
+        if (level <= 0){
             this.gridY = 1;
             this.gridX = 2;
         }
@@ -64,16 +64,20 @@ public class Grid{
             this.gridY = 3;
             this.gridX = 3;
         }
-        if (level > 4){
+        if (level == 5) {
+            this.gridY = 4;
+            this.gridX = 3;
+        }
+        if (level > 5){
             if (level % 2 == 0) {
-                this.gridY = level - 2;
-                this.gridX = level - 2;
+                this.gridX += 1;
             }
             else {
-                this.gridY = level - 1;
-                this.gridX = level - 2;
+                this.gridY += 1;
             }
         }
+        if (gridX > 7) gridX = 7;
+        if (gridY > 9) gridY = 9;
         grid = new Symbol[gridY][gridX];
     }
 
