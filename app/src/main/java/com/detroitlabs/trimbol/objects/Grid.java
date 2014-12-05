@@ -68,16 +68,42 @@ public class Grid{
             this.gridY = 4;
             this.gridX = 3;
         }
-        if (level > 5){
-            if (level % 2 == 0) {
-                this.gridX += 1;
-            }
-            else {
-                this.gridY += 1;
-            }
+        if (level == 6) {
+            this.gridY = 4;
+            this.gridX = 4;
         }
-        if (gridX > 7) gridX = 7;
-        if (gridY > 9) gridY = 9;
+        if (level == 7) {
+            this.gridY = 5;
+            this.gridX = 4;
+        }
+        if (level == 8) {
+            this.gridY = 5;
+            this.gridX = 5;
+        }
+        if (level == 9) {
+            this.gridY = 6;
+            this.gridX = 5;
+        }
+        if (level == 10) {
+            this.gridY = 6;
+            this.gridX = 6;
+        }
+        if (level == 11) {
+            this.gridY = 7;
+            this.gridX = 6;
+        }
+        if (level == 12) {
+            this.gridY = 7;
+            this.gridX = 7;
+        }
+        if (level == 13) {
+            this.gridY = 8;
+            this.gridX = 7;
+        }
+        if (level >= 14) {
+            this.gridY = 9;
+            this.gridX = 7;
+        }
         grid = new Symbol[gridY][gridX];
     }
 

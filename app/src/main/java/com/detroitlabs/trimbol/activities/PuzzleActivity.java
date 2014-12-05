@@ -1,6 +1,7 @@
 package com.detroitlabs.trimbol.activities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
+import com.detroitlabs.trimbol.utils.ThemeGen;
 import com.detroitlabs.trimbol.views.SymbolLayout;
 import com.detroitlabs.trimbol.views.SymbolView;
 
@@ -24,8 +26,11 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-        //overridePendingTransition(0,0);
+        overridePendingTransition(0,0);
         this.setContentView(R.layout.activity_puzzle);
+
+        ThemeGen.makePaints(getBaseContext());
+        getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
 
         newPuzzle();
 

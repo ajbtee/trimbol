@@ -9,7 +9,7 @@ import java.util.Stack;
  */
 public class GameBoard {
 
-    public static int difficulty = 5;
+    public static int difficulty = 0;
 
     public interface RenderListener {
         public void onVictory();
@@ -85,6 +85,10 @@ public class GameBoard {
 
     private boolean outOfBounds(int y, int x, int checkY, int checkX) {
         return y + checkY <= -1 || y + checkY >= grid.gridY || x + checkX <= -1 || x + checkX >= grid.gridX;
+    }
+
+    public Stack<Grid> getGridHistory() {
+        return gridHistory;
     }
 
 }
