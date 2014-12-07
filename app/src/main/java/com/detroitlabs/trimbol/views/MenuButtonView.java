@@ -30,7 +30,7 @@ public class MenuButtonView extends TextView {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.makePaints(getContext());
-            ThemeGen.scaleBitmaps(getHeight());
+            ThemeGen.scaleBitmaps((int) (getHeight() * 1.27));
             text = (String) getText();
         }
         float halfWidth = getWidth()/2;

@@ -40,22 +40,5 @@
         android:layout_marginLeft="-15dp"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
-    <com.detroitlabs.trimbol.views.MenuButtonView
-        android:id="@+id/tutorial"
-        android:text="Tutorial"
-        android:textSize="0sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_width="200dp"
-        android:layout_height="60dp"/>
-    <com.detroitlabs.trimbol.views.MenuButtonView
-        android:id="@+id/options"
-        android:text="Options"
-        android:textSize="0sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="200dp"
-        android:layout_height="60dp"/>
 
 </LinearLayout>

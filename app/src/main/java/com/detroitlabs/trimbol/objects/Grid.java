@@ -85,16 +85,16 @@ public class Grid{
             this.gridX = 5;
         }
         if (level == 10) {
-            this.gridY = 6;
-            this.gridX = 6;
+            this.gridY = 7;
+            this.gridX = 5;
         }
         if (level == 11) {
             this.gridY = 7;
             this.gridX = 6;
         }
         if (level == 12) {
-            this.gridY = 7;
-            this.gridX = 7;
+            this.gridY = 8;
+            this.gridX = 6;
         }
         if (level == 13) {
             this.gridY = 8;
