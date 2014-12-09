@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.detroitlabs.trimbol.R;
-import com.detroitlabs.trimbol.utils.Settings;
 import com.detroitlabs.trimbol.utils.ThemeGen;
 
 
@@ -23,6 +23,8 @@ public class TitleActivity extends Activity {
 
         ThemeGen.makePaints(getBaseContext());
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
+        ImageView title = (ImageView) findViewById(R.id.trimbol_title);
+        ThemeGen.setTitle(title);
 
         View playButton = findViewById(R.id.play);
         playButton.setClickable(true);
@@ -38,30 +40,10 @@ public class TitleActivity extends Activity {
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                boolean changedTheme = false;
-                if (Settings.gameTheme == Settings.GameTheme.TRIMBOL && changedTheme == false) {
-                    Settings.gameTheme = Settings.GameTheme.CLASSIC;
-                    changedTheme = true;
-                }
-                if (Settings.gameTheme == Settings.GameTheme.CLASSIC && changedTheme == false) {
-                    Settings.gameTheme = Settings.GameTheme.LITERALLY;
-                    changedTheme = true;
-                }
-                if (Settings.gameTheme == Settings.GameTheme.LITERALLY && changedTheme == false) {
-                    Settings.gameTheme = Settings.GameTheme.TRIMBOL;
-                    changedTheme = true;
-                }
-
-                refreshActivity();
+                Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
+                startActivity(intent);
             }
         });
-    }
-
-    private void refreshActivity () {
-        //findViewById(R.id.rootView).invalidate();
-        finish();
-        startActivity(getIntent());
     }
 
     @Override

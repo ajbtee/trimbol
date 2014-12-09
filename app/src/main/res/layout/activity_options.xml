@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="50dp">
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/logo"
             android:paddingLeft="40dp"
             android:paddingRight="10dp"
             android:layout_width="wrap_content"
@@ -24,6 +24,7 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_launcher"/>
         <ImageView
+            android:id="@+id/trimbol_title"
             android:paddingRight="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,13 +32,51 @@
             android:src="@drawable/title"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/theme_text"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:text="THEME"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:id="@+id/currentTheme"
+                android:text="TRIMBOL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_alignLeft="@id/theme_text"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/forward"
+            android:layout_alignRight="@id/theme_text"
+            android:src="@drawable/forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
     <com.detroitlabs.trimbol.views.MenuButtonView
-        android:id="@+id/play"
-        android:text="Play"
+        android:id="@+id/options"
+        android:text="Done"
         android:textSize="0sp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="100dp"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
 
