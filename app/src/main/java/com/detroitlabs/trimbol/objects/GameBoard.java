@@ -10,6 +10,7 @@ import java.util.Stack;
 public class GameBoard {
 
     public static int difficulty = 0;
+    public static int tutorial = 0;
 
     public interface RenderListener {
         public void onVictory();
@@ -28,6 +29,15 @@ public class GameBoard {
 
     public void rewindGrid() {
         if (gridHistory.size() > 0) {
+            grid = gridHistory.pop();
+        }
+    }
+
+    public void resetGrid() {
+        if (gridHistory.size() > 0) {
+            for(int i = gridHistory.size(); i > 1; i--){
+                gridHistory.pop();
+            }
             grid = gridHistory.pop();
         }
     }

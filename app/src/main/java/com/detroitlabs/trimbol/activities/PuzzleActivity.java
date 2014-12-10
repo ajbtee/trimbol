@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
@@ -21,6 +20,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     GameBoard gameBoard;
     TextView score;
+    View backButton;
+    View resetButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +34,24 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
 
         newPuzzle();
-
-        View backButton = findViewById(R.id.back);
         score = (TextView) findViewById(R.id.score);
+
+        backButton = findViewById(R.id.back);
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gameBoard.rewindGrid();
+                renderPuzzle(gameBoard.getGrid());
+            }
+        });
+
+        resetButton = findViewById(R.id.reset);
+        resetButton.setClickable(true);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameBoard.resetGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
         });
@@ -55,7 +66,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     public void onVictory() {
         gameBoard.difficulty++;
         score.setText("Level " + GameBoard.difficulty);
-        Toast.makeText(this, "CLEAR", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "CLEAR", Toast.LENGTH_SHORT).show();
         newPuzzle();
     }
 

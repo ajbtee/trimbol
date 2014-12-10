@@ -58,7 +58,7 @@ public class TitleActivity extends Activity {
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PuzzleActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
                 startActivity(intent);
             }
         });
@@ -88,7 +88,7 @@ public class TitleActivity extends Activity {
                 playButton.setLayoutParams(playParams);
             }
         });
-        animatorPlay.setDuration(200);
+        animatorPlay.setDuration(300);
         animatorPlay.setInterpolator(new DecelerateInterpolator());
         animatorPlay.start();
 
@@ -101,7 +101,7 @@ public class TitleActivity extends Activity {
                 tutorialButton.setLayoutParams(tutorialParams);
             }
         });
-        animatorTutorial.setDuration(300);
+        animatorTutorial.setDuration(400);
         animatorTutorial.setInterpolator(new DecelerateInterpolator());
         animatorTutorial.start();
 
@@ -114,7 +114,7 @@ public class TitleActivity extends Activity {
                 optionsButton.setLayoutParams(optionsParams);
             }
         });
-        animatorOptions.setDuration(400);
+        animatorOptions.setDuration(500);
         animatorOptions.setInterpolator(new DecelerateInterpolator());
         animatorOptions.start();
     }

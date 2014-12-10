@@ -3,6 +3,7 @@ package com.detroitlabs.trimbol.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,13 @@ import com.detroitlabs.trimbol.R;
  */
 public class ThemeGen {
 
-    public static Paint menuText = new Paint();
+    public static Paint buttonText = new Paint();
     public static String background = new String();
     public static boolean isDark = false;
+
+    public static Color RocCircle = new Color();
+    public static Color PapCircle = new Color();
+    public static Color SciCircle = new Color();
 
     public static Paint themeRocCircle = new Paint();
     public static Paint themePapCircle = new Paint();
@@ -30,9 +35,9 @@ public class ThemeGen {
     public static Bitmap themeSciIcon;
 
     public static void makePaints(Context context) {
-        menuText.setARGB(160, 255, 255, 255);
-        menuText.setAntiAlias(true);
-        menuText.setStyle(Paint.Style.FILL);
+        buttonText.setARGB(160, 255, 255, 255);
+        buttonText.setAntiAlias(true);
+        buttonText.setStyle(Paint.Style.FILL);
 
         if (Settings.gameTheme == Settings.GameTheme.TRIMBOL) {
             background = "#ebebeb";
@@ -106,7 +111,7 @@ public class ThemeGen {
 
     public static void scaleBitmaps(int size) {
         int iconSize = (int) (size * .38); //.38 of canvas size
-        menuText.setTextSize((float) (size * .32));
+        buttonText.setTextSize((float) (size * .32));
         themeRocIcon = Bitmap.createScaledBitmap(themeRocIcon, iconSize, iconSize, true);
         themePapIcon = Bitmap.createScaledBitmap(themePapIcon, iconSize, iconSize, true);
         themeSciIcon = Bitmap.createScaledBitmap(themeSciIcon, iconSize, iconSize, true);
@@ -122,22 +127,6 @@ public class ThemeGen {
             } else {
                 childView.invalidate();
             }
-        }
-    }
-
-    public static void themePick() {
-        boolean changedTheme = false;
-        if (Settings.gameTheme == Settings.GameTheme.CLASSIC && changedTheme == false) {
-            Settings.gameTheme = Settings.GameTheme.TRIMBOL;
-            changedTheme = true;
-        }
-        if (Settings.gameTheme == Settings.GameTheme.LITERALLY && changedTheme == false) {
-            Settings.gameTheme = Settings.GameTheme.CLASSIC;
-            changedTheme = true;
-        }
-        if (Settings.gameTheme == Settings.GameTheme.TRIMBOL && changedTheme == false) {
-            Settings.gameTheme = Settings.GameTheme.LITERALLY;
-            changedTheme = true;
         }
     }
 
