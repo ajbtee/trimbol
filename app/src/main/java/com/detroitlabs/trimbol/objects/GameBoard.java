@@ -15,6 +15,7 @@ public class GameBoard {
     public interface RenderListener {
         public void onVictory();
         public void renderPuzzle(Grid grid);
+        public void onHistory();
     }
 
     private final Stack<Grid> gridHistory = new Stack<Grid>();
@@ -54,6 +55,7 @@ public class GameBoard {
 
     public void addHistory() {
         gridHistory.push(new Grid(grid));
+        renderListener.onHistory();
     }
 
     public Grid getGrid() {

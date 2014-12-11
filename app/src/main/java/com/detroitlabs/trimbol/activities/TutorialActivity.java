@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.detroitlabs.trimbol.R;
@@ -19,6 +20,7 @@ import com.detroitlabs.trimbol.views.SymbolView;
 public class TutorialActivity extends Activity implements GameBoard.RenderListener{
 
     GameBoard gameBoard;
+    View backButton;
     TextView symbol1;
     TextView symbol2;
     TextView takes;
@@ -39,6 +41,16 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
         takes = (TextView) findViewById(R.id.tut_takes);
         description1 = (TextView) findViewById(R.id.description1);
         description2 = (TextView) findViewById(R.id.description2);
+
+        backButton = findViewById(R.id.back);
+        backButton.setClickable(true);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameBoard.rewindGrid();
+                renderPuzzle(gameBoard.getGrid());
+            }
+        });
 
         ThemeGen.makePaints(getBaseContext());
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
@@ -93,7 +105,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 symbol2.setText("");
                 takes.setText("THREE SYMBOLS");
                 description1.setText("Use each symbol to take the others.");
-                description2.setText("");
+                description2.setText("A symbol can only take an adjacent piece.");
                 gameBoard.getGrid().setSymbolType(0,0, Symbol.Type.ROC);
                 gameBoard.getGrid().setSymbolType(0,1, Symbol.Type.PAP);
                 gameBoard.getGrid().setSymbolType(0,2, Symbol.Type.SCI);
@@ -112,6 +124,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 gameBoard.getGrid().setSymbolType(1,1, Symbol.Type.ROC);
                 break;
             case 5:
+                GameBoard.difficulty = 0;
                 Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
                 startActivity(intent);
                 break;
@@ -137,6 +150,11 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 viewGroup.addView(symbolView);
             }
         }
+    }
+
+    @Override
+    public void onHistory() {
+
     }
 
     @Override

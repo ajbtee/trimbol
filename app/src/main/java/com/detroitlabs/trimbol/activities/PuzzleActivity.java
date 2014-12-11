@@ -84,6 +84,11 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     }
 
     @Override
+    public void onHistory() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.puzzle, menu);
         return true;
