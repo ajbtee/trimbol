@@ -15,8 +15,10 @@ public class Settings {
     }
     public static enum GameTheme {
         TRIMBOL,
+        DARK,
         CLASSIC,
-        LITERALLY
+        LITERALLY,
+        SMORES
     }
     private int themes;
 
@@ -36,11 +38,17 @@ public class Settings {
             case TRIMBOL:
                 theme.setText("TRIMBOL");
                 break;
+            case DARK:
+                theme.setText("DARK");
+                break;
             case CLASSIC:
                 theme.setText("CLASSIC");
                 break;
             case LITERALLY:
                 theme.setText("LITERALLY");
+                break;
+            case SMORES:
+                theme.setText("SMORES");
                 break;
         }
     }

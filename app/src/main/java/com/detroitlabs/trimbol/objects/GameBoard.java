@@ -10,10 +10,10 @@ import java.util.Stack;
 public class GameBoard {
 
     public static int difficulty = 0;
-    public static int tutorial = 0;
 
     public interface RenderListener {
         public void onVictory();
+        public void onSound();
         public void renderPuzzle(Grid grid);
         public void onHistory();
     }
@@ -49,8 +49,10 @@ public class GameBoard {
             for (int y = 0; y < grid.getGridY(); y++)
                 if (grid.grid[y][x].getState() != Symbol.State.GONE) uno++;
         }
-        if (uno == 1)
+        if (uno == 1) {
+//            renderListener.onSound();
             renderListener.onVictory();
+        }
     }
 
     public void addHistory() {

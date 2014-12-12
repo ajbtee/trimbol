@@ -44,7 +44,7 @@
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@drawable/reset"/>
             <TextView
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
@@ -60,7 +60,7 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/back"/>
+                android:src="@drawable/undo"/>
             <TextView
                 android:layout_gravity="right"
                 android:layout_marginTop="5dp"

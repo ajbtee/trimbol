@@ -44,6 +44,7 @@ public class Grid{
     //  └──────────────────────────────────────────┘
 
     private void setGridSize(int level) {
+
         if (level <= 0){
             this.gridY = 1;
             this.gridX = 2;

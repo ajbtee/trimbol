@@ -12,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.detroitlabs.trimbol.R;
+import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.utils.Settings;
 import com.detroitlabs.trimbol.utils.ThemeGen;
 
-public class OptionsActivity extends Activity {
+public class OptionsActivity extends Activity{
+
+    ImageView title;
+    GameBoard gameBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class OptionsActivity extends Activity {
         Settings.useTheme(currentTheme);
         ThemeGen.makePaints(getBaseContext());
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
-        ImageView title = (ImageView) findViewById(R.id.trimbol_title);
+        title = (ImageView) findViewById(R.id.trimbol_title);
         ThemeGen.setTitle(title);
 
         final View forwardButton = findViewById(R.id.forward);
@@ -38,8 +42,11 @@ public class OptionsActivity extends Activity {
 
                 Settings.selectedTheme++;
                 Settings.useTheme(currentTheme);
+                ThemeGen.makePaints(getBaseContext());
                 ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
+                getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
+                ThemeGen.setTitle(title);
             }
         });
 
@@ -51,8 +58,11 @@ public class OptionsActivity extends Activity {
 
                 Settings.selectedTheme--;
                 Settings.useTheme(currentTheme);
+                ThemeGen.makePaints(getBaseContext());
                 ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
+                getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
+                ThemeGen.setTitle(title);
             }
         });
 

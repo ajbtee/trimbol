@@ -20,9 +20,13 @@ public class ThemeGen {
     public static String background = new String();
     public static boolean isDark = false;
 
-    public static Color RocCircle = new Color();
-    public static Color PapCircle = new Color();
-    public static Color SciCircle = new Color();
+    public static int rocCircle;
+    public static int papCircle;
+    public static int sciCircle;
+
+    public static String rocName;
+    public static String papName;
+    public static String sciName;
 
     public static Paint themeRocCircle = new Paint();
     public static Paint themePapCircle = new Paint();
@@ -41,69 +45,99 @@ public class ThemeGen {
 
         if (Settings.gameTheme == Settings.GameTheme.TRIMBOL) {
             background = "#ebebeb";
-
-            themeRocCircle.setARGB(255, 108, 155, 69);
-            themePapCircle.setARGB(255, 3, 145, 207);
-            themeSciCircle.setARGB(255, 248, 152, 71);
-
-            themeRocSelected.setARGB(255, 66, 95, 42);
-            themePapSelected.setARGB(255, 2, 89, 127);
-            themeSciSelected.setARGB(255, 152, 95, 46);
-
             isDark = false;
+            rocCircle = Color.parseColor("#6c9b45");
+            papCircle = Color.parseColor("#0091cf");
+            sciCircle = Color.parseColor("#f8923e");
+
+            rocName = "ROCK";
+            papName = "PAPER";
+            sciName = "SCISSORS";
+
+            themeRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc);
+            themePapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap);
+            themeSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci);
+        }
+        if (Settings.gameTheme == Settings.GameTheme.DARK) {
+            background = "#393939";
+            isDark = true;
+            rocCircle = Color.parseColor("#6c9b45");
+            papCircle = Color.parseColor("#0091cf");
+            sciCircle = Color.parseColor("#f8923e");
+
+            rocName = "ROCK";
+            papName = "PAPER";
+            sciName = "SCISSORS";
+
             themeRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc);
             themePapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap);
             themeSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci);
         }
         if (Settings.gameTheme == Settings.GameTheme.CLASSIC) {
-            background = "#d5e0dc";
-
-            themeRocCircle.setARGB(255, 132, 155, 69);
-            themePapCircle.setARGB(255, 3, 202, 207);
-            themeSciCircle.setARGB(255, 248, 93, 63);
-
-            themeRocSelected.setARGB(255, 81, 95, 42);
-            themePapSelected.setARGB(255, 2, 124, 127);
-            themeSciSelected.setARGB(255, 152, 65, 46);
-
+            background = "#ebebeb";
             isDark = false;
+            rocCircle = Color.parseColor("#849b45");
+            papCircle = Color.parseColor("#03cacf");
+            sciCircle = Color.parseColor("#f85d3f");
+
+            rocName = "ROCK";
+            papName = "PAPER";
+            sciName = "SCISSORS";
+
             themeRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc_classic);
             themePapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap_classic);
             themeSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci_classic);
         }
         if (Settings.gameTheme == Settings.GameTheme.LITERALLY) {
             background = "#393939";
-
-            themeRocCircle.setARGB(255, 125, 126, 97);
-            themePapCircle.setARGB(255, 163, 163, 150);
-            themeSciCircle.setARGB(255, 141, 160, 186);
-
-            themeRocSelected.setARGB(255, 76, 77, 59);
-            themePapSelected.setARGB(255, 127, 128, 121);
-            themeSciSelected.setARGB(255, 86, 98, 114);
-
             isDark = true;
+            rocCircle = Color.parseColor("#7d7e61");
+            papCircle = Color.parseColor("#a3a396");
+            sciCircle = Color.parseColor("#649eb7");
+
+            rocName = "STONE";
+            papName = "PARCHMENT";
+            sciName = "SHEARS";
+
             themeRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc_literally);
             themePapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap_literally);
             themeSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci_literally);
         }
+        if (Settings.gameTheme == Settings.GameTheme.SMORES) {
+            background = "#36302d";
+            isDark = true;
+            rocCircle = Color.parseColor("#419a9e");
+            papCircle = Color.parseColor("#586688");
+            sciCircle = Color.parseColor("#a03325");
+
+            rocName = "MALLOW";
+            papName = "GRAHAM";
+            sciName = "CHOCOLATE";
+
+            themeRocIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.roc_smore);
+            themePapIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.pap_smore);
+            themeSciIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.sci_smore);
+        }
+
+        themeRocCircle.setARGB(255, Color.red(rocCircle), Color.green(rocCircle), Color.blue(rocCircle));
+        themePapCircle.setARGB(255, Color.red(papCircle), Color.green(papCircle), Color.blue(papCircle));
+        themeSciCircle.setARGB(255, Color.red(sciCircle), Color.green(sciCircle), Color.blue(sciCircle));
         themeRocCircle.setAntiAlias(true);
         themeRocCircle.setStyle(Paint.Style.FILL);
-
         themePapCircle.setAntiAlias(true);
         themePapCircle.setStyle(Paint.Style.FILL);
-
         themeSciCircle.setAntiAlias(true);
         themeSciCircle.setStyle(Paint.Style.FILL);
 
+        themeRocSelected.setARGB(255, Math.abs(Color.red(rocCircle)-40), Math.abs(Color.green(rocCircle)-40), Math.abs(Color.blue(rocCircle)-40));
+        themePapSelected.setARGB(255, Math.abs(Color.red(papCircle)-40), Math.abs(Color.green(papCircle)-40), Math.abs(Color.blue(papCircle)-40));
+        themeSciSelected.setARGB(255, Math.abs(Color.red(sciCircle)-40), Math.abs(Color.green(sciCircle)-40), Math.abs(Color.blue(sciCircle)-40));
         themeRocSelected.setStrokeWidth(6);
         themeRocSelected.setAntiAlias(true);
         themeRocSelected.setStyle(Paint.Style.STROKE);
-
         themePapSelected.setStrokeWidth(6);
         themePapSelected.setAntiAlias(true);
         themePapSelected.setStyle(Paint.Style.STROKE);
-
         themeSciSelected.setStrokeWidth(6);
         themeSciSelected.setAntiAlias(true);
         themeSciSelected.setStyle(Paint.Style.STROKE);
