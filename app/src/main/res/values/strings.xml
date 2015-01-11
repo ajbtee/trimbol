@@ -7,5 +7,6 @@
     <string name="title_activity_title">TitleActivity</string>
     <string name="title_activity_options">OptionsActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
+    <string name="title_activity_play">PlayActivity</string>
 
 </resources>

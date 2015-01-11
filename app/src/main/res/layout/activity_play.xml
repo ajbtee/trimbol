@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.detroitlabs.trimbol.activities.TitleActivity">
+    tools:context="com.detroitlabs.trimbol.activities.PlayActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,30 +32,62 @@
             android:src="@drawable/title"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/theme_text"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:text="GAME MODE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:id="@+id/currentTheme"
+                android:text="ESCALATE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_alignLeft="@id/theme_text"
+            android:src="@drawable/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/forward"
+            android:layout_alignRight="@id/theme_text"
+            android:src="@drawable/forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
     <com.detroitlabs.trimbol.views.MenuButtonView
         android:id="@+id/play"
-        android:text="Play"
+        android:text="New Game"
         android:textSize="0sp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="-15dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="0dp"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
     <com.detroitlabs.trimbol.views.MenuButtonView
+        tools:visibility=""
         android:id="@+id/tutorial"
-        android:text="Tutorial"
+        android:text="Continue"
         android:textSize="0sp"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:layout_width="200dp"
-        android:layout_height="60dp"/>
-    <com.detroitlabs.trimbol.views.MenuButtonView
-        android:id="@+id/options"
-        android:text="Options"
-        android:textSize="0sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="0dp"
         android:layout_width="200dp"
         android:layout_height="60dp"/>
 

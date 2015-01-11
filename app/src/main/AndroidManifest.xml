@@ -30,6 +30,10 @@
             android:name=".activities.TutorialActivity"
             android:label="@string/title_activity_tutorial" >
         </activity>
+        <activity
+            android:name=".activities.PlayActivity"
+            android:label="@string/title_activity_play" >
+        </activity>
     </application>
 
 </manifest>

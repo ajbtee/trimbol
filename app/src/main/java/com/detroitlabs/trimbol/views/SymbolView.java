@@ -3,6 +3,8 @@ package com.detroitlabs.trimbol.views;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 public class SymbolView extends View {
 
     private final int MIN_DISTANCE = 25;
+    private final float CORNER_RADIUS = 0.37f; //.36
+    private final float SYMBOL_SIZE = 0.77f; //.77
     private float x1, y1, distanceX, distanceY;
     private int y, x;
     private boolean paintDone = false;
@@ -52,34 +56,43 @@ public class SymbolView extends View {
             animSpawn();
             paintDone = true;
         }
+
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
-        radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f;
-        //radius *= radiusScale;
+        radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
         if (isSelected)
             radius += 5;
 
+        // circles CORNER_RADIUS scale of symbol for square pieces.
+
+        Rect rect = new Rect((int)(halfWidth-radius),(int)(halfWidth-radius),(int)(halfWidth+radius),(int)(halfWidth+radius));
+        RectF rectF = new RectF(rect);
+
         if (symbol.getState() != Symbol.State.GONE) {
+
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
-                canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeRocCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f)
+                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
+                //canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeRocCircle);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth-(ThemeGen.themeRocIcon.getWidth()/2), halfHeight-(ThemeGen.themeRocIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeRocSelected);
+                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeRocSelected);
             }
+
             if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP) {
-                canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themePapCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f)
+                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themePapCircle);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth-(ThemeGen.themePapIcon.getWidth()/2), halfHeight-(ThemeGen.themePapIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themePapSelected);
+                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themePapSelected);
             }
+
             if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI) {
-                canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeSciCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * 0.77f)
+                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeSciSelected);
+                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeSciSelected);
             }
         }
 
