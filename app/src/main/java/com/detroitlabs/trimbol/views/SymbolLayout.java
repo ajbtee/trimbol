@@ -14,7 +14,7 @@ import com.detroitlabs.trimbol.objects.Grid;
  */
 public class SymbolLayout extends ViewGroup {
 
-    private int screenWidth, screenHeight;
+    private int screenWidth, screenHeight, cellWidth;
 
     public SymbolLayout(Context context) {
         super(context);
@@ -39,10 +39,19 @@ public class SymbolLayout extends ViewGroup {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        cellWidth = MeasureSpec.getSize(widthMeasureSpec) / Grid.gridX;
+
+        if (cellWidth * Grid.gridY > MeasureSpec.getSize(heightMeasureSpec)) {
+            cellWidth = MeasureSpec.getSize(heightMeasureSpec) / Grid.gridY;
+        }
+        setMeasuredDimension(cellWidth * Grid.gridX, cellWidth * Grid.gridY);
+    }
+
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 
-        final int cellWidth = getWidth() / Grid.gridX;
-        final int cellHeight = getHeight() / Grid.gridX;
         int row = -1;
 
         for (int column = 0; column < getChildCount(); column++){

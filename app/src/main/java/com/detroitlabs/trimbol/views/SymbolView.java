@@ -18,7 +18,7 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 
 public class SymbolView extends View {
 
-    private final int MIN_DISTANCE = 60;
+    private final int MIN_DISTANCE = 50;
     private final float CORNER_RADIUS = 0.37f; //.36
     private final float SYMBOL_SIZE = 0.77f; //.77
     private float x1, y1, distanceX, distanceY;

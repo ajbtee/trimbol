@@ -23,7 +23,7 @@ public class Settings {
     private int themes;
 
     // Default settings
-    public static GameTheme gameTheme = GameTheme.TRIMBOL;
+    public static GameTheme gameTheme = GameTheme.CLASSIC;
     public static GameMode gameMode = GameMode.ESCALATE;
     public static int selectedTheme = 0;
     public static boolean gameSound = true;
