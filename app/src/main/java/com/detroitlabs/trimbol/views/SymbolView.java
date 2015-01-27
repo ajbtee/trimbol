@@ -18,7 +18,7 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 
 public class SymbolView extends View {
 
-    private final int MIN_DISTANCE = 25;
+    private final int MIN_DISTANCE = 60;
     private final float CORNER_RADIUS = 0.37f; //.36
     private final float SYMBOL_SIZE = 0.77f; //.77
     private float x1, y1, distanceX, distanceY;
@@ -208,7 +208,7 @@ public class SymbolView extends View {
     }
 
     private float scaleDistance(float distance) {
-        float scaleFactor = 0.010f;
+        float scaleFactor = 0.007f;
         float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
         if(distance < 0) return scrollBy; else return -scrollBy;
     }

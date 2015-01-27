@@ -40,8 +40,6 @@ public class SymbolLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        setClipToPadding(false);
-        setClipChildren(false);
 
         final int cellWidth = getWidth() / Grid.gridX;
         final int cellHeight = getHeight() / Grid.gridX;
