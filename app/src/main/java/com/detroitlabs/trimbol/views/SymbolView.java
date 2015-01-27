@@ -116,6 +116,7 @@ public class SymbolView extends View {
                 isSelected = true;
                 y1 = event.getY();
                 x1 = event.getX();
+                bringToFront();
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -207,7 +208,7 @@ public class SymbolView extends View {
     }
 
     private float scaleDistance(float distance) {
-        float scaleFactor = 0.020f;
+        float scaleFactor = 0.010f;
         float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
         if(distance < 0) return scrollBy; else return -scrollBy;
     }

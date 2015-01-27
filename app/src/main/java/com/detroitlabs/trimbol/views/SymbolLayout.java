@@ -16,8 +16,6 @@ public class SymbolLayout extends ViewGroup {
 
     private int screenWidth, screenHeight;
 
-    private final Rect rect = new Rect();
-
     public SymbolLayout(Context context) {
         super(context);
         init();
@@ -52,14 +50,23 @@ public class SymbolLayout extends ViewGroup {
         for (int column = 0; column < getChildCount(); column++){
             View childView = getChildAt(column);
 
-            rect.left = (column % Grid.gridX) * cellWidth;
-            rect.right = rect.left+cellWidth;
+            Rect rect;
 
-            if (column % Grid.gridX == 0)
-                row++;
-            rect.top = row*cellWidth;
-            rect.bottom = rect.top+cellWidth;
+            if (childView.getTag() == null) {
+                rect = new Rect();
 
+                rect.left = (column % Grid.gridX) * cellWidth;
+                rect.right = rect.left + cellWidth;
+
+                if (column % Grid.gridX == 0)
+                    row++;
+                rect.top = row * cellWidth;
+                rect.bottom = rect.top + cellWidth;
+
+                childView.setTag(rect);
+            } else {
+                rect = (Rect) childView.getTag();
+            }
 
             childView.layout(rect.left, rect.top, rect.right, rect.bottom);
         }
