@@ -18,6 +18,13 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 
 public class SymbolView extends View {
 
+    //add public variables that store this symbol's coordinates in the layout
+    //use the coord to animate during a move
+
+    //create animation handler class that takes and restores control to the user
+
+    //add gray backgrounds behind the symbols
+
     private final int MIN_DISTANCE = 50;
     private final float CORNER_RADIUS = 0.37f; //.36
     private final float SYMBOL_SIZE = 0.77f; //.77
@@ -60,7 +67,7 @@ public class SymbolView extends View {
         float halfHeight = getHeight()/2;
         radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
         if (isSelected)
-            radius += 5;
+            radius += 7;
 
         // circles CORNER_RADIUS scale of symbol for square pieces.
 
@@ -70,28 +77,28 @@ public class SymbolView extends View {
         if (symbol.getState() != Symbol.State.GONE) {
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
-                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
+                canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
                 //canvas.drawCircle(halfWidth, halfHeight, radius, ThemeGen.themeRocCircle);
                 if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth-(ThemeGen.themeRocIcon.getWidth()/2), halfHeight-(ThemeGen.themeRocIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeRocSelected);
+                    canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocSelected);
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP) {
-                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themePapCircle);
+                canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapCircle);
                 if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth-(ThemeGen.themePapIcon.getWidth()/2), halfHeight-(ThemeGen.themePapIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themePapSelected);
+                    canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapSelected);
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI) {
-                canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
+                canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
                 if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
                     canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2), null);
                 if (isSelected)
-                    canvas.drawRoundRect(rectF, (float)(radius*CORNER_RADIUS), (float)(radius*CORNER_RADIUS), ThemeGen.themeSciSelected);
+                    canvas.drawRoundRect(rectF, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciSelected);
             }
         }
 

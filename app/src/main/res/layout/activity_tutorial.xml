@@ -1,44 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".PuzzleActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main_layout"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:orientation="vertical"
+android:clipChildren="false"
+android:clipToPadding="false"
+tools:context=".PuzzleActivity">
 
+    <LinearLayout
+        android:id="@+id/score"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_marginTop="22dp"
         android:layout_gravity="center"
+
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tut_symbol1"
-        android:textStyle="bold"
-        android:textColor="#6c9b45"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" SYMBOL1 " />
-    <TextView
-        android:id="@+id/tut_takes"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" takes " />
-    <TextView
-        android:id="@+id/tut_symbol2"
-        android:textStyle="bold"
-        android:textColor="#f8923e"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" SYMBOL2 " />
+        <TextView
+            android:id="@+id/tut_symbol1"
+            android:textStyle="bold"
+            android:textColor="#6c9b45"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" SYMBOL1 " />
+        <TextView
+            android:id="@+id/tut_takes"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" takes " />
+        <TextView
+            android:id="@+id/tut_symbol2"
+            android:textStyle="bold"
+            android:textColor="#f8923e"
+            android:textSize="22sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" SYMBOL2 " />
     </LinearLayout>
     <TextView
         android:id="@+id/description1"
@@ -56,19 +66,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="lipsum" />
+    </LinearLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/score"
+    android:layout_above="@+id/historyControls"
+    android:gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false">
     <com.detroitlabs.trimbol.views.SymbolLayout
         android:id="@+id/gameboard"
         android:layout_marginRight="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginBottom="80dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+</LinearLayout>
 
+<LinearLayout
+    android:id="@+id/historyControls"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_marginTop="-80dp"
-        android:layout_gravity="center"
+        android:layout_marginRight="90dp"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/reset"/>
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="RESET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -84,5 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 </LinearLayout>
+
+</RelativeLayout>
+
