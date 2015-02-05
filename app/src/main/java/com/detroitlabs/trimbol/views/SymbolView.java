@@ -67,7 +67,7 @@ public class SymbolView extends View {
         float halfHeight = getHeight()/2;
         radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
         if (isSelected)
-            radius += 7;
+            radius += 5;
 
         // circles CORNER_RADIUS scale of symbol for square pieces.
 
