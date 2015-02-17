@@ -61,6 +61,7 @@ public class SymbolView extends View {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.scaleBitmaps(canvas.getWidth());
+            grid.setSymbolCoord(y,x,yCoord,xCoord);
             paintDone = true;
         }
 
@@ -230,7 +231,6 @@ public class SymbolView extends View {
         this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
-        grid.setSymbolCoord(y,x,yCoord,xCoord);
         ThemeGen.makePaints(context);
     }
 

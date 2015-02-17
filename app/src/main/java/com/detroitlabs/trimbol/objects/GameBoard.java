@@ -9,7 +9,7 @@ import java.util.Stack;
  */
 public class GameBoard {
 
-    public static int difficulty = 2;
+    public static int difficulty = 8;
 
     public interface RenderListener {
         public void onVictory();
