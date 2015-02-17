@@ -25,6 +25,8 @@ public class SymbolView extends View {
 
     //add gray backgrounds behind the symbols
 
+    public int xCoord, yCoord;
+
     private final int MIN_DISTANCE = 50;
     private final float CORNER_RADIUS = 0.37f; //.36
     private final float SYMBOL_SIZE = 0.77f; //.77
@@ -32,8 +34,7 @@ public class SymbolView extends View {
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
-    private float radius;
-    private float radiusScale;
+    private float radius, radiusScale;
 
     private Context context;
     private Grid grid;
@@ -160,6 +161,7 @@ public class SymbolView extends View {
         }
     }
 
+    // On release, snap the symbol back to its original location
     private ValueAnimator animSnapBack() {
         ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -175,6 +177,23 @@ public class SymbolView extends View {
         return animator;
     }
 
+    // On valid threshold, snap the symbol to its new location
+    private ValueAnimator animSnapTo() {
+        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float val = (Float) valueAnimator.getAnimatedValue();
+                distanceX = val*distanceX;
+                distanceY = val*distanceY;
+                setTranslationX(scaleDistance(distanceX));
+                setTranslationY(scaleDistance(distanceY));
+            }
+        });
+        return animator;
+    }
+
+    // On spawn, scale the symbol from zero to full size
     private void animSpawn() {
         ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -189,6 +208,7 @@ public class SymbolView extends View {
         animator.start();
     }
 
+    // On despawn, scale the symbol from full size to zero
     private void animDespawn() {
         ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -210,6 +230,7 @@ public class SymbolView extends View {
         this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
         this.context = context;
+        grid.setSymbolCoord(y,x,yCoord,xCoord);
         ThemeGen.makePaints(context);
     }
 

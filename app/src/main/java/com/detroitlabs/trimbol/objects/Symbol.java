@@ -23,6 +23,7 @@ public class Symbol{
     Type type;
     int posX;
     int posY;
+    public int xCoord, yCoord;
 
     public Symbol(Type symbol, State state, int posY, int posX) {
         this.type = symbol;

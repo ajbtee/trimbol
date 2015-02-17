@@ -58,8 +58,6 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
                 renderPuzzle(gameBoard.getGrid());
             }
         });
-
-
     }
 
     private void newPuzzle() {

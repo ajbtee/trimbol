@@ -132,6 +132,11 @@ public class Grid{
         grid[y][x].state = state;
     }
 
+    public void setSymbolCoord(int y, int x, int yCoord, int xCoord) {
+        grid[y][x].yCoord = yCoord;
+        grid[y][x].xCoord = xCoord;
+    }
+
     public void setGrid(Symbol[][] grid) {
         this.grid = grid;
     }

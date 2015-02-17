@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.detroitlabs.trimbol.objects.Grid;
@@ -55,7 +54,7 @@ public class SymbolLayout extends ViewGroup {
         int row = -1;
 
         for (int column = 0; column < getChildCount(); column++){
-            View childView = getChildAt(column);
+            SymbolView childView = (SymbolView) getChildAt(column);
 
             Rect rect;
 
@@ -75,6 +74,8 @@ public class SymbolLayout extends ViewGroup {
                 rect = (Rect) childView.getTag();
             }
 
+            childView.xCoord = rect.left + (cellWidth/2);
+            childView.yCoord = rect.top  + (cellWidth/2);
             childView.layout(rect.left, rect.top, rect.right, rect.bottom);
         }
     }
