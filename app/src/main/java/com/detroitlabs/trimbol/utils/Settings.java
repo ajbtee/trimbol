@@ -25,7 +25,7 @@ public class Settings {
     // Default settings
     public static GameTheme gameTheme = GameTheme.CLASSIC;
     public static GameMode gameMode = GameMode.ESCALATE;
-    public static int selectedTheme = 0;
+    public static int selectedTheme = 2;
     public static boolean gameSound = true;
 
     public static void useTheme(TextView theme) {

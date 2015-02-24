@@ -88,7 +88,7 @@ public class TitleActivity extends Activity {
                 playButton.setLayoutParams(playParams);
             }
         });
-        animatorPlay.setDuration(300);
+        animatorPlay.setDuration(400);
         animatorPlay.setInterpolator(new DecelerateInterpolator());
         animatorPlay.start();
 
@@ -101,7 +101,7 @@ public class TitleActivity extends Activity {
                 tutorialButton.setLayoutParams(tutorialParams);
             }
         });
-        animatorTutorial.setDuration(400);
+        animatorTutorial.setDuration(700);
         animatorTutorial.setInterpolator(new DecelerateInterpolator());
         animatorTutorial.start();
 
@@ -114,7 +114,7 @@ public class TitleActivity extends Activity {
                 optionsButton.setLayoutParams(optionsParams);
             }
         });
-        animatorOptions.setDuration(500);
+        animatorOptions.setDuration(1000);
         animatorOptions.setInterpolator(new DecelerateInterpolator());
         animatorOptions.start();
     }

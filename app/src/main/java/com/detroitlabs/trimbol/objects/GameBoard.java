@@ -9,7 +9,7 @@ import java.util.Stack;
  */
 public class GameBoard {
 
-    public static int difficulty = 8;
+    public static int difficulty = 0;
 
     public interface RenderListener {
         public void onVictory();
@@ -50,7 +50,10 @@ public class GameBoard {
                 if (grid.grid[y][x].getState() != Symbol.State.GONE) uno++;
         }
         if (uno == 1) {
-//            renderListener.onSound();
+            for (int x = 0; x < grid.getGridX(); x++){
+                for (int y = 0; y < grid.getGridY(); y++)
+                    grid.grid[y][x].state = Symbol.State.GONE;
+            }
             renderListener.onVictory();
         }
     }

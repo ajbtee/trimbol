@@ -34,6 +34,9 @@ public class ThemeGen {
     public static Paint themeRocSelected = new Paint();
     public static Paint themePapSelected = new Paint();
     public static Paint themeSciSelected = new Paint();
+    public static Paint themeRocDepth = new Paint();
+    public static Paint themePapDepth = new Paint();
+    public static Paint themeSciDepth = new Paint();
     public static Bitmap themeRocIcon;
     public static Bitmap themePapIcon;
     public static Bitmap themeSciIcon;
@@ -129,16 +132,26 @@ public class ThemeGen {
         themeSciCircle.setAntiAlias(true);
         themeSciCircle.setStyle(Paint.Style.FILL);
 
+        themeRocDepth.setARGB(255, Math.abs(Color.red(rocCircle)-40), Math.abs(Color.green(rocCircle)-40), Math.abs(Color.blue(rocCircle)-40));
+        themePapDepth.setARGB(255, Math.abs(Color.red(papCircle)-40), Math.abs(Color.green(papCircle)-40), Math.abs(Color.blue(papCircle)-40));
+        themeSciDepth.setARGB(255, Math.abs(Color.red(sciCircle)-40), Math.abs(Color.green(sciCircle)-40), Math.abs(Color.blue(sciCircle)-40));
+        themeRocDepth.setAntiAlias(true);
+        themeRocDepth.setStyle(Paint.Style.FILL);
+        themePapDepth.setAntiAlias(true);
+        themePapDepth.setStyle(Paint.Style.FILL);
+        themeSciDepth.setAntiAlias(true);
+        themeSciDepth.setStyle(Paint.Style.FILL);
+
         themeRocSelected.setARGB(255, Math.abs(Color.red(rocCircle)-40), Math.abs(Color.green(rocCircle)-40), Math.abs(Color.blue(rocCircle)-40));
         themePapSelected.setARGB(255, Math.abs(Color.red(papCircle)-40), Math.abs(Color.green(papCircle)-40), Math.abs(Color.blue(papCircle)-40));
         themeSciSelected.setARGB(255, Math.abs(Color.red(sciCircle)-40), Math.abs(Color.green(sciCircle)-40), Math.abs(Color.blue(sciCircle)-40));
-        themeRocSelected.setStrokeWidth(6);
+        themeRocSelected.setStrokeWidth(5);
         themeRocSelected.setAntiAlias(true);
         themeRocSelected.setStyle(Paint.Style.STROKE);
-        themePapSelected.setStrokeWidth(6);
+        themePapSelected.setStrokeWidth(5);
         themePapSelected.setAntiAlias(true);
         themePapSelected.setStyle(Paint.Style.STROKE);
-        themeSciSelected.setStrokeWidth(6);
+        themeSciSelected.setStrokeWidth(5);
         themeSciSelected.setAntiAlias(true);
         themeSciSelected.setStyle(Paint.Style.STROKE);
     }

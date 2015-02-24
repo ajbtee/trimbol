@@ -49,59 +49,59 @@ public class Grid{
             this.gridY = 1;
             this.gridX = 2;
         }
-        if (level == 1) {
+        if (level >= 1) {
             this.gridY = 1;
             this.gridX = 3;
         }
-        if (level == 2) {
+        if (level >= 2) {
             this.gridY = 2;
             this.gridX = 2;
         }
-        if (level == 3) {
+        if (level >= 5) {
             this.gridY = 2;
             this.gridX = 3;
         }
-        if (level == 4) {
+        if (level >= 8) {
             this.gridY = 3;
             this.gridX = 3;
         }
-        if (level == 5) {
+        if (level >= 12) {
             this.gridY = 4;
             this.gridX = 3;
         }
-        if (level == 6) {
+        if (level >= 16) {
             this.gridY = 4;
             this.gridX = 4;
         }
-        if (level == 7) {
+        if (level >= 20) {
             this.gridY = 5;
             this.gridX = 4;
         }
-        if (level == 8) {
+        if (level >= 25) {
             this.gridY = 5;
             this.gridX = 5;
         }
-        if (level == 9) {
+        if (level >= 30) {
             this.gridY = 6;
             this.gridX = 5;
         }
-        if (level == 10) {
+        if (level >= 40) {
             this.gridY = 7;
             this.gridX = 5;
         }
-        if (level == 11) {
+        if (level >= 50) {
             this.gridY = 7;
             this.gridX = 6;
         }
-        if (level == 12) {
+        if (level >= 60) {
             this.gridY = 8;
             this.gridX = 6;
         }
-        if (level == 13) {
+        if (level >= 80) {
             this.gridY = 8;
             this.gridX = 7;
         }
-        if (level >= 14) {
+        if (level >= 100) {
             this.gridY = 9;
             this.gridX = 7;
         }

@@ -1,12 +1,17 @@
 package com.detroitlabs.trimbol.activities;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.detroitlabs.trimbol.R;
@@ -21,6 +26,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     GameBoard gameBoard;
     TextView score;
+    LinearLayout victory;
+    LinearLayout.LayoutParams victoryParams;
     View backButton;
     View resetButton;
     MediaPlayer sfx;
@@ -29,6 +36,11 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
         overridePendingTransition(0,0);
         this.setContentView(R.layout.activity_puzzle);
         sfx = MediaPlayer.create(PuzzleActivity.this, R.raw.blop);
@@ -39,6 +51,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
         newPuzzle();
         score = (TextView) findViewById(R.id.score);
+        victory = (LinearLayout) findViewById(R.id.victory);
+        victoryParams = (LinearLayout.LayoutParams) victory.getLayoutParams();
         backButton = findViewById(R.id.back);
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -68,9 +82,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     @Override
     public void onVictory() {
         GameBoard.difficulty++;
-        score.setText("Level " + GameBoard.difficulty);
         //Toast.makeText(this, "CLEAR", Toast.LENGTH_SHORT).show();
-        newPuzzle();
+        animVictory();
     }
 
     @Override
@@ -109,5 +122,27 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void animVictory() {
+        final int victoryMargin = victoryParams.leftMargin;
+        ValueAnimator animator = ValueAnimator.ofFloat(1,-1f);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float val = (Float) valueAnimator.getAnimatedValue();
+
+                victoryParams.leftMargin = (int) (val*300) + victoryMargin;
+                victory.setLayoutParams(victoryParams);
+
+                if (val == 1) {
+                    score.setText("LEVEL " + GameBoard.difficulty);
+                    newPuzzle();
+                }
+            }
+        });
+        animator.setDuration(500);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
     }
 }

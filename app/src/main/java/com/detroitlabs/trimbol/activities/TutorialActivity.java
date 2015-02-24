@@ -109,7 +109,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 symbol2.setText("");
                 takes.setText("THREE SYMBOLS");
                 description1.setText("Use each symbol to take the others");
-                description2.setText("A symbol can only take an adjacent piece");
+                description2.setText("A symbol can only take adjacent symbols");
                 gameBoard.getGrid().setSymbolType(0,0, Symbol.Type.ROC);
                 gameBoard.getGrid().setSymbolType(0,1, Symbol.Type.PAP);
                 gameBoard.getGrid().setSymbolType(0,2, Symbol.Type.SCI);
