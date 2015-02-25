@@ -25,6 +25,8 @@
 
     <LinearLayout
         android:id="@+id/victory"
+        android:paddingBottom="40dp"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -32,7 +34,7 @@
         <TextView
             android:id="@+id/clear"
             android:textStyle="bold"
-            android:textSize="38sp"
+            android:textSize="52sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="C L E A R" />

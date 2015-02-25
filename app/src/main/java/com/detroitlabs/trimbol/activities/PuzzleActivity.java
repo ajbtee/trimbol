@@ -26,8 +26,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     GameBoard gameBoard;
     TextView score;
+    TextView clear;
     LinearLayout victory;
-    LinearLayout.LayoutParams victoryParams;
     View backButton;
     View resetButton;
     MediaPlayer sfx;
@@ -51,8 +51,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
         newPuzzle();
         score = (TextView) findViewById(R.id.score);
+        clear = (TextView) findViewById(R.id.clear);
         victory = (LinearLayout) findViewById(R.id.victory);
-        victoryParams = (LinearLayout.LayoutParams) victory.getLayoutParams();
         backButton = findViewById(R.id.back);
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -125,18 +125,26 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     }
 
     private void animVictory() {
-        final int victoryMargin = victoryParams.leftMargin;
-        ValueAnimator animator = ValueAnimator.ofFloat(1,-1f);
+        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float val = (Float) valueAnimator.getAnimatedValue();
+                victory.setVisibility(View.VISIBLE);
 
-                victoryParams.leftMargin = (int) (val*300) + victoryMargin;
-                victory.setLayoutParams(victoryParams);
-
-                if (val == 1) {
-                    score.setText("LEVEL " + GameBoard.difficulty);
+                if (val >= 0)
+                    clear.setText("C");
+                if (val >= 0.2)
+                    clear.setText("C L");
+                if (val >= 0.35)
+                    clear.setText("C L E");
+                if (val >= 0.45)
+                    clear.setText("C L E A");
+                if (val >= 0.5)
+                    clear.setText("C L E A R");
+                if (val >= 1) {
+                    score.setText("Level " + GameBoard.difficulty);
+                    victory.setVisibility(View.GONE);
                     newPuzzle();
                 }
             }
