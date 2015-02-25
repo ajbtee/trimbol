@@ -64,6 +64,14 @@ public class MenuButtonView extends TextView {
             canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
             canvas.drawBitmap(ThemeGen.themeSciIcon, halfHeight-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2)-4, null);
         }
+
+        if (getId() == R.id.done) {
+            text = getResources().getString(R.string.button_done);
+            canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
+            canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
+            canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
+            canvas.drawBitmap(ThemeGen.themeSciIcon, halfHeight-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2)-4, null);
+        }
     }
 }
 

@@ -1,7 +1,6 @@
 package com.detroitlabs.trimbol.activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -66,13 +65,13 @@ public class OptionsActivity extends Activity{
             }
         });
 
-        View playButton = findViewById(R.id.options);
+        View playButton = findViewById(R.id.done);
         playButton.setClickable(true);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
-                startActivity(intent);
+                finish();
+                finishActivity(1001);
             }
         });
     }

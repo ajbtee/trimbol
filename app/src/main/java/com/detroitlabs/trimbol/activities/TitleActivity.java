@@ -68,7 +68,7 @@ public class TitleActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1001);
             }
         });
         animateButtons();

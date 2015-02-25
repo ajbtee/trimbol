@@ -72,8 +72,7 @@
     </RelativeLayout>
 
     <com.detroitlabs.trimbol.views.MenuButtonView
-        android:id="@+id/options"
-        android:text="Done"
+        android:id="@+id/done"
         android:textSize="0sp"
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
