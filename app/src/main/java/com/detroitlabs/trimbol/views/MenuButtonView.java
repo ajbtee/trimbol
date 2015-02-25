@@ -33,7 +33,6 @@ public class MenuButtonView extends TextView {
         if (!paintDone) {
             ThemeGen.makePaints(getContext());
             ThemeGen.scaleBitmaps((int) (getHeight() * 1.27));
-            text = (String) getText();
         }
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
@@ -43,6 +42,7 @@ public class MenuButtonView extends TextView {
         RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
 
         if (getId() == R.id.play) {
+            text = getResources().getString(R.string.button_play);
             canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocDepth);
             canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
             canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
@@ -50,6 +50,7 @@ public class MenuButtonView extends TextView {
         }
 
         if (getId() == R.id.tutorial) {
+            text = getResources().getString(R.string.button_tutorial);
             canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapDepth);
             canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapCircle);
             canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
@@ -57,6 +58,7 @@ public class MenuButtonView extends TextView {
         }
 
         if (getId() == R.id.options) {
+            text = getResources().getString(R.string.button_options);
             canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
             canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
             canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);

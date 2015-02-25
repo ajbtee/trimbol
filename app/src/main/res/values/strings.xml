@@ -2,11 +2,41 @@
 <resources>
 
     <string name="app_name">Trimbol</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_title">TitleActivity</string>
-    <string name="title_activity_options">OptionsActivity</string>
-    <string name="title_activity_tutorial">TutorialActivity</string>
-    <string name="title_activity_play">PlayActivity</string>
+    <string name="title_activity_title">Main Menu</string>
+    <string name="title_activity_options">Settings</string>
+    <string name="title_activity_tutorial">Tutorial</string>
+    <string name="title_activity_play">Play</string>
+
+    <string name="button_play">Play</string>
+    <string name="button_tutorial">Tutorial</string>
+    <string name="button_options">Themes</string>
+    <string name="button_done">Done</string>
+    <string name="button_reset">RESET</string>
+    <string name="button_undo">UNDO</string>
+
+    <string name="header_theme">THEME</string>
+    <string name="theme_trimbol">TRIMBOL</string>
+    <string name="theme_dark">DARK</string>
+    <string name="theme_classic">CLASSIC</string>
+    <string name="theme_literally">LITERALLY</string>
+    <string name="theme_smores">SMORES</string>
+
+    <string name="tut_rock">ROCK</string>
+    <string name="tut_paper">PAPER</string>
+    <string name="tut_scissors">SCISSORS</string>
+    <string name="tut_takes">takes</string>
+    <string name="tut_text1">Make moves by dragging symbols</string>
+    <string name="tut_text2">Drag the ROCK onto the SCISSORS</string>
+    <string name="tut_text3">Drag the SCISSORS onto the PAPER</string>
+    <string name="tut_text4">Drag the PAPER onto the ROCK</string>
+    <string name="tut_text5">Use each symbol to take the others</string>
+    <string name="tut_text6">A symbol can only take adjacent symbols</string>
+    <string name="tut_text7">To complete a puzzle, you</string>
+    <string name="tut_text8">must clear the entire board</string>
+
+    <string name="puzzle_reminder">Drag symbols over each other</string>
+    <string name="puzzle_clear">C L E A R</string>
+    <string name="puzzle_level">Level</string>
 
 </resources>
