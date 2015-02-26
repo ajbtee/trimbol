@@ -25,7 +25,7 @@
 
     <LinearLayout
         android:id="@+id/victory"
-        android:paddingBottom="40dp"
+        android:paddingBottom="42dp"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

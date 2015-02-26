@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.detroitlabs.trimbol.R;
 import com.detroitlabs.trimbol.objects.GameBoard;
 import com.detroitlabs.trimbol.objects.Grid;
+import com.detroitlabs.trimbol.utils.SaveHandler;
 import com.detroitlabs.trimbol.utils.ThemeGen;
 import com.detroitlabs.trimbol.views.SymbolLayout;
 import com.detroitlabs.trimbol.views.SymbolView;
@@ -31,6 +32,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     View backButton;
     View resetButton;
     MediaPlayer sfx;
+    SaveHandler saveHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +79,12 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     private void newPuzzle() {
         gameBoard = new GameBoard(this);
         renderPuzzle(gameBoard.getGrid());
+        //saveHandler.saveGame(gameBoard);
     }
 
     @Override
     public void onVictory() {
         GameBoard.difficulty++;
-        //Toast.makeText(this, "CLEAR", Toast.LENGTH_SHORT).show();
         animVictory();
     }
 
@@ -133,14 +135,16 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
                 victory.setVisibility(View.VISIBLE);
 
                 if (val >= 0)
+                    clear.setText("");
+                if (val >= 0.4)
                     clear.setText("C");
-                if (val >= 0.2)
-                    clear.setText("C L");
-                if (val >= 0.35)
-                    clear.setText("C L E");
                 if (val >= 0.45)
-                    clear.setText("C L E A");
+                    clear.setText("C L");
                 if (val >= 0.5)
+                    clear.setText("C L E");
+                if (val >= 0.55)
+                    clear.setText("C L E A");
+                if (val >= 0.6)
                     clear.setText("C L E A R");
                 if (val >= 1) {
                     score.setText("Level " + GameBoard.difficulty);
@@ -149,7 +153,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
                 }
             }
         });
-        animator.setDuration(500);
+        animator.setDuration(800);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.start();
     }

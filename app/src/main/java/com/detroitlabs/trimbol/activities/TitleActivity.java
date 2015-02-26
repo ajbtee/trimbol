@@ -74,6 +74,12 @@ public class TitleActivity extends Activity {
         animateButtons();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
     private void animateButtons() {
         final int playMargin = playParams.leftMargin;
         final int tutorialMargin = tutorialParams.leftMargin;

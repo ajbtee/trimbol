@@ -101,7 +101,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float val = (Float) valueAnimator.getAnimatedValue();
-                tutorialParams.leftMargin = (int) (val*300)+tutorialMargin;
+                tutorialParams.leftMargin = (int) (val * 300) + tutorialMargin;
                 tutorialButton.setLayoutParams(tutorialParams);
             }
         });
@@ -114,7 +114,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float val = (Float) valueAnimator.getAnimatedValue();
-                optionsParams.leftMargin = (int) (val*300)+optionsMargin;
+                optionsParams.leftMargin = (int) (val * 300) + optionsMargin;
                 optionsButton.setLayoutParams(optionsParams);
             }
         });
@@ -125,16 +125,12 @@ public class PlayActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.play, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

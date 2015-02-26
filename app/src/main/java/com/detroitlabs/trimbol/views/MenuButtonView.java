@@ -1,7 +1,9 @@
 package com.detroitlabs.trimbol.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -14,6 +16,9 @@ public class MenuButtonView extends TextView {
     private boolean paintDone = false;
     private final float CORNER_RADIUS = 0.37f;
     private String text;
+    private Paint themeDepth;
+    private Paint themeCircle;
+    private Bitmap themeIcon;
 
     public MenuButtonView(Context context) {
         super(context);
@@ -43,35 +48,36 @@ public class MenuButtonView extends TextView {
 
         if (getId() == R.id.play) {
             text = getResources().getString(R.string.button_play);
-            canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocDepth);
-            canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
-            canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
-            canvas.drawBitmap(ThemeGen.themeRocIcon, halfHeight-(ThemeGen.themeRocIcon.getWidth()/2), halfHeight-(ThemeGen.themeRocIcon.getHeight()/2)-4, null);
+            themeDepth = ThemeGen.themeRocDepth;
+            themeCircle = ThemeGen.themeRocCircle;
+            themeIcon = ThemeGen.themeRocIcon;
         }
 
         if (getId() == R.id.tutorial) {
             text = getResources().getString(R.string.button_tutorial);
-            canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapDepth);
-            canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapCircle);
-            canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
-            canvas.drawBitmap(ThemeGen.themePapIcon, halfHeight-(ThemeGen.themePapIcon.getWidth()/2), halfHeight-(ThemeGen.themePapIcon.getHeight()/2)-4, null);
+            themeDepth = ThemeGen.themePapDepth;
+            themeCircle = ThemeGen.themePapCircle;
+            themeIcon = ThemeGen.themePapIcon;
         }
 
         if (getId() == R.id.options) {
             text = getResources().getString(R.string.button_options);
-            canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
-            canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
-            canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
-            canvas.drawBitmap(ThemeGen.themeSciIcon, halfHeight-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2)-4, null);
+            themeDepth = ThemeGen.themeSciDepth;
+            themeCircle = ThemeGen.themeSciCircle;
+            themeIcon = ThemeGen.themeSciIcon;
         }
 
         if (getId() == R.id.done) {
             text = getResources().getString(R.string.button_done);
-            canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
-            canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
-            canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
-            canvas.drawBitmap(ThemeGen.themeSciIcon, halfHeight-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2)-4, null);
+            themeDepth = ThemeGen.themeSciDepth;
+            themeCircle = ThemeGen.themeSciCircle;
+            themeIcon = ThemeGen.themeSciIcon;
         }
+
+        canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), themeDepth);
+        canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), themeCircle);
+        canvas.drawText(text, (float) (getWidth() * .32), (float) (halfHeight * 1.22), ThemeGen.buttonText);
+        canvas.drawBitmap(themeIcon, halfHeight-(themeIcon.getWidth()/2), halfHeight-(themeIcon.getHeight()/2)-4, null);
     }
 }
 
