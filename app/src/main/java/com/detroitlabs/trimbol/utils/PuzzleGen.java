@@ -83,7 +83,7 @@ public class PuzzleGen {
         for(int i=1;i<=4;i++) { directions.add(i); }
         Collections.shuffle(directions);
 
-        // Step through that list
+        // Step through list
         for(int i=0;i<4;i++){
             // Check north
             if (directions.get(i) == 1){
