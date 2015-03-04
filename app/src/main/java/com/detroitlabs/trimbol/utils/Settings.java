@@ -6,13 +6,7 @@ import android.widget.TextView;
  * Created by andrewjb on 12/4/14.
  */
 public class Settings {
-    public static enum GameMode {
-        TUTORIAL,
-        EASY,
-        NORMAL,
-        HARD,
-        ESCALATE
-    }
+
     public static enum GameTheme {
         TRIMBOL,
         DARK,
@@ -20,13 +14,10 @@ public class Settings {
         LITERALLY,
         SMORES
     }
-    private int themes;
 
     // Default settings
     public static GameTheme gameTheme = GameTheme.CLASSIC;
-    public static GameMode gameMode = GameMode.ESCALATE;
     public static int selectedTheme = 2;
-    public static boolean gameSound = true;
 
     public static void useTheme(TextView theme) {
         if (selectedTheme > GameTheme.values().length-1)
