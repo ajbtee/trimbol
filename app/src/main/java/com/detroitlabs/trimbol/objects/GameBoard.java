@@ -36,10 +36,8 @@ public class GameBoard {
 
     public void resetGrid() {
         if (gridHistory.size() > 0) {
-            for(int i = gridHistory.size(); i > 1; i--){
-                gridHistory.pop();
-            }
-            grid = gridHistory.pop();
+            grid = gridHistory.get(0);
+            gridHistory.clear();
         }
     }
 
