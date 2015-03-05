@@ -20,7 +20,25 @@ public class Grid{
     public static int gridY = 1;
     public Symbol[][] grid;
 
-    public final static TreeMap<Integer, BoardSize> levelSizes = getLevelSizes();
+    public final static TreeMap<Integer, BoardSize> levelSizes = new TreeMap<Integer, BoardSize>();
+    {
+        levelSizes.put(Integer.MIN_VALUE, new BoardSize(1, 2));
+        levelSizes.put(1, new BoardSize(1, 3));
+        levelSizes.put(2, new BoardSize(2, 2));
+        levelSizes.put(5, new BoardSize(2, 3));
+        levelSizes.put(8, new BoardSize(3, 3));
+        levelSizes.put(12, new BoardSize(4, 3));
+        levelSizes.put(16, new BoardSize(4, 4));
+        levelSizes.put(20, new BoardSize(5, 4));
+        levelSizes.put(25, new BoardSize(5, 5));
+        levelSizes.put(30, new BoardSize(6, 5));
+        levelSizes.put(40, new BoardSize(7, 5));
+        levelSizes.put(50, new BoardSize(7, 6));
+        levelSizes.put(60, new BoardSize(7, 6));
+        levelSizes.put(80, new BoardSize(8, 7));
+        levelSizes.put(80, new BoardSize(8, 7));
+        levelSizes.put(100, new BoardSize(9, 7));
+    }
 
 
     //  ┌──────────────────────────────────────────┐
@@ -55,27 +73,6 @@ public class Grid{
         BoardSize(Integer fst, Integer snd) {
             super(fst, snd);
         }
-    }
-
-    private static TreeMap<Integer, BoardSize> getLevelSizes() {
-        TreeMap<Integer, BoardSize> levelSizes = new TreeMap<Integer, BoardSize>();
-        levelSizes.put(0, new BoardSize(1, 2));
-        levelSizes.put(1, new BoardSize(1, 3));
-        levelSizes.put(2, new BoardSize(2, 2));
-        levelSizes.put(5, new BoardSize(2, 3));
-        levelSizes.put(8, new BoardSize(3, 3));
-        levelSizes.put(12, new BoardSize(4, 3));
-        levelSizes.put(16, new BoardSize(4, 4));
-        levelSizes.put(20, new BoardSize(5, 4));
-        levelSizes.put(25, new BoardSize(5, 5));
-        levelSizes.put(30, new BoardSize(6, 5));
-        levelSizes.put(40, new BoardSize(7, 5));
-        levelSizes.put(50, new BoardSize(7, 6));
-        levelSizes.put(60, new BoardSize(7, 6));
-        levelSizes.put(80, new BoardSize(8, 7));
-        levelSizes.put(80, new BoardSize(8, 7));
-        levelSizes.put(100, new BoardSize(9, 7));
-        return levelSizes;
     }
 
     private void setGridSize(int level) {
