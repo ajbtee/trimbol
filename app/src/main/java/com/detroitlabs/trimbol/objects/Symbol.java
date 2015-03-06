@@ -43,4 +43,13 @@ public class Symbol{
     public State getState() {
         return state;
     }
+
+    public static Type counterOf(Type s) {
+        switch (s) {
+            case ROC: return Type.SCI;
+            case SCI: return Type.PAP;
+            case PAP: return Type.ROC;
+        }
+        return Type.NIL;
+    }
 }
