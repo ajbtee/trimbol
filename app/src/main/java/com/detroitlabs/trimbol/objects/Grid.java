@@ -104,7 +104,11 @@ public class Grid{
     }
 
     public Symbol getSymbol(int y, int x) {
-        return grid[y][x];
+        try {
+            return grid[y][x];
+        } catch(IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     public void setSymbolType(int y, int x, Symbol.Type type) {
