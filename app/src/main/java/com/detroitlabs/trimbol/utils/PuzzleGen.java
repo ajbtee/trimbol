@@ -26,28 +26,26 @@ public class PuzzleGen {
         Symbol.Type randomType = null;
         switch (rollThree) {
             case 1:
-                randomType = ROC; break;
+                randomType = ROC;
+                break;
             case 2:
-                randomType = PAP; break;
+                randomType = PAP;
+                break;
             case 3:
-                randomType = SCI; break;
+                randomType = SCI;
+                break;
         }
 
-        Symbol symbol = new Symbol (randomType, Symbol.State.EXIST, cursorY, cursorX);
+        Symbol symbol = new Symbol(randomType, Symbol.State.EXIST, cursorY, cursorX);
         grid.setSymbol(symbol, cursorY, cursorX);
 
         while (!gridFull) {
             // Check if grid is full
             int empty = 0;
-            int rocSat = 0;
-            int papSat = 0;
-            int sciSat = 0;
-            for (int x = 0; x < grid.getGridX(); x++){
-                for (int y = 0; y < grid.getGridY(); y++){
-                    if (grid.getSymbol(y,x).getType() == NIL) empty++;
-                    if (grid.getSymbol(y,x).getType() == ROC) rocSat++;
-                    if (grid.getSymbol(y,x).getType() == PAP) papSat++;
-                    if (grid.getSymbol(y,x).getType() == SCI) sciSat++;
+            for (int x = 0; x < grid.getGridX(); x++) {
+                for (int y = 0; y < grid.getGridY(); y++) {
+                    if (grid.getSymbol(y, x).getType() == NIL)
+                        empty++;
                 }
             }
             if (empty == 0) {

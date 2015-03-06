@@ -36,14 +36,6 @@ public class Symbol{
         this(symbol.type, symbol.state, symbol.posY, symbol.posX);
     }
 
-    public int getX(){
-        return posX;
-    }
-
-    public int getY(){
-        return posY;
-    }
-
     public Type getType() {
         return type;
     }
