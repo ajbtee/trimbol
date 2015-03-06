@@ -18,9 +18,10 @@ public class Grid{
     // grid size
     public static int gridX = 2;
     public static int gridY = 1;
-    public Symbol[][] grid;
+    private Symbol[][] grid;
 
-    public final static TreeMap<Integer, BoardSize> levelSizes = new TreeMap<Integer, BoardSize>();
+    public final static TreeMap<Integer, BoardSize>
+        levelSizes = new TreeMap<Integer, BoardSize>();
     {
         levelSizes.put(Integer.MIN_VALUE, new BoardSize(1, 2));
         levelSizes.put(1, new BoardSize(1, 3));
@@ -63,6 +64,10 @@ public class Grid{
                 this.grid[y][x] = symbol;
             }
         }
+    }
+
+    public void setSymbol(Symbol symbol, int y, int x) {
+        this.grid[y][x] = symbol;
     }
 
     //  ┌──────────────────────────────────────────┐

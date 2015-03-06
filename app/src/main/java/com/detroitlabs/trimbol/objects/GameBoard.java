@@ -45,12 +45,12 @@ public class GameBoard {
         int uno = 0;
         for (int x = 0; x < grid.getGridX(); x++){
             for (int y = 0; y < grid.getGridY(); y++)
-                if (grid.grid[y][x].getState() != Symbol.State.GONE) uno++;
+                if (grid.getSymbol(y, x).getState() != Symbol.State.GONE) uno++;
         }
         if (uno == 1) {
             for (int x = 0; x < grid.getGridX(); x++){
                 for (int y = 0; y < grid.getGridY(); y++)
-                    grid.grid[y][x].state = Symbol.State.GONE;
+                    grid.getSymbol(y, x).state = Symbol.State.GONE;
             }
             renderListener.onVictory();
         }

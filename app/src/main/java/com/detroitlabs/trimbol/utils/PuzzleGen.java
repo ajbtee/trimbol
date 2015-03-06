@@ -34,7 +34,7 @@ public class PuzzleGen {
         }
 
         Symbol symbol = new Symbol (randomType, Symbol.State.EXIST, cursorY, cursorX);
-        grid.grid[cursorY][cursorX] = symbol;
+        grid.setSymbol(symbol, cursorY, cursorX);
 
         while (!gridFull) {
             // Check if grid is full
@@ -44,10 +44,10 @@ public class PuzzleGen {
             int sciSat = 0;
             for (int x = 0; x < grid.getGridX(); x++){
                 for (int y = 0; y < grid.getGridY(); y++){
-                    if (grid.grid[y][x].getType() == NIL) empty++;
-                    if (grid.grid[y][x].getType() == ROC) rocSat++;
-                    if (grid.grid[y][x].getType() == PAP) papSat++;
-                    if (grid.grid[y][x].getType() == SCI) sciSat++;
+                    if (grid.getSymbol(y,x).getType() == NIL) empty++;
+                    if (grid.getSymbol(y,x).getType() == ROC) rocSat++;
+                    if (grid.getSymbol(y,x).getType() == PAP) papSat++;
+                    if (grid.getSymbol(y,x).getType() == SCI) sciSat++;
                 }
             }
             if (empty == 0) {
@@ -59,10 +59,10 @@ public class PuzzleGen {
             do {
                 cursorX = (int) Math.floor(Math.random() * grid.getGridX());
                 cursorY = (int) Math.floor(Math.random() * grid.getGridY());
-                symbol = grid.grid[cursorY][cursorX];
+                symbol = grid.getSymbol(cursorY,cursorX);
 
                 // From cursor check all 4 directions randomly for an empty space
-                if (grid.grid[cursorY][cursorX].getType() != NIL){
+                if (grid.getSymbol(cursorY,cursorX).getType() != NIL){
 
                     foundSymbol = true;
                     pickDirection(grid, cursorY, cursorX, symbol.getType());
@@ -87,7 +87,7 @@ public class PuzzleGen {
         for(int i=0;i<4;i++){
             // Check north
             if (directions.get(i) == 1){
-                if (cursorY - 1 > -1 && grid.grid[cursorY - 1][cursorX].getType() == NIL){
+                if (cursorY - 1 > -1 && grid.getSymbol(cursorY - 1,cursorX).getType() == NIL){
                     placeSymbol(grid, cursorY - 1, cursorX, symbol);
                     pickCounter(grid, cursorY, cursorX, symbol);
                     break;
@@ -95,7 +95,7 @@ public class PuzzleGen {
             }
             // Check south
             if (directions.get(i) == 2){
-                if (cursorY + 1 < grid.getGridY() && grid.grid[cursorY + 1][cursorX].getType() == NIL){
+                if (cursorY + 1 < grid.getGridY() && grid.getSymbol(cursorY + 1,cursorX).getType() == NIL){
                     placeSymbol(grid, cursorY + 1, cursorX, symbol);
                     pickCounter(grid, cursorY, cursorX, symbol);
                     break;
@@ -103,7 +103,7 @@ public class PuzzleGen {
             }
             // Check west
             if (directions.get(i) == 3){
-                if (cursorX - 1 > -1 && grid.grid[cursorY][cursorX - 1].getType() == NIL){
+                if (cursorX - 1 > -1 && grid.getSymbol(cursorY,cursorX - 1).getType() == NIL){
                     placeSymbol(grid, cursorY, cursorX - 1, symbol);
                     pickCounter(grid, cursorY, cursorX, symbol);
                     break;
@@ -111,7 +111,7 @@ public class PuzzleGen {
             }
             // Check east
             if (directions.get(i) == 4){
-                if (cursorX + 1 < grid.getGridX() && grid.grid[cursorY][cursorX + 1].getType() == NIL){
+                if (cursorX + 1 < grid.getGridX() && grid.getSymbol(cursorY,cursorX + 1).getType() == NIL){
                     placeSymbol(grid, cursorY, cursorX + 1, symbol);;
                     pickCounter(grid, cursorY, cursorX, symbol);
                     break;
@@ -138,16 +138,16 @@ public class PuzzleGen {
     private static void placeSymbol(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
         switch (symbol) {
             case ROC:
-                grid.grid[cursorY][cursorX] = new Symbol(ROC, Symbol.State.EXIST, cursorY, cursorX);
+                grid.setSymbol(new Symbol(ROC, Symbol.State.EXIST, cursorY, cursorX), cursorY, cursorX);
                 break;
             case PAP:
-                grid.grid[cursorY][cursorX] = new Symbol(PAP, Symbol.State.EXIST, cursorY, cursorX);
+                grid.setSymbol(new Symbol(PAP, Symbol.State.EXIST, cursorY, cursorX), cursorY, cursorX);
                 break;
             case SCI:
-                grid.grid[cursorY][cursorX] = new Symbol(SCI, Symbol.State.EXIST, cursorY, cursorX);
+                grid.setSymbol(new Symbol(SCI, Symbol.State.EXIST, cursorY, cursorX), cursorY, cursorX);
                 break;
             case NIL:
-                grid.grid[cursorY][cursorX] = new Symbol(NIL, Symbol.State.EXIST, cursorY, cursorX);
+                grid.setSymbol(new Symbol(NIL, Symbol.State.EXIST, cursorY, cursorX), cursorY, cursorX);
                 break;
         }
     }
@@ -174,10 +174,10 @@ public class PuzzleGen {
             System.out.print("\n" + y + " │ ");
             // Print a row
             for (int x = 0; x < grid.getGridX(); x++){
-                if (grid.grid[y][x].getType() == NIL) System.out.print(". ");
-                if (grid.grid[y][x].getType() == ROC) System.out.print("R ");
-                if (grid.grid[y][x].getType() == PAP) System.out.print("P ");
-                if (grid.grid[y][x].getType() == SCI) System.out.print("S ");
+                if (grid.getSymbol(y,x).getType() == NIL) System.out.print(". ");
+                if (grid.getSymbol(y,x).getType() == ROC) System.out.print("R ");
+                if (grid.getSymbol(y,x).getType() == PAP) System.out.print("P ");
+                if (grid.getSymbol(y,x).getType() == SCI) System.out.print("S ");
             }
             System.out.print("│");
         }
