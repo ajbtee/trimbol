@@ -3,15 +3,11 @@ package com.detroitlabs.trimbol.utils;
 import com.detroitlabs.trimbol.objects.Grid;
 import com.detroitlabs.trimbol.objects.Symbol;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.detroitlabs.trimbol.objects.Symbol.Type.NIL;
-import static com.detroitlabs.trimbol.objects.Symbol.Type.PAP;
-import static com.detroitlabs.trimbol.objects.Symbol.Type.ROC;
-import static com.detroitlabs.trimbol.objects.Symbol.Type.SCI;
+import static com.detroitlabs.trimbol.objects.Symbol.Type.*;
 
 public class PuzzleGen {
 
@@ -33,8 +29,9 @@ public class PuzzleGen {
             int empty = 0;
             for (int x = 0; x < grid.getGridX(); x++) {
                 for (int y = 0; y < grid.getGridY(); y++) {
-                    if (grid.getSymbol(y, x).getType() == NIL)
+                    if (grid.getSymbol(y, x).getType() == NIL) {
                         empty++;
+                    }
                 }
             }
             if (empty == 0) {
@@ -131,11 +128,13 @@ public class PuzzleGen {
 
         // X coordinates
         System.out.print("\n\n" + grid.getGridX() + grid.getGridY() + "╷");
-        for (int x = 0; x < grid.getGridX(); x++)
+        for (int x = 0; x < grid.getGridX(); x++) {
             System.out.print(" " + x);
+        }
         System.out.print("\n╶─┼");
-        for (int x = 0; x < grid.getGridX(); x++)
+        for (int x = 0; x < grid.getGridX(); x++) {
             System.out.print("──");
+        }
         System.out.print("─┐");
 
         // Y coordinates
@@ -143,18 +142,27 @@ public class PuzzleGen {
             System.out.print("\n" + y + " │ ");
             // Print a row
             for (int x = 0; x < grid.getGridX(); x++) {
-                if (grid.getSymbol(y, x).getType() == NIL) System.out.print(". ");
-                if (grid.getSymbol(y, x).getType() == ROC) System.out.print("R ");
-                if (grid.getSymbol(y, x).getType() == PAP) System.out.print("P ");
-                if (grid.getSymbol(y, x).getType() == SCI) System.out.print("S ");
+                if (grid.getSymbol(y, x).getType() == NIL) {
+                    System.out.print(". ");
+                }
+                if (grid.getSymbol(y, x).getType() == ROC) {
+                    System.out.print("R ");
+                }
+                if (grid.getSymbol(y, x).getType() == PAP) {
+                    System.out.print("P ");
+                }
+                if (grid.getSymbol(y, x).getType() == SCI) {
+                    System.out.print("S ");
+                }
             }
             System.out.print("│");
         }
 
         // End print
         System.out.print("\n╶─┴");
-        for (int x = 0; x < grid.getGridX(); x++)
+        for (int x = 0; x < grid.getGridX(); x++) {
             System.out.print("──");
+        }
         System.out.print("─┘");
     }
 }

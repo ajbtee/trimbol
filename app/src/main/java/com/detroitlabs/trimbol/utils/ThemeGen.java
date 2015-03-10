@@ -178,9 +178,10 @@ public class ThemeGen {
     }
 
     public static void setTitle(ImageView title) {
-        if (isDark)
+        if (isDark) {
             title.setImageResource(R.drawable.title_dk);
-        else
+        } else {
             title.setImageResource(R.drawable.title);
+        }
     }
 }

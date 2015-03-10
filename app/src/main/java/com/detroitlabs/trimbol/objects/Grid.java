@@ -83,10 +83,11 @@ public class Grid{
 
     private void setGridSize(int level) {
         BoardSize b;
-        if(levelSizes.containsKey(level))
+        if(levelSizes.containsKey(level)) {
             b = levelSizes.get(level);
-        else
+        } else {
             b = levelSizes.get(levelSizes.lowerKey(level));
+        }
         this.gridY = b.fst;
         this.gridX = b.snd;
         grid = new Symbol[gridY][gridX];

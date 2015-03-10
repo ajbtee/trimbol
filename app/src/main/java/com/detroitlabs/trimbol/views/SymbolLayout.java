@@ -54,8 +54,9 @@ public class SymbolLayout extends ViewGroup {
                 rect.left = (column % Grid.gridX) * cellWidth;
                 rect.right = rect.left + cellWidth;
 
-                if (column % Grid.gridX == 0)
+                if (column % Grid.gridX == 0) {
                     row++;
+                }
                 rect.top = row * cellWidth;
                 rect.bottom = rect.top + cellWidth;
 

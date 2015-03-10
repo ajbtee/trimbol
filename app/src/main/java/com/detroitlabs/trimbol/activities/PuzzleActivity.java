@@ -134,18 +134,24 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
                 float val = (Float) valueAnimator.getAnimatedValue();
                 victory.setVisibility(View.VISIBLE);
 
-                if (val >= 0)
+                if (val >= 0) {
                     clear.setText("");
-                if (val >= 0.4)
+                }
+                if (val >= 0.4) {
                     clear.setText("C");
-                if (val >= 0.45)
+                }
+                if (val >= 0.45) {
                     clear.setText("C L");
-                if (val >= 0.5)
+                }
+                if (val >= 0.5) {
                     clear.setText("C L E");
-                if (val >= 0.55)
+                }
+                if (val >= 0.55) {
                     clear.setText("C L E A");
-                if (val >= 0.6)
+                }
+                if (val >= 0.6) {
                     clear.setText("C L E A R");
+                }
                 if (val >= 1) {
                     score.setText("Level " + GameBoard.difficulty);
                     victory.setVisibility(View.GONE);

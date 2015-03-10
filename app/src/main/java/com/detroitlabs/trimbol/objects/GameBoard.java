@@ -13,8 +13,11 @@ public class GameBoard {
 
     public interface RenderListener {
         public void onVictory();
+
         public void onSound();
+
         public void renderPuzzle(Grid grid);
+
         public void onHistory();
     }
 
@@ -43,14 +46,18 @@ public class GameBoard {
 
     public void checkVictory() {
         int uno = 0;
-        for (int x = 0; x < grid.getGridX(); x++){
-            for (int y = 0; y < grid.getGridY(); y++)
-                if (grid.getSymbol(y, x).getState() != Symbol.State.GONE) uno++;
+        for (int x = 0; x < grid.getGridX(); x++) {
+            for (int y = 0; y < grid.getGridY(); y++) {
+                if (grid.getSymbol(y, x).getState() != Symbol.State.GONE) {
+                    uno++;
+                }
+            }
         }
         if (uno == 1) {
-            for (int x = 0; x < grid.getGridX(); x++){
-                for (int y = 0; y < grid.getGridY(); y++)
+            for (int x = 0; x < grid.getGridX(); x++) {
+                for (int y = 0; y < grid.getGridY(); y++) {
                     grid.getSymbol(y, x).state = Symbol.State.GONE;
+                }
             }
             renderListener.onVictory();
         }
@@ -67,29 +74,33 @@ public class GameBoard {
 
     public void moveSymbol(int y, int x, int direction) {
         int checkY = 0, checkX = 0;
-        if (direction == Grid.UP)
+        if (direction == Grid.UP) {
             checkY = -1;
-        if (direction == Grid.DOWN)
+        }
+        if (direction == Grid.DOWN) {
             checkY = 1;
-        if (direction == Grid.LEFT)
+        }
+        if (direction == Grid.LEFT) {
             checkX = -1;
-        if (direction == Grid.RIGHT)
+        }
+        if (direction == Grid.RIGHT) {
             checkX = 1;
+        }
 
         if (!outOfBounds(y, x, checkY, checkX)) {
-            if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.SCI){
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.SCI) {
                 addHistory();
                 grid.setSymbolType(y + checkY, x + checkX, Symbol.Type.ROC);
                 grid.setSymbolState(y, x, Symbol.State.GONE);
                 grid.setSymbolType(y, x, Symbol.Type.NIL);
             }
-            if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.ROC){
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.ROC) {
                 addHistory();
                 grid.setSymbolType(y + checkY, x + checkX, Symbol.Type.PAP);
                 grid.setSymbolState(y, x, Symbol.State.GONE);
                 grid.setSymbolType(y, x, Symbol.Type.NIL);
             }
-            if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.PAP){
+            if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI && grid.getSymbol(y + checkY, x + checkX).getType() == Symbol.Type.PAP) {
                 addHistory();
                 grid.setSymbolType(y + checkY, x + checkX, Symbol.Type.SCI);
                 grid.setSymbolState(y, x, Symbol.State.GONE);

@@ -59,8 +59,9 @@ public class SymbolView extends View {
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
-        if (isSelected)
+        if (isSelected) {
             radius += 5;
+        }
 
         RectF rectFace;
         RectF rectDepth;
@@ -73,28 +74,34 @@ public class SymbolView extends View {
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth-(ThemeGen.themeRocIcon.getWidth()/2), halfHeight-(ThemeGen.themeRocIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth - (ThemeGen.themeRocIcon.getWidth() / 2), halfHeight - (ThemeGen.themeRocIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themeRocSelected);
+                }
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth-(ThemeGen.themePapIcon.getWidth()/2), halfHeight-(ThemeGen.themePapIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth - (ThemeGen.themePapIcon.getWidth() / 2), halfHeight - (ThemeGen.themePapIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themePapSelected);
+                }
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth - (ThemeGen.themeSciIcon.getWidth() / 2), halfHeight - (ThemeGen.themeSciIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themeSciSelected);
+                }
             }
         }
 
@@ -104,10 +111,12 @@ public class SymbolView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        if (symbol.getState() == Symbol.State.GONE)
+        if (symbol.getState() == Symbol.State.GONE) {
             inputStateGone(event);
-        if (symbol.getState() == Symbol.State.EXIST)
+        }
+        if (symbol.getState() == Symbol.State.EXIST) {
             inputStateExist(event);
+        }
         return true;
     }
 
@@ -137,12 +146,15 @@ public class SymbolView extends View {
                     }
                 }
 
-                if (getTranslationY() < -MIN_DISTANCE)
+                if (getTranslationY() < -MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.UP);
-                if (getTranslationX() > MIN_DISTANCE)
+                }
+                if (getTranslationX() > MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.RIGHT);
-                if (getTranslationX() < -MIN_DISTANCE)
+                }
+                if (getTranslationX() < -MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.LEFT);
+                }
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -239,6 +251,10 @@ public class SymbolView extends View {
     private float scaleDistance(float distance) {
         float scaleFactor = 0.005f;
         float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
-        if(distance < 0) return scrollBy; else return -scrollBy;
+        if(distance < 0) {
+            return scrollBy;
+        } else {
+            return -scrollBy;
+        }
     }
 }
