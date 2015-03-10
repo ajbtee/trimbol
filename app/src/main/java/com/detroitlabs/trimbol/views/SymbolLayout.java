@@ -13,28 +13,18 @@ import com.detroitlabs.trimbol.objects.Grid;
  */
 public class SymbolLayout extends ViewGroup {
 
-    private int screenWidth, screenHeight, cellWidth;
+    private int cellWidth;
 
     public SymbolLayout(Context context) {
         super(context);
-        init();
     }
 
     public SymbolLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public SymbolLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
-    }
-
-    private void init (){
-        DisplayMetrics display = getContext().getResources().getDisplayMetrics();
-
-        screenWidth = display.widthPixels;
-        screenHeight = display.heightPixels;
     }
 
     @Override
