@@ -131,7 +131,7 @@ public class PuzzleGen {
     }
 
     private static void placeSymbol(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
-        grid.setSymbol(new Symbol(symbol, Symbol.State.EXIST, cursorY, cursorX), cursorY, cursorX);
+        grid.setSymbol(new Symbol(symbol, Symbol.State.EXIST), cursorY, cursorX);
     }
 
     //  ┌─────────────────────────────────────────────────────┐

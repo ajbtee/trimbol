@@ -50,7 +50,7 @@ public class Grid{
         setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST, y, x);
+                Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST);
                 grid[y][x] = symbol;
             }
         }
@@ -117,11 +117,6 @@ public class Grid{
 
     public void setSymbolState(int y, int x, Symbol.State state) {
         grid[y][x].state = state;
-    }
-
-    public void setSymbolCoord(int y, int x, int yCoord, int xCoord) {
-        grid[y][x].yCoord = yCoord;
-        grid[y][x].xCoord = xCoord;
     }
 
     public void setGrid(Symbol[][] grid) {

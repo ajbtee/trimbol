@@ -53,7 +53,6 @@ public class SymbolView extends View {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.scaleBitmaps(canvas.getWidth());
-            grid.setSymbolCoord(y,x,yCoord,xCoord);
             paintDone = true;
         }
 

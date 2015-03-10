@@ -19,21 +19,18 @@ public class Symbol{
         CONVERT,
     }
 
+    private static final Random random = new Random();
+
     State state;
     Type type;
-    int posX;
-    int posY;
-    public int xCoord, yCoord;
 
-    public Symbol(Type symbol, State state, int posY, int posX) {
+    public Symbol(Type symbol, State state) {
         this.type = symbol;
         this.state = state;
-        this.posX = posX;
-        this.posY = posY;
     }
 
     public Symbol(Symbol symbol) {
-        this(symbol.type, symbol.state, symbol.posY, symbol.posX);
+        this(symbol.type, symbol.state);
     }
 
     public Type getType() {
