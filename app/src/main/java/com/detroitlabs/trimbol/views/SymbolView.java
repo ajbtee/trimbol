@@ -26,9 +26,7 @@ public class SymbolView extends View {
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
-    private float radiusScale;
 
-    private Context context;
     private Grid grid;
     private GameBoard gameBoard;
     private Symbol symbol;
@@ -39,12 +37,12 @@ public class SymbolView extends View {
     }
 
     public SymbolView(Context context, AttributeSet attrs, GameBoard gameBoard, int row, int column) {
-        super(context);
+        super(context, attrs);
         init(gameBoard, row, column, context);
     }
 
     public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, GameBoard gameBoard, int row, int column) {
-        super(context);
+        super(context, attrs, defStyleAttr);
         init(gameBoard, row, column, context);
     }
 
@@ -193,50 +191,50 @@ public class SymbolView extends View {
     }
 
     // On valid threshold, snap the symbol to its new location
-    private ValueAnimator animSnapTo() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                distanceX = val*distanceX;
-                distanceY = val*distanceY;
-                setTranslationX(scaleDistance(distanceX));
-                setTranslationY(scaleDistance(distanceY));
-            }
-        });
-        return animator;
-    }
+//    private ValueAnimator animSnapTo() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                distanceX = val*distanceX;
+//                distanceY = val*distanceY;
+//                setTranslationX(scaleDistance(distanceX));
+//                setTranslationY(scaleDistance(distanceY));
+//            }
+//        });
+//        return animator;
+//    }
 
     // On spawn, scale the symbol from zero to full size
-    private void animSpawn() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                radiusScale = val;
-            }
-        });
-        animator.setDuration(300);
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.start();
-    }
+//    private void animSpawn() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                radiusScale = val;
+//            }
+//        });
+//        animator.setDuration(300);
+//        animator.setInterpolator(new DecelerateInterpolator());
+//        animator.start();
+//    }
 
     // On despawn, scale the symbol from full size to zero
-    private void animDespawn() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                radiusScale = val;
-            }
-        });
-        animator.setDuration(200);
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.start();
-    }
+//    private void animDespawn() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                radiusScale = val;
+//            }
+//        });
+//        animator.setDuration(200);
+//        animator.setInterpolator(new AccelerateInterpolator());
+//        animator.start();
+//    }
 
     private void init(GameBoard gameBoard, int y, int x, Context context) {
         this.y = y;
@@ -244,7 +242,6 @@ public class SymbolView extends View {
         this.gameBoard = gameBoard;
         this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
-        this.context = context;
         ThemeGen.makePaints(context);
     }
 
