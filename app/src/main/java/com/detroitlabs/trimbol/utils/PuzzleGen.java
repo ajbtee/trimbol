@@ -24,21 +24,8 @@ public class PuzzleGen {
         // Create a random symbol in a random location
         int cursorX = (int) Math.floor(Math.random() * grid.getGridX());
         int cursorY = (int) Math.floor(Math.random() * grid.getGridY());
-        int rollThree = (int) Math.ceil(Math.random() * 3);
-        Symbol.Type randomType = null;
-        switch (rollThree) {
-            case 1:
-                randomType = ROC;
-                break;
-            case 2:
-                randomType = PAP;
-                break;
-            case 3:
-                randomType = SCI;
-                break;
-        }
 
-        Symbol symbol = new Symbol(randomType, Symbol.State.EXIST, cursorY, cursorX);
+        Symbol symbol = Symbol.random();
         grid.setSymbol(symbol, cursorY, cursorX);
 
         while (!gridFull) {
