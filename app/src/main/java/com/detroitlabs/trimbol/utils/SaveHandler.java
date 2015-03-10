@@ -20,7 +20,7 @@ public class SaveHandler extends Activity {
             fos.write(data.getBytes());
             fos.close();
         } catch (IOException e) {
-            Log.e(e.getMessage();
+            Log.e(getClass().getName(), e.getMessage());
         }
     }
 
