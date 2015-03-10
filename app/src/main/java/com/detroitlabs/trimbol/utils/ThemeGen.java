@@ -17,7 +17,7 @@ import com.detroitlabs.trimbol.R;
 public class ThemeGen {
 
     public static Paint buttonText = new Paint();
-    public static String background = new String();
+    public static String background;
     public static boolean isDark = false;
 
     public static int rocCircle;

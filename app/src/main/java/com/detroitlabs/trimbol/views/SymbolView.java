@@ -19,9 +19,9 @@ public class SymbolView extends View {
 
     public int xCoord, yCoord;
 
-    private final int MIN_DISTANCE = 50;
-    private final float CORNER_RADIUS = 0.37f; //.36
-    private final float SYMBOL_SIZE = 0.77f; //.77
+    private static final int MIN_DISTANCE = 50;
+    private static final float CORNER_RADIUS = 0.37f; //.36
+    private static final float SYMBOL_SIZE = 0.77f; //.77
     private float x1, y1, distanceX, distanceY;
     private int y, x;
     private boolean paintDone = false;

@@ -14,7 +14,7 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 public class MenuButtonView extends TextView {
 
     private boolean paintDone = false;
-    private final float CORNER_RADIUS = 0.37f;
+    private static final float CORNER_RADIUS = 0.37f;
     private String text;
     private Paint themeDepth;
     private Paint themeCircle;
