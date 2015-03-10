@@ -12,13 +12,13 @@ public class GameBoard {
     public static int difficulty = 0;
 
     public interface RenderListener {
-        public void onVictory();
+        void onVictory();
 
-        public void onSound();
+        void onSound();
 
-        public void renderPuzzle(Grid grid);
+        void renderPuzzle(Grid grid);
 
-        public void onHistory();
+        void onHistory();
     }
 
     private final Stack<Grid> gridHistory = new Stack<Grid>();
