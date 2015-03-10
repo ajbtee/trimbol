@@ -26,7 +26,7 @@ public class SymbolView extends View {
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
-    private float radius, radiusScale;
+    private float radiusScale;
 
     private Context context;
     private Grid grid;
@@ -58,7 +58,7 @@ public class SymbolView extends View {
 
         float halfWidth = getWidth()/2;
         float halfHeight = getHeight()/2;
-        radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
+        float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
         if (isSelected)
             radius += 5;
 
