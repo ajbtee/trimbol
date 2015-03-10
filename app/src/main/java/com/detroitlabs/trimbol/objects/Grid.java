@@ -2,6 +2,7 @@ package com.detroitlabs.trimbol.objects;
 
 import com.detroitlabs.trimbol.utils.Tuple;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -120,6 +121,6 @@ public class Grid{
     }
 
     public void setGrid(Symbol[][] grid) {
-        this.grid = grid;
+        this.grid = Arrays.copyOf(grid, grid.length);
     }
 }
