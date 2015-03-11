@@ -31,7 +31,7 @@ public class PlayActivity extends Activity {
     LinearLayout.LayoutParams optionsParams;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
         setContentView(R.layout.activity_title);
@@ -46,14 +46,14 @@ public class PlayActivity extends Activity {
 
         ThemeGen.makePaints(getBaseContext());
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
-        ImageView title = (ImageView) findViewById(R.id.trimbol_title);
+        final ImageView title = (ImageView) findViewById(R.id.trimbol_title);
         ThemeGen.setTitle(title);
 
         playButton.setClickable(true);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PuzzleActivity.class);
+            public void onClick(final View view) {
+                final Intent intent = new Intent(getApplicationContext(), PuzzleActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,8 +61,8 @@ public class PlayActivity extends Activity {
         tutorialButton.setClickable(true);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+            public void onClick(final View view) {
+                final Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,8 +70,8 @@ public class PlayActivity extends Activity {
         optionsButton.setClickable(true);
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
+            public void onClick(final View view) {
+                final Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,11 +83,11 @@ public class PlayActivity extends Activity {
         final int tutorialMargin = tutorialParams.leftMargin;
         final int optionsMargin = optionsParams.leftMargin;
 
-        ValueAnimator animatorPlay = ValueAnimator.ofFloat(1,0f);
+        final ValueAnimator animatorPlay = ValueAnimator.ofFloat(1,0f);
         animatorPlay.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 playParams.leftMargin = (int) (val*300)+playMargin;
                 playButton.setLayoutParams(playParams);
             }
@@ -96,11 +96,11 @@ public class PlayActivity extends Activity {
         animatorPlay.setInterpolator(new DecelerateInterpolator());
         animatorPlay.start();
 
-        ValueAnimator animatorTutorial = ValueAnimator.ofFloat(1,0f);
+        final ValueAnimator animatorTutorial = ValueAnimator.ofFloat(1,0f);
         animatorTutorial.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 tutorialParams.leftMargin = (int) (val * 300) + tutorialMargin;
                 tutorialButton.setLayoutParams(tutorialParams);
             }
@@ -109,11 +109,11 @@ public class PlayActivity extends Activity {
         animatorTutorial.setInterpolator(new DecelerateInterpolator());
         animatorTutorial.start();
 
-        ValueAnimator animatorOptions = ValueAnimator.ofFloat(1,0f);
+        final ValueAnimator animatorOptions = ValueAnimator.ofFloat(1,0f);
         animatorOptions.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 optionsParams.leftMargin = (int) (val * 300) + optionsMargin;
                 optionsButton.setLayoutParams(optionsParams);
             }

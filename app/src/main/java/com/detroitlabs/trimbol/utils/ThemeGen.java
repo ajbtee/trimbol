@@ -17,7 +17,7 @@ import com.detroitlabs.trimbol.R;
 public class ThemeGen {
 
     public static Paint buttonText = new Paint();
-    public static String background = new String();
+    public static String background;
     public static boolean isDark = false;
 
     public static int rocCircle;
@@ -41,7 +41,7 @@ public class ThemeGen {
     public static Bitmap themePapIcon;
     public static Bitmap themeSciIcon;
 
-    public static void makePaints(Context context) {
+    public static void makePaints(final Context context) {
         buttonText.setARGB(160, 255, 255, 255);
         buttonText.setAntiAlias(true);
         buttonText.setStyle(Paint.Style.FILL);
@@ -156,17 +156,17 @@ public class ThemeGen {
         themeSciSelected.setStyle(Paint.Style.STROKE);
     }
 
-    public static void scaleBitmaps(int size) {
-        int iconSize = (int) (size * .38); //.38 of canvas size
+    public static void scaleBitmaps(final int size) {
+        final int iconSize = (int) (size * .38); //.38 of canvas size
         buttonText.setTextSize((float) (size * .32));
         themeRocIcon = Bitmap.createScaledBitmap(themeRocIcon, iconSize, iconSize, true);
         themePapIcon = Bitmap.createScaledBitmap(themePapIcon, iconSize, iconSize, true);
         themeSciIcon = Bitmap.createScaledBitmap(themeSciIcon, iconSize, iconSize, true);
     }
 
-    public static void refreshView(ViewGroup viewGroup) {
+    public static void refreshView(final ViewGroup viewGroup) {
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
-            View childView = viewGroup.getChildAt(index);
+            final View childView = viewGroup.getChildAt(index);
 
             if (childView instanceof ViewGroup) {
                 childView.invalidate();
@@ -177,10 +177,11 @@ public class ThemeGen {
         }
     }
 
-    public static void setTitle(ImageView title) {
-        if (isDark)
+    public static void setTitle(final ImageView title) {
+        if (isDark) {
             title.setImageResource(R.drawable.title_dk);
-        else
+        } else {
             title.setImageResource(R.drawable.title);
+        }
     }
 }

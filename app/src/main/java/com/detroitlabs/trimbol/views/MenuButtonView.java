@@ -14,37 +14,37 @@ import com.detroitlabs.trimbol.utils.ThemeGen;
 public class MenuButtonView extends TextView {
 
     private boolean paintDone = false;
-    private final float CORNER_RADIUS = 0.37f;
+    private static final float CORNER_RADIUS = 0.37f;
     private String text;
     private Paint themeDepth;
     private Paint themeCircle;
     private Bitmap themeIcon;
 
-    public MenuButtonView(Context context) {
+    public MenuButtonView(final Context context) {
         super(context);
     }
 
-    public MenuButtonView(Context context, AttributeSet attrs) {
+    public MenuButtonView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MenuButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MenuButtonView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.makePaints(getContext());
             ThemeGen.scaleBitmaps((int) (getHeight() * 1.27));
         }
-        float halfWidth = getWidth()/2;
-        float halfHeight = getHeight()/2;
-        float radius = (halfHeight <= halfWidth ? halfHeight : halfWidth);
+        final float halfWidth = getWidth()/2;
+        final float halfHeight = getHeight()/2;
+        final float radius = (halfHeight <= halfWidth ? halfHeight : halfWidth);
 
-        RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-8);
-        RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
+        final RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-8);
+        final RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
 
         if (getId() == R.id.play) {
             text = getResources().getString(R.string.button_play);

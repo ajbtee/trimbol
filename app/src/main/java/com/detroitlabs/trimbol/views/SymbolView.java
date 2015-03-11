@@ -19,49 +19,47 @@ public class SymbolView extends View {
 
     public int xCoord, yCoord;
 
-    private final int MIN_DISTANCE = 50;
-    private final float CORNER_RADIUS = 0.37f; //.36
-    private final float SYMBOL_SIZE = 0.77f; //.77
+    private static final int MIN_DISTANCE = 50;
+    private static final float CORNER_RADIUS = 0.37f; //.36
+    private static final float SYMBOL_SIZE = 0.77f; //.77
     private float x1, y1, distanceX, distanceY;
     private int y, x;
     private boolean paintDone = false;
     private boolean isSelected = false;
-    private float radius, radiusScale;
 
-    private Context context;
     private Grid grid;
     private GameBoard gameBoard;
     private Symbol symbol;
 
-    public SymbolView(Context context, GameBoard gameBoard, int row, int column) {
+    public SymbolView(final Context context, final GameBoard gameBoard, int row, final int column) {
         super(context);
         init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, GameBoard gameBoard, int row, int column) {
-        super(context);
+    public SymbolView(final Context context, final AttributeSet attrs, final GameBoard gameBoard, final int row, final int column) {
+        super(context, attrs);
         init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, GameBoard gameBoard, int row, int column) {
-        super(context);
+    public SymbolView(final Context context, final AttributeSet attrs, final int defStyleAttr, final GameBoard gameBoard, final int row, final int column) {
+        super(context, attrs, defStyleAttr);
         init(gameBoard, row, column, context);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.scaleBitmaps(canvas.getWidth());
-            grid.setSymbolCoord(y,x,yCoord,xCoord);
             paintDone = true;
         }
 
-        float halfWidth = getWidth()/2;
-        float halfHeight = getHeight()/2;
-        radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
-        if (isSelected)
+        final float halfWidth = getWidth()/2;
+        final float halfHeight = getHeight()/2;
+        float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
+        if (isSelected) {
             radius += 5;
+        }
 
         RectF rectFace;
         RectF rectDepth;
@@ -74,28 +72,34 @@ public class SymbolView extends View {
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth-(ThemeGen.themeRocIcon.getWidth()/2), halfHeight-(ThemeGen.themeRocIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themeRocIcon, halfWidth - (ThemeGen.themeRocIcon.getWidth() / 2), halfHeight - (ThemeGen.themeRocIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themeRocSelected);
+                }
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.PAP) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth-(ThemeGen.themePapIcon.getWidth()/2), halfHeight-(ThemeGen.themePapIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themePapSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themePapIcon, halfWidth - (ThemeGen.themePapIcon.getWidth() / 2), halfHeight - (ThemeGen.themePapIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themePapSelected);
+                }
             }
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.SCI) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciDepth);
                 canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciCircle);
-                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE)
-                    canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth-(ThemeGen.themeSciIcon.getWidth()/2), halfHeight-(ThemeGen.themeSciIcon.getHeight()/2), null);
-                if (isSelected)
-                    canvas.drawRoundRect(rectFace, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeSciSelected);
+                if (radius >= (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE) {
+                    canvas.drawBitmap(ThemeGen.themeSciIcon, halfWidth - (ThemeGen.themeSciIcon.getWidth() / 2), halfHeight - (ThemeGen.themeSciIcon.getHeight() / 2), null);
+                }
+                if (isSelected) {
+                    canvas.drawRoundRect(rectFace, (radius * CORNER_RADIUS), (radius * CORNER_RADIUS), ThemeGen.themeSciSelected);
+                }
             }
         }
 
@@ -103,16 +107,18 @@ public class SymbolView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
+    public boolean onTouchEvent(final MotionEvent event)
     {
-        if (symbol.getState() == Symbol.State.GONE)
+        if (symbol.getState() == Symbol.State.GONE) {
             inputStateGone(event);
-        if (symbol.getState() == Symbol.State.EXIST)
+        }
+        if (symbol.getState() == Symbol.State.EXIST) {
             inputStateExist(event);
+        }
         return true;
     }
 
-    private void inputStateExist(MotionEvent event) {
+    private void inputStateExist(final MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
@@ -138,17 +144,20 @@ public class SymbolView extends View {
                     }
                 }
 
-                if (getTranslationY() < -MIN_DISTANCE)
+                if (getTranslationY() < -MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.UP);
-                if (getTranslationX() > MIN_DISTANCE)
+                }
+                if (getTranslationX() > MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.RIGHT);
-                if (getTranslationX() < -MIN_DISTANCE)
+                }
+                if (getTranslationX() < -MIN_DISTANCE) {
                     gameBoard.moveSymbol(y, x, Grid.LEFT);
+                }
                 break;
 
             case MotionEvent.ACTION_UP:
                 isSelected = false;
-                ValueAnimator animator = animSnapBack();
+                final ValueAnimator animator = animSnapBack();
                 animator.setDuration(300);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.start();
@@ -156,7 +165,7 @@ public class SymbolView extends View {
         }
     }
 
-    private void inputStateGone(MotionEvent event) {
+    private void inputStateGone(final MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_UP:
@@ -167,11 +176,11 @@ public class SymbolView extends View {
 
     // On release, snap the symbol back to its original location
     private ValueAnimator animSnapBack() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+        final ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 distanceX = val*distanceX;
                 distanceY = val*distanceY;
                 setTranslationX(scaleDistance(distanceX));
@@ -182,64 +191,67 @@ public class SymbolView extends View {
     }
 
     // On valid threshold, snap the symbol to its new location
-    private ValueAnimator animSnapTo() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                distanceX = val*distanceX;
-                distanceY = val*distanceY;
-                setTranslationX(scaleDistance(distanceX));
-                setTranslationY(scaleDistance(distanceY));
-            }
-        });
-        return animator;
-    }
+//    private ValueAnimator animSnapTo() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                distanceX = val*distanceX;
+//                distanceY = val*distanceY;
+//                setTranslationX(scaleDistance(distanceX));
+//                setTranslationY(scaleDistance(distanceY));
+//            }
+//        });
+//        return animator;
+//    }
 
     // On spawn, scale the symbol from zero to full size
-    private void animSpawn() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                radiusScale = val;
-            }
-        });
-        animator.setDuration(300);
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.start();
-    }
+//    private void animSpawn() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                radiusScale = val;
+//            }
+//        });
+//        animator.setDuration(300);
+//        animator.setInterpolator(new DecelerateInterpolator());
+//        animator.start();
+//    }
 
     // On despawn, scale the symbol from full size to zero
-    private void animDespawn() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
-                radiusScale = val;
-            }
-        });
-        animator.setDuration(200);
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.start();
-    }
+//    private void animDespawn() {
+//        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float val = (Float) valueAnimator.getAnimatedValue();
+//                radiusScale = val;
+//            }
+//        });
+//        animator.setDuration(200);
+//        animator.setInterpolator(new AccelerateInterpolator());
+//        animator.start();
+//    }
 
-    private void init(GameBoard gameBoard, int y, int x, Context context) {
+    private void init(final GameBoard gameBoard, final int y, final int x, final Context context) {
         this.y = y;
         this.x = x;
         this.gameBoard = gameBoard;
         this.grid = gameBoard.getGrid();
         this.symbol = grid.getSymbol(y, x);
-        this.context = context;
         ThemeGen.makePaints(context);
     }
 
-    private float scaleDistance(float distance) {
-        float scaleFactor = 0.005f;
-        float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
-        if(distance < 0) return scrollBy; else return -scrollBy;
+    private float scaleDistance(final float distance) {
+        final float scaleFactor = 0.005f;
+        final float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
+        if(distance < 0) {
+            return scrollBy;
+        } else {
+            return -scrollBy;
+        }
     }
 }

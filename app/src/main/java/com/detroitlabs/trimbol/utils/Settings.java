@@ -19,11 +19,13 @@ public class Settings {
     public static GameTheme gameTheme = GameTheme.CLASSIC;
     public static int selectedTheme = 2;
 
-    public static void useTheme(TextView theme) {
-        if (selectedTheme > GameTheme.values().length-1)
+    public static void useTheme(final TextView theme) {
+        if (selectedTheme > GameTheme.values().length-1) {
             selectedTheme = 0;
-        if (selectedTheme < 0)
-            selectedTheme = GameTheme.values().length-1;
+        }
+        if (selectedTheme < 0) {
+            selectedTheme = GameTheme.values().length - 1;
+        }
         gameTheme = gameTheme.values()[selectedTheme];
         switch (gameTheme) {
             case TRIMBOL:

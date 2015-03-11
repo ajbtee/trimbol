@@ -13,32 +13,22 @@ import com.detroitlabs.trimbol.objects.Grid;
  */
 public class SymbolLayout extends ViewGroup {
 
-    private int screenWidth, screenHeight, cellWidth;
+    private int cellWidth;
 
-    public SymbolLayout(Context context) {
+    public SymbolLayout(final Context context) {
         super(context);
-        init();
     }
 
-    public SymbolLayout(Context context, AttributeSet attrs) {
+    public SymbolLayout(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
-    public SymbolLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SymbolLayout(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        init();
-    }
-
-    private void init (){
-        DisplayMetrics display = getContext().getResources().getDisplayMetrics();
-
-        screenWidth = display.widthPixels;
-        screenHeight = display.heightPixels;
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         cellWidth = MeasureSpec.getSize(widthMeasureSpec) / Grid.gridX;
 
@@ -49,12 +39,12 @@ public class SymbolLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    protected void onLayout(final boolean changed, final int left, final int top, final int right, final int bottom) {
 
         int row = -1;
 
         for (int column = 0; column < getChildCount(); column++){
-            SymbolView childView = (SymbolView) getChildAt(column);
+            final SymbolView childView = (SymbolView) getChildAt(column);
 
             Rect rect;
 
@@ -64,8 +54,9 @@ public class SymbolLayout extends ViewGroup {
                 rect.left = (column % Grid.gridX) * cellWidth;
                 rect.right = rect.left + cellWidth;
 
-                if (column % Grid.gridX == 0)
+                if (column % Grid.gridX == 0) {
                     row++;
+                }
                 rect.top = row * cellWidth;
                 rect.bottom = rect.top + cellWidth;
 

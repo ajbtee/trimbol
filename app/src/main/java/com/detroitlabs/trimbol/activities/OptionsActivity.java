@@ -21,7 +21,7 @@ public class OptionsActivity extends Activity{
     GameBoard gameBoard;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
         setContentView(R.layout.activity_options);
@@ -37,12 +37,12 @@ public class OptionsActivity extends Activity{
         forwardButton.setClickable(true);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
                 Settings.selectedTheme++;
                 Settings.useTheme(currentTheme);
                 ThemeGen.makePaints(getBaseContext());
-                ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
+                final ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
                 getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
                 ThemeGen.setTitle(title);
@@ -53,23 +53,23 @@ public class OptionsActivity extends Activity{
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
                 Settings.selectedTheme--;
                 Settings.useTheme(currentTheme);
                 ThemeGen.makePaints(getBaseContext());
-                ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
+                final ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
                 getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
                 ThemeGen.setTitle(title);
             }
         });
 
-        View playButton = findViewById(R.id.done);
+        final View playButton = findViewById(R.id.done);
         playButton.setClickable(true);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 finish();
                 finishActivity(1001);
             }
@@ -78,8 +78,8 @@ public class OptionsActivity extends Activity{
 
     @Override
     public void onPause() {
-        super.onPause();
         overridePendingTransition(0, 0);
+        super.onPause();
     }
 
 //    @Override

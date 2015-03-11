@@ -25,22 +25,22 @@ import com.detroitlabs.trimbol.views.SymbolView;
 
 public class PuzzleActivity extends Activity implements GameBoard.RenderListener{
 
-    GameBoard gameBoard;
-    TextView score;
-    TextView clear;
-    LinearLayout victory;
-    View backButton;
-    View resetButton;
-    MediaPlayer sfx;
+    private GameBoard gameBoard;
+    private TextView score;
+    private TextView clear;
+    private LinearLayout victory;
+    private View backButton;
+    private View resetButton;
+    private MediaPlayer sfx;
     SaveHandler saveHandler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
+        final Display display = getWindowManager().getDefaultDisplay();
+        final Point size = new Point();
         display.getSize(size);
 
         overridePendingTransition(0,0);
@@ -59,7 +59,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 gameBoard.rewindGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
@@ -69,7 +69,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         resetButton.setClickable(true);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 gameBoard.resetGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
@@ -94,13 +94,13 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     }
 
     @Override
-    public void renderPuzzle(Grid grid) {
-        SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
+    public void renderPuzzle(final Grid grid) {
+        final SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
-                SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
+                final SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
                 viewGroup.addView(symbolView);
             }
         }
@@ -127,25 +127,31 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 //    }
 
     private void animVictory() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
+        final ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 victory.setVisibility(View.VISIBLE);
 
-                if (val >= 0)
+                if (val >= 0) {
                     clear.setText("");
-                if (val >= 0.4)
+                }
+                if (val >= 0.4) {
                     clear.setText("C");
-                if (val >= 0.45)
+                }
+                if (val >= 0.45) {
                     clear.setText("C L");
-                if (val >= 0.5)
+                }
+                if (val >= 0.5) {
                     clear.setText("C L E");
-                if (val >= 0.55)
+                }
+                if (val >= 0.55) {
                     clear.setText("C L E A");
-                if (val >= 0.6)
+                }
+                if (val >= 0.6) {
                     clear.setText("C L E A R");
+                }
                 if (val >= 1) {
                     score.setText("Level " + GameBoard.difficulty);
                     victory.setVisibility(View.GONE);

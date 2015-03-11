@@ -31,7 +31,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
     MediaPlayer sfx;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         overridePendingTransition(0,0);
@@ -50,7 +50,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 gameBoard.rewindGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
@@ -129,7 +129,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 break;
             case 5:
                 gameBoard.difficulty = 0;
-                Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
+                final Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -149,13 +149,13 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
     }
 
     @Override
-    public void renderPuzzle(Grid grid) {
-        SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
+    public void renderPuzzle(final Grid grid) {
+        final SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
-                SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
+                final SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
                 viewGroup.addView(symbolView);
             }
         }
