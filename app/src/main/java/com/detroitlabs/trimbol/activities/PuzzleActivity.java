@@ -25,13 +25,13 @@ import com.detroitlabs.trimbol.views.SymbolView;
 
 public class PuzzleActivity extends Activity implements GameBoard.RenderListener{
 
-    GameBoard gameBoard;
-    TextView score;
-    TextView clear;
-    LinearLayout victory;
-    View backButton;
-    View resetButton;
-    MediaPlayer sfx;
+    private GameBoard gameBoard;
+    private TextView score;
+    private TextView clear;
+    private LinearLayout victory;
+    private View backButton;
+    private View resetButton;
+    private MediaPlayer sfx;
     SaveHandler saveHandler;
 
     @Override
