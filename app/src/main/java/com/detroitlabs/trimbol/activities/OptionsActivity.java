@@ -78,8 +78,8 @@ public class OptionsActivity extends Activity{
 
     @Override
     public void onPause() {
-        super.onPause();
         overridePendingTransition(0, 0);
+        super.onPause();
     }
 
 //    @Override

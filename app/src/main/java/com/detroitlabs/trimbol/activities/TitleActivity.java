@@ -76,8 +76,8 @@ public class TitleActivity extends Activity {
 
     @Override
     public void onPause() {
-        super.onPause();
         overridePendingTransition(0, 0);
+        super.onPause();
     }
 
     private void animateButtons() {
