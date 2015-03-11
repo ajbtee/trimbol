@@ -12,11 +12,11 @@ import java.io.IOException;
 public class SaveHandler extends Activity {
 
     public void saveGame(GameBoard gameBoard) {
-        String SAVEFILE = "trimbol_save";
-        String data = gameBoard.getGrid().toString();
+        final String SAVEFILE = "trimbol_save";
+        final String data = gameBoard.getGrid().toString();
 
         try {
-            FileOutputStream fos = openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
+            final FileOutputStream fos = openFileOutput(SAVEFILE, Context.MODE_PRIVATE);
             fos.write(data.getBytes());
             fos.close();
         } catch (IOException e) {

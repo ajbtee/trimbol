@@ -42,7 +42,7 @@ public class OptionsActivity extends Activity{
                 Settings.selectedTheme++;
                 Settings.useTheme(currentTheme);
                 ThemeGen.makePaints(getBaseContext());
-                ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
+                final ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
                 getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
                 ThemeGen.setTitle(title);
@@ -58,14 +58,14 @@ public class OptionsActivity extends Activity{
                 Settings.selectedTheme--;
                 Settings.useTheme(currentTheme);
                 ThemeGen.makePaints(getBaseContext());
-                ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
+                final ViewGroup viewGroup = (ViewGroup) findViewById(R.id.rootView);
                 ThemeGen.refreshView(viewGroup);
                 getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
                 ThemeGen.setTitle(title);
             }
         });
 
-        View playButton = findViewById(R.id.done);
+        final View playButton = findViewById(R.id.done);
         playButton.setClickable(true);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override

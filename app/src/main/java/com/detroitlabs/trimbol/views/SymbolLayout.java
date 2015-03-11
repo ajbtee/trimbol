@@ -44,7 +44,7 @@ public class SymbolLayout extends ViewGroup {
         int row = -1;
 
         for (int column = 0; column < getChildCount(); column++){
-            SymbolView childView = (SymbolView) getChildAt(column);
+            final SymbolView childView = (SymbolView) getChildAt(column);
 
             Rect rect;
 

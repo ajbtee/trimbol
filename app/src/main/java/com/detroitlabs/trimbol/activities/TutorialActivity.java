@@ -129,7 +129,7 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
                 break;
             case 5:
                 gameBoard.difficulty = 0;
-                Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
+                final Intent intent = new Intent(getApplicationContext(), TitleActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -150,12 +150,12 @@ public class TutorialActivity extends Activity implements GameBoard.RenderListen
 
     @Override
     public void renderPuzzle(Grid grid) {
-        SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
+        final SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
-                SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
+                final SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
                 viewGroup.addView(symbolView);
             }
         }

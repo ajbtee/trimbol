@@ -39,12 +39,12 @@ public class MenuButtonView extends TextView {
             ThemeGen.makePaints(getContext());
             ThemeGen.scaleBitmaps((int) (getHeight() * 1.27));
         }
-        float halfWidth = getWidth()/2;
-        float halfHeight = getHeight()/2;
-        float radius = (halfHeight <= halfWidth ? halfHeight : halfWidth);
+        final float halfWidth = getWidth()/2;
+        final float halfHeight = getHeight()/2;
+        final float radius = (halfHeight <= halfWidth ? halfHeight : halfWidth);
 
-        RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-8);
-        RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
+        final RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-8);
+        final RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
 
         if (getId() == R.id.play) {
             text = getResources().getString(R.string.button_play);

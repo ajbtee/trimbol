@@ -39,8 +39,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
+        final Display display = getWindowManager().getDefaultDisplay();
+        final Point size = new Point();
         display.getSize(size);
 
         overridePendingTransition(0,0);
@@ -95,12 +95,12 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     @Override
     public void renderPuzzle(Grid grid) {
-        SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
+        final SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
         for (int row = 0; row < grid.getGridY(); row++){
             for (int column = 0; column < grid.getGridX(); column++){
-                SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
+                final SymbolView symbolView = new SymbolView(this, gameBoard, row, column);
                 viewGroup.addView(symbolView);
             }
         }
@@ -127,11 +127,11 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 //    }
 
     private void animVictory() {
-        ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
+        final ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 victory.setVisibility(View.VISIBLE);
 
                 if (val >= 0) {

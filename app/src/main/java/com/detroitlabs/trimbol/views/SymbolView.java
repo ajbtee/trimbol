@@ -54,8 +54,8 @@ public class SymbolView extends View {
             paintDone = true;
         }
 
-        float halfWidth = getWidth()/2;
-        float halfHeight = getHeight()/2;
+        final float halfWidth = getWidth()/2;
+        final float halfHeight = getHeight()/2;
         float radius = (halfWidth <= halfHeight ? halfWidth : halfHeight) * SYMBOL_SIZE;
         if (isSelected) {
             radius += 5;
@@ -157,7 +157,7 @@ public class SymbolView extends View {
 
             case MotionEvent.ACTION_UP:
                 isSelected = false;
-                ValueAnimator animator = animSnapBack();
+                final ValueAnimator animator = animSnapBack();
                 animator.setDuration(300);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.start();
@@ -176,11 +176,11 @@ public class SymbolView extends View {
 
     // On release, snap the symbol back to its original location
     private ValueAnimator animSnapBack() {
-        ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
+        final ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float val = (Float) valueAnimator.getAnimatedValue();
+                final float val = (Float) valueAnimator.getAnimatedValue();
                 distanceX = val*distanceX;
                 distanceY = val*distanceY;
                 setTranslationX(scaleDistance(distanceX));
@@ -246,8 +246,8 @@ public class SymbolView extends View {
     }
 
     private float scaleDistance(float distance) {
-        float scaleFactor = 0.005f;
-        float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
+        final float scaleFactor = 0.005f;
+        final float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
         if(distance < 0) {
             return scrollBy;
         } else {

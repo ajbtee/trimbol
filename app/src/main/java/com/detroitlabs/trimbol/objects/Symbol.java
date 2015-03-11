@@ -57,8 +57,8 @@ public class Symbol{
     }
 
     public static Symbol random() {
-        Type[] types = {ROC, PAP, SCI};
-        Type randomType = types[random.nextInt(types.length)];
+        final Type[] types = {ROC, PAP, SCI};
+        final Type randomType = types[random.nextInt(types.length)];
         return new Symbol(randomType, State.EXIST);
     }
 }

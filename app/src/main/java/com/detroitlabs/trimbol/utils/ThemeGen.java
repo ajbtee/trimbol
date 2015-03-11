@@ -157,7 +157,7 @@ public class ThemeGen {
     }
 
     public static void scaleBitmaps(int size) {
-        int iconSize = (int) (size * .38); //.38 of canvas size
+        final int iconSize = (int) (size * .38); //.38 of canvas size
         buttonText.setTextSize((float) (size * .32));
         themeRocIcon = Bitmap.createScaledBitmap(themeRocIcon, iconSize, iconSize, true);
         themePapIcon = Bitmap.createScaledBitmap(themePapIcon, iconSize, iconSize, true);
@@ -166,7 +166,7 @@ public class ThemeGen {
 
     public static void refreshView(ViewGroup viewGroup) {
         for (int index = 0; index < viewGroup.getChildCount(); index++) {
-            View childView = viewGroup.getChildAt(index);
+            final View childView = viewGroup.getChildAt(index);
 
             if (childView instanceof ViewGroup) {
                 childView.invalidate();

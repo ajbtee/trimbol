@@ -51,7 +51,7 @@ public class Grid{
         setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST);
+                final Symbol symbol = new Symbol(Symbol.Type.NIL, Symbol.State.EXIST);
                 grid[y][x] = symbol;
             }
         }
@@ -61,7 +61,7 @@ public class Grid{
         setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
-                Symbol symbol = new Symbol(grid.grid[y][x]);
+                final Symbol symbol = new Symbol(grid.grid[y][x]);
                 this.grid[y][x] = symbol;
             }
         }

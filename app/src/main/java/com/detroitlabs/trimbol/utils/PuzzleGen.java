@@ -69,11 +69,11 @@ public class PuzzleGen {
 
     private static void pickDirection(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
 
-        List<Directions> directions = Arrays.asList(Directions.values());
+        final List<Directions> directions = Arrays.asList(Directions.values());
         Collections.shuffle(directions);
 
         // Step through list
-        for (Directions d : directions) {
+        for (final Directions d : directions) {
             switch (d) {
                 case ABOVE:
                     if (cursorY - 1 > -1 && grid.getSymbol(cursorY - 1, cursorX).getType() == NIL) {
