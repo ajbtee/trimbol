@@ -15,20 +15,20 @@ public class SymbolLayout extends ViewGroup {
 
     private int cellWidth;
 
-    public SymbolLayout(Context context) {
+    public SymbolLayout(final Context context) {
         super(context);
     }
 
-    public SymbolLayout(Context context, AttributeSet attrs) {
+    public SymbolLayout(final Context context, final AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SymbolLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SymbolLayout(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         cellWidth = MeasureSpec.getSize(widthMeasureSpec) / Grid.gridX;
 
@@ -39,7 +39,7 @@ public class SymbolLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    protected void onLayout(final boolean changed, final int left, final int top, final int right, final int bottom) {
 
         int row = -1;
 

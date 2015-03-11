@@ -30,12 +30,12 @@ public class Symbol{
     State state;
     Type type;
 
-    public Symbol(Type symbol, State state) {
+    public Symbol(final Type symbol, final State state) {
         this.type = symbol;
         this.state = state;
     }
 
-    public Symbol(Symbol symbol) {
+    public Symbol(final Symbol symbol) {
         this(symbol.type, symbol.state);
     }
 
@@ -47,7 +47,7 @@ public class Symbol{
         return state;
     }
 
-    public static Type counterOf(Type s) {
+    public static Type counterOf(final Type s) {
         switch (s) {
             case ROC: return Type.SCI;
             case SCI: return Type.PAP;

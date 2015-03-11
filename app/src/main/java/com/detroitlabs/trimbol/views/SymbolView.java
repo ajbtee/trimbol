@@ -31,23 +31,23 @@ public class SymbolView extends View {
     private GameBoard gameBoard;
     private Symbol symbol;
 
-    public SymbolView(Context context, GameBoard gameBoard, int row, int column) {
+    public SymbolView(final Context context, final GameBoard gameBoard, int row, final int column) {
         super(context);
         init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, GameBoard gameBoard, int row, int column) {
+    public SymbolView(final Context context, final AttributeSet attrs, final GameBoard gameBoard, final int row, final int column) {
         super(context, attrs);
         init(gameBoard, row, column, context);
     }
 
-    public SymbolView(Context context, AttributeSet attrs, int defStyleAttr, GameBoard gameBoard, int row, int column) {
+    public SymbolView(final Context context, final AttributeSet attrs, final int defStyleAttr, final GameBoard gameBoard, final int row, final int column) {
         super(context, attrs, defStyleAttr);
         init(gameBoard, row, column, context);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.scaleBitmaps(canvas.getWidth());
@@ -107,7 +107,7 @@ public class SymbolView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
+    public boolean onTouchEvent(final MotionEvent event)
     {
         if (symbol.getState() == Symbol.State.GONE) {
             inputStateGone(event);
@@ -118,7 +118,7 @@ public class SymbolView extends View {
         return true;
     }
 
-    private void inputStateExist(MotionEvent event) {
+    private void inputStateExist(final MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
@@ -165,7 +165,7 @@ public class SymbolView extends View {
         }
     }
 
-    private void inputStateGone(MotionEvent event) {
+    private void inputStateGone(final MotionEvent event) {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_UP:
@@ -179,7 +179,7 @@ public class SymbolView extends View {
         final ValueAnimator animator = ValueAnimator.ofFloat(1,0f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
                 final float val = (Float) valueAnimator.getAnimatedValue();
                 distanceX = val*distanceX;
                 distanceY = val*distanceY;
@@ -236,7 +236,7 @@ public class SymbolView extends View {
 //        animator.start();
 //    }
 
-    private void init(GameBoard gameBoard, int y, int x, Context context) {
+    private void init(final GameBoard gameBoard, final int y, final int x, final Context context) {
         this.y = y;
         this.x = x;
         this.gameBoard = gameBoard;
@@ -245,7 +245,7 @@ public class SymbolView extends View {
         ThemeGen.makePaints(context);
     }
 
-    private float scaleDistance(float distance) {
+    private float scaleDistance(final float distance) {
         final float scaleFactor = 0.005f;
         final float scrollBy = (float) (0.666f * ((1 - Math.exp(-1 * scaleFactor * Math.abs(distance))) / scaleFactor));
         if(distance < 0) {

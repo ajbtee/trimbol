@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class SaveHandler extends Activity {
 
-    public void saveGame(GameBoard gameBoard) {
+    public void saveGame(final GameBoard gameBoard) {
         final String SAVEFILE = "trimbol_save";
         final String data = gameBoard.getGrid().toString();
 

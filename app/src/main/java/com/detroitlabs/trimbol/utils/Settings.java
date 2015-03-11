@@ -19,7 +19,7 @@ public class Settings {
     public static GameTheme gameTheme = GameTheme.CLASSIC;
     public static int selectedTheme = 2;
 
-    public static void useTheme(TextView theme) {
+    public static void useTheme(final TextView theme) {
         if (selectedTheme > GameTheme.values().length-1) {
             selectedTheme = 0;
         }

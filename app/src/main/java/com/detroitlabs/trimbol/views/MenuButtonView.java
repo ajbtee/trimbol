@@ -20,20 +20,20 @@ public class MenuButtonView extends TextView {
     private Paint themeCircle;
     private Bitmap themeIcon;
 
-    public MenuButtonView(Context context) {
+    public MenuButtonView(final Context context) {
         super(context);
     }
 
-    public MenuButtonView(Context context, AttributeSet attrs) {
+    public MenuButtonView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MenuButtonView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MenuButtonView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         if (!paintDone) {
             ThemeGen.makePaints(getContext());

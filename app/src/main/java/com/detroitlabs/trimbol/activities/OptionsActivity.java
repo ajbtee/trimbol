@@ -21,7 +21,7 @@ public class OptionsActivity extends Activity{
     GameBoard gameBoard;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
         setContentView(R.layout.activity_options);
@@ -37,7 +37,7 @@ public class OptionsActivity extends Activity{
         forwardButton.setClickable(true);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
                 Settings.selectedTheme++;
                 Settings.useTheme(currentTheme);
@@ -53,7 +53,7 @@ public class OptionsActivity extends Activity{
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
                 Settings.selectedTheme--;
                 Settings.useTheme(currentTheme);
@@ -69,7 +69,7 @@ public class OptionsActivity extends Activity{
         playButton.setClickable(true);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 finish();
                 finishActivity(1001);
             }

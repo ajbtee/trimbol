@@ -25,7 +25,7 @@ public class GameBoard {
     private Grid grid;
     private GameBoard.RenderListener renderListener;
 
-    public GameBoard(GameBoard.RenderListener renderListener) {
+    public GameBoard(final GameBoard.RenderListener renderListener) {
         this.renderListener = renderListener;
         grid = new Grid();
         PuzzleGen.generate(grid);
@@ -72,7 +72,7 @@ public class GameBoard {
         return grid;
     }
 
-    public void moveSymbol(int y, int x, int direction) {
+    public void moveSymbol(final int y, final int x, final int direction) {
         int checkY = 0, checkX = 0;
         if (direction == Grid.UP) {
             checkY = -1;
@@ -109,7 +109,7 @@ public class GameBoard {
         }
     }
 
-    private boolean outOfBounds(int y, int x, int checkY, int checkX) {
+    private boolean outOfBounds(final int y, final int x, final int checkY, final int checkX) {
         return y + checkY <= -1 || y + checkY >= grid.gridY || x + checkX <= -1 || x + checkX >= grid.gridX;
     }
 

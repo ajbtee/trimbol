@@ -57,7 +57,7 @@ public class Grid{
         }
     }
 
-    public Grid(Grid grid) {
+    public Grid(final Grid grid) {
         setGridSize(GameBoard.difficulty);
         for (int x = 0; x < gridX; x++){
             for (int y = 0; y < gridY; y++){
@@ -67,7 +67,7 @@ public class Grid{
         }
     }
 
-    public void setSymbol(Symbol symbol, int y, int x) {
+    public void setSymbol(final Symbol symbol, final int y, final int x) {
         this.grid[y][x] = symbol;
     }
 
@@ -76,12 +76,12 @@ public class Grid{
     //  └──────────────────────────────────────────┘
 
     static class BoardSize extends Tuple<Integer, Integer> {
-        BoardSize(Integer fst, Integer snd) {
+        BoardSize(final Integer fst, final Integer snd) {
             super(fst, snd);
         }
     }
 
-    private void setGridSize(int level) {
+    private void setGridSize(final int level) {
         BoardSize b;
         if(levelSizes.containsKey(level)) {
             b = levelSizes.get(level);
@@ -105,7 +105,7 @@ public class Grid{
         return gridY;
     }
 
-    public Symbol getSymbol(int y, int x) {
+    public Symbol getSymbol(final int y, final int x) {
         try {
             return grid[y][x];
         } catch(IndexOutOfBoundsException e) {
@@ -113,15 +113,15 @@ public class Grid{
         }
     }
 
-    public void setSymbolType(int y, int x, Symbol.Type type) {
+    public void setSymbolType(final int y, final int x, final Symbol.Type type) {
         grid[y][x].type = type;
     }
 
-    public void setSymbolState(int y, int x, Symbol.State state) {
+    public void setSymbolState(final int y, final int x, final Symbol.State state) {
         grid[y][x].state = state;
     }
 
-    public void setGrid(Symbol[][] grid) {
+    public void setGrid(final Symbol[][] grid) {
         this.grid = Arrays.copyOf(grid, grid.length);
     }
 }

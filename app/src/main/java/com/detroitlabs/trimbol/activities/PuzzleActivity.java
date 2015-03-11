@@ -35,7 +35,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     SaveHandler saveHandler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
@@ -59,7 +59,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         backButton.setClickable(true);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 gameBoard.rewindGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
@@ -69,7 +69,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         resetButton.setClickable(true);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 gameBoard.resetGrid();
                 renderPuzzle(gameBoard.getGrid());
             }
@@ -94,7 +94,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     }
 
     @Override
-    public void renderPuzzle(Grid grid) {
+    public void renderPuzzle(final Grid grid) {
         final SymbolLayout viewGroup = (SymbolLayout) findViewById(R.id.gameboard);
         viewGroup.removeAllViews();
 
@@ -130,7 +130,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
         final ValueAnimator animator = ValueAnimator.ofFloat(0,1f);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate(final ValueAnimator valueAnimator) {
                 final float val = (Float) valueAnimator.getAnimatedValue();
                 victory.setVisibility(View.VISIBLE);
 

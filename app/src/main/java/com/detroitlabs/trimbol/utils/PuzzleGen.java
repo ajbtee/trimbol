@@ -14,7 +14,7 @@ public class PuzzleGen {
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Generate new puzzle                                 │
     //  └─────────────────────────────────────────────────────┘
-    public static void generate(Grid grid) {
+    public static void generate(final Grid grid) {
         boolean gridFull = false;
 
         // Create a random symbol in a random location
@@ -67,7 +67,7 @@ public class PuzzleGen {
         RIGHT
     }
 
-    private static void pickDirection(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
+    private static void pickDirection(final Grid grid, final int cursorY, final int cursorX, final Symbol.Type symbol) {
 
         final List<Directions> directions = Arrays.asList(Directions.values());
         Collections.shuffle(directions);
@@ -110,18 +110,18 @@ public class PuzzleGen {
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Place counter symbol                                │
     //  └─────────────────────────────────────────────────────┘
-    private static void pickCounter(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
+    private static void pickCounter(final Grid grid, final int cursorY, final int cursorX, final Symbol.Type symbol) {
         placeSymbol(grid, cursorY, cursorX, Symbol.counterOf(symbol));
     }
 
-    private static void placeSymbol(Grid grid, int cursorY, int cursorX, Symbol.Type symbol) {
+    private static void placeSymbol(final Grid grid, final int cursorY, final int cursorX, final Symbol.Type symbol) {
         grid.setSymbol(new Symbol(symbol, Symbol.State.EXIST), cursorY, cursorX);
     }
 
     //  ┌─────────────────────────────────────────────────────┐
     //  │ Print current grid to console                       │
     //  └─────────────────────────────────────────────────────┘
-    public static void printGrid(Grid grid) {
+    public static void printGrid(final Grid grid) {
 
         // Symbol saturation
         System.out.print("\n");
