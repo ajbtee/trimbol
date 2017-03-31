@@ -7,7 +7,6 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.detroitlabs.trimbol.objects.GameBoard;
@@ -67,7 +66,7 @@ public class SymbolView extends View {
         rectFace =   new RectF((int) (halfWidth - radius), (int) (halfWidth - radius), (int) (halfWidth + radius), (int) (halfWidth + radius));
         rectDepth =  new RectF((int) (halfWidth - radius), (int) (halfWidth - radius) + (10 - (int) (GameBoard.difficulty * 0.06)), (int) (halfWidth + radius), (int) (halfWidth + radius) + (10 - (int) (GameBoard.difficulty * 0.06)));
 
-        if (symbol.getState() != Symbol.State.GONE) {
+        if (symbol.getState() == Symbol.State.EXIST) {
 
             if (grid.getSymbol(y, x).getType() == Symbol.Type.ROC) {
                 canvas.drawRoundRect(rectDepth, (radius*CORNER_RADIUS), (radius*CORNER_RADIUS), ThemeGen.themeRocDepth);

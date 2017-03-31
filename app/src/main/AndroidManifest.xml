@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.detroitlabs.trimbol" >
+          package="com.detroitlabs.trimbol">
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar" >
+        android:theme="@android:style/Theme.NoTitleBar">
         <activity
             android:name=".activities.PuzzleActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.TitleActivity"
+            android:name=".prototype.PrototypeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.OptionsActivity"
-            android:label="@string/title_activity_options" >
+            android:label="@string/title_activity_options">
         </activity>
         <activity
             android:name=".activities.TutorialActivity"
-            android:label="@string/title_activity_tutorial" >
+            android:label="@string/title_activity_tutorial">
         </activity>
         <activity
             android:name=".activities.PlayActivity"
-            android:label="@string/title_activity_play" >
+            android:label="@string/title_activity_play">
+        </activity>
+        <activity
+            android:name=".activities.TitleActivity"
+            android:label="@string/title_activity_prototype">
         </activity>
     </application>
 

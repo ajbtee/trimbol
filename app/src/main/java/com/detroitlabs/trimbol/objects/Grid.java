@@ -3,7 +3,6 @@ package com.detroitlabs.trimbol.objects;
 import com.detroitlabs.trimbol.utils.Tuple;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -37,7 +36,6 @@ public class Grid{
         levelSizes.put(40, new BoardSize(7, 5));
         levelSizes.put(50, new BoardSize(7, 6));
         levelSizes.put(60, new BoardSize(7, 6));
-        levelSizes.put(80, new BoardSize(8, 7));
         levelSizes.put(80, new BoardSize(8, 7));
         levelSizes.put(100, new BoardSize(9, 7));
     }

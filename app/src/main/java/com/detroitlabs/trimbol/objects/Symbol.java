@@ -22,7 +22,6 @@ public class Symbol{
     public static enum State {
         GONE,
         EXIST,
-        CONVERT,
     }
 
     private static final Random random = new Random();

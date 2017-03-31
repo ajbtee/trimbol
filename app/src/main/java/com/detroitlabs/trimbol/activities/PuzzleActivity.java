@@ -4,11 +4,8 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
@@ -23,7 +20,7 @@ import com.detroitlabs.trimbol.views.SymbolLayout;
 import com.detroitlabs.trimbol.views.SymbolView;
 
 
-public class PuzzleActivity extends Activity implements GameBoard.RenderListener{
+public class PuzzleActivity extends Activity implements GameBoard.RenderListener {
 
     private GameBoard gameBoard;
     private TextView score;
@@ -31,7 +28,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
     private LinearLayout victory;
     private View backButton;
     private View resetButton;
-    private MediaPlayer sfx;
+    //private MediaPlayer sfx;
     SaveHandler saveHandler;
 
     @Override
@@ -45,8 +42,8 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
         overridePendingTransition(0,0);
         this.setContentView(R.layout.activity_puzzle);
-        sfx = MediaPlayer.create(PuzzleActivity.this, R.raw.blop);
-        sfx.setVolume(0.3f, 0.3f);
+        //sfx = MediaPlayer.create(PuzzleActivity.this, R.raw.blop);
+        //sfx.setVolume(0.3f, 0.3f);
 
         ThemeGen.makePaints(getBaseContext());
         getWindow().getDecorView().setBackgroundColor(Color.parseColor(ThemeGen.background));
@@ -90,7 +87,7 @@ public class PuzzleActivity extends Activity implements GameBoard.RenderListener
 
     @Override
     public void onSound() {
-        sfx.start();
+        //sfx.start();
     }
 
     @Override

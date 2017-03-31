@@ -38,5 +38,6 @@
     <string name="puzzle_level">Level</string>
     <string name="puzzle_reset">RESET</string>
     <string name="puzzle_undo">UNDO</string>
+    <string name="title_activity_prototype">PrototypeActivity</string>
 
 </resources>

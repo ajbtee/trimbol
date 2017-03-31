@@ -4,9 +4,6 @@ import com.detroitlabs.trimbol.utils.PuzzleGen;
 
 import java.util.Stack;
 
-/**
- * Created by andrewjb on 12/3/14.
- */
 public class GameBoard {
 
     public static int difficulty = 0;
