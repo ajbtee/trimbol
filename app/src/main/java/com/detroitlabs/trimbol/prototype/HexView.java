@@ -7,15 +7,14 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.RectF;
-import android.support.annotation.FloatRange;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class HexView extends View {
 
-    private static final float ROTATOR = 0f;
+    private static final float ROTATOR = 0.0f;
     private static final float CORNER_RADIUS = 0.1f;
-    private static final float SYMBOL_SIZE = 0.9f;
+    private static final float SYMBOL_SIZE = 1.0f;
 
     private Paint paintFace = new Paint();
     private Paint paintDepth = new Paint();
@@ -40,46 +39,35 @@ public class HexView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         float radius = (getWidth()/2 <= getHeight()/2 ? getWidth()/2 : getHeight()/2) * SYMBOL_SIZE;
-
-        for (int i = 0; i < 6; i++) {
-            canvas.save();
-            canvas.rotate((i * 60) + ROTATOR, getWidth()/2, getHeight()/2);
-            drawRoundHex(radius, canvas);
-            canvas.restore();
-        }
+        drawRoundHex(radius, canvas);
     }
 
     private void drawRoundHex(float radius, Canvas canvas) {
-        Point target = new Point(
-                (int) (getWidth()/2 + (-radius * (1 - 2 * CORNER_RADIUS) / 2)),
-                (int) (getHeight()/2 - Math.sqrt(3) * radius * (1 - 2 * CORNER_RADIUS) / 2));
-
-        RectF arcRect = new RectF(
-                (int) (target.x - Math.sqrt(3) * (CORNER_RADIUS * radius)),
-                (int) (target.y - Math.sqrt(3) * (CORNER_RADIUS * radius)),
-                (int) (target.x + Math.sqrt(3) * (CORNER_RADIUS * radius)),
-                (int) (target.y + Math.sqrt(3) * (CORNER_RADIUS * radius)));
-
-        float baseAngle = getAngle(target);
-
         Path arc = new Path();
-        arc.arcTo(arcRect, (360 - baseAngle) - 30, 60);
-        arc.rLineTo((1 - 2 * CORNER_RADIUS) * radius, 0);
+        for (int i = 0; i < 6; i++) {
 
+            float angle_deg = ROTATOR + 60 * i;
+            float angle_rad = (float) Math.PI / 180 * angle_deg;
+            double halfArcRect = (Math.sqrt(3) * (CORNER_RADIUS * radius));
+
+            Point target = new Point(
+                    (int) (getWidth()/2 + (radius - halfArcRect) * (float) Math.cos(angle_rad)),
+                    (int) (getHeight()/2 + (radius - halfArcRect) * (float) Math.sin(angle_rad)));
+
+            RectF arcRect = new RectF(
+                    (int) (target.x - halfArcRect),
+                    (int) (target.y - halfArcRect),
+                    (int) (target.x + halfArcRect),
+                    (int) (target.y + halfArcRect));
+
+            arc.arcTo(arcRect, angle_deg - 30, 60);
+            canvas.drawPath(arc, paintFace);
+
+        }
+
+        arc.close();
         canvas.drawPath(arc, paintFace);
-    }
-
-    @FloatRange(from = 0, to = 360)
-    private float getAngle(Point target) {
-        float deltaX = target.x - getWidth()/2;
-        float deltaY = -(target.y - getHeight()/2);
-        float angle = (float) Math.atan2(deltaY, deltaX);
-
-        if (angle < 0) { angle += Math.PI / 2; }
-
-        return (float) (angle * 360 / (2 * Math.PI));
     }
 
 
@@ -120,7 +108,7 @@ public class HexView extends View {
         paintFace.setARGB(255, Color.red(colorFace), Color.green(colorFace), Color.blue(colorFace));
         paintFace.setStrokeWidth(5);
         paintFace.setAntiAlias(true);
-        paintFace.setStyle(Paint.Style.STROKE);
+        paintFace.setStyle(Paint.Style.FILL);
     }
 
 }
