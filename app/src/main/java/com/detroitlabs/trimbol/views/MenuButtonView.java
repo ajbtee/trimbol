@@ -43,7 +43,7 @@ public class MenuButtonView extends TextView {
         final float halfHeight = getHeight()/2;
         final float radius = (halfHeight <= halfWidth ? halfHeight : halfWidth);
 
-        final RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-8);
+        final RectF rectFace =   new RectF(0, 0, getWidth(), getHeight()-16);
         final RectF rectDepth =  new RectF(0, 10, getWidth(), getHeight());
 
         if (getId() == R.id.play) {

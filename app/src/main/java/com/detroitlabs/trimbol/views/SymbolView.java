@@ -64,7 +64,7 @@ public class SymbolView extends View {
         RectF rectDepth;
 
         rectFace =   new RectF((int) (halfWidth - radius), (int) (halfWidth - radius), (int) (halfWidth + radius), (int) (halfWidth + radius));
-        rectDepth =  new RectF((int) (halfWidth - radius), (int) (halfWidth - radius) + (10 - (int) (GameBoard.difficulty * 0.06)), (int) (halfWidth + radius), (int) (halfWidth + radius) + (10 - (int) (GameBoard.difficulty * 0.06)));
+        rectDepth =  new RectF((int) (halfWidth - radius), (int) (halfWidth - radius) + (24 - (int) (GameBoard.difficulty * 0.06)), (int) (halfWidth + radius), (int) (halfWidth + radius) + (24 - (int) (GameBoard.difficulty * 0.06)));
 
         if (symbol.getState() == Symbol.State.EXIST) {
 
